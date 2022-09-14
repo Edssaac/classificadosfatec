@@ -1,0 +1,65 @@
+/*========== FONTE IMPORTADA ==========*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+/*========== VARIÁVEIS CSS ==========*/
+:root {
+    --vermelho: #b20000;
+    --cinza: #b8b4b4;
+    --cinza-escuro: #666666;
+    --botao: #d4cfd0;
+    --branco: #ffffff;
+}
+
+/*========== RESET ==========*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*========== CORPO DA PÁGINA ==========*/
+body {
+    background-color: var(--cinza);
+    font-family: 'Inter', sans-serif;
+}
+
+/*========== BANNER ==========*/
+header {
+    background-color: var(--vermelho);
+}
+
+.banner {
+    max-height: 80px;
+    max-width: 100%;
+    padding: 10px;
+}
+
+/*========== ÁREA DE PESQUISA E BOTÕES ==========*/
+nav {
+    background-color: var(--cinza-escuro);
+}
+
+.button {
+    background-color: var(--cinza);
+    border-radius: 18px !important;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.button-search {
+    background-color: var(--cinza);
+    border-radius: 8px !important;
+    padding: 0 10px;
+}
+
+.button:hover,
+.button-search:hover {
+    background-color: var(--vermelho);
+
+}
+
+/*========== RODAPÉ ==========*/
+footer {
+    background-color: var(--vermelho);
+    color: var(--branco);
+}
