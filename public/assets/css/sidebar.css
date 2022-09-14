@@ -6,7 +6,7 @@
     --color-nav-link: #9a9a9a;
 
     /*========== TAMANHOS ==========*/
-    --nav-width-mobile: 90%;
+    --nav-width-mobile: 70%;
     --nav-width-tablet: 40%;
     --nav-width-desktop: 250px;
 }
@@ -31,6 +31,10 @@
     transition: 0.5s;
     padding-top: 20px;
     box-shadow: 0 0 1px 0 rgb(0 0 0 / 12%), 0 1px 1px 0 rgb(0 0 0 / 22%);
+}
+
+.nav.nav-show {
+    width: var(--nav-width-mobile);
 }
 
 .nav-list {
