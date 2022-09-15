@@ -46,6 +46,13 @@ nav {
     font-size: 14px;
 }
 
+.button-input {
+    background-color: var(--vermelho);
+    border-radius: 18px !important;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
 .button-search {
     background-color: var(--cinza);
     border-radius: 8px !important;
@@ -56,6 +63,20 @@ nav {
 .button-search:hover {
     background-color: var(--vermelho);
 
+}
+
+.button-input:hover {
+    background-color: #666666;
+}
+
+/*========== INPUTS ==========*/
+.input-cinza {
+    background-color: var(--cinza) !important;
+}
+
+/*========== TEXTO ==========*/
+.justificado {
+    text-align: justify;;
 }
 
 /*========== RODAPÉ ==========*/

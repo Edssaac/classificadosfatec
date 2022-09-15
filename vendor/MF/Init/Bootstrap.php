@@ -11,9 +11,9 @@
         abstract protected function initRoutes();
 
         public function __construct() {
+            Environment::load(__DIR__."/../../../");
             $this->initRoutes();
             $this->run($this->getUrl());
-            Environment::load(__DIR__."/../../../");
         }
 
         public function getRoutes() {
