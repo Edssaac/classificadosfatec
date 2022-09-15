@@ -57,6 +57,7 @@
 .nav-link.active {
     color: var(--color-primary);
     cursor: pointer;
+    min-width: 250px;
 }
 
 .btn-close {
