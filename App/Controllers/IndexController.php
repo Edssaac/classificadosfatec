@@ -8,11 +8,19 @@
     class IndexController extends Action {
 
         public function index() {
-            // $teste = Container::getModel("Teste");
-            
-            // $this->view->dados = $teste->getAll();
-            
             $this->render("index");
+        }
+
+        public function entrar() {
+            $this->render("entrar");
+        }
+
+        public function cadastrar() {
+            $this->render("cadastrar");
+        }
+
+        public function perfil() {
+            $this->render("perfil");
         }
 
     }

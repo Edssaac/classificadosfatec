@@ -28,7 +28,9 @@
             $class = str_replace("Controller", "", $class);
             $class = strtolower($class);
 
-            require_once("../App/Views/{$class}/{$this->view->page}.phtml");
+            if (file_exists("../App/Views/{$class}/{$this->view->page}.phtml")) {
+                require_once("../App/Views/{$class}/{$this->view->page}.phtml");
+            }
         }
 
     }

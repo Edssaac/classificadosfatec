@@ -15,6 +15,30 @@
                 'action'     => 'index'
             );
 
+            $routes['entrar'] = array(
+                'route'      => '/entrar',
+                'controller' => 'IndexController',
+                'action'     => 'entrar'
+            );
+
+            $routes['cadastrar'] = array(
+                'route'      => '/cadastrar',
+                'controller' => 'IndexController',
+                'action'     => 'cadastrar'
+            );
+
+            $routes['perfil'] = array(
+                'route'      => '/perfil',
+                'controller' => 'IndexController',
+                'action'     => 'perfil'
+            );
+
+            $routes['sair'] = array(
+                'route'      => '/sair',
+                'controller' => 'AuthController',
+                'action'     => 'sair'
+            );
+
             // Anunciar:
             // $routes['monitorias'] = array(
             //     'route'      => '/monitorias',

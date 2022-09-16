@@ -69,6 +69,11 @@ nav {
     background-color: #666666;
 }
 
+.button a {
+    text-decoration: none;
+    color: #000;
+}
+
 /*========== INPUTS ==========*/
 .input-cinza {
     background-color: var(--cinza) !important;
