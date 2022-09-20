@@ -55,37 +55,39 @@
                 <button class="button-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
 
-            <!-- <div class="d-flex gap-3 col-md-6 justify-content-md-end">
-                <button class="button btn-menu" id="btn-menu"><i class="fa-solid fa-bars"></i></button>
+            <?php if ($this->view->login) { ?>
+                <div class="d-flex gap-3 col-md-6 justify-content-md-end">
+                    <button class="button btn-menu" id="btn-menu"><i class="fa-solid fa-bars"></i></button>
 
-                <a href="/perfil">
-                    <button class="button" type="button">
-                        <i class="fa-solid fa-user"></i> Meu Perfil
-                    </button>
-                </a>
+                    <a href="/perfil">
+                        <button class="button" type="button">
+                            <i class="fa-solid fa-user"></i> Meu Perfil
+                        </button>
+                    </a>
 
-                <a href="/sair">
-                    <button class="button" type="button">
-                        <i class="fa-solid fa-door-open"></i> Sair
-                    </button>
-                </a>
-            </div> -->
+                    <a href="/sair">
+                        <button class="button" type="button">
+                            <i class="fa-solid fa-door-open"></i> Sair
+                        </button>
+                    </a>
+                </div>
+            <?php } else { ?>
+                <div class="d-flex gap-3 col-md-6 justify-content-md-end">
+                    <button class="button btn-menu" id="btn-menu"><i class="fa-solid fa-bars"></i></button>
 
-            <div class="d-flex gap-3 col-md-6 justify-content-md-end">
-                <button class="button btn-menu" id="btn-menu"><i class="fa-solid fa-bars"></i></button>
+                    <a href="/cadastrar">
+                        <button class="button" type="button">
+                            <i class="fa-solid fa-user-plus"></i> Cadastrar
+                        </button>
+                    </a>
 
-                <a href="/cadastrar">
-                    <button class="button" type="button">
-                        <i class="fa-solid fa-user-plus"></i> Cadastrar
-                    </button>
-                </a>
-
-                <a href="/entrar">
-                    <button class="button" type="button">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar
-                    </button>
-                </a>
+                    <a href="/entrar">
+                        <button class="button" type="button">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar
+                        </button>
+                    </a>
             </div>
+            <?php } ?>
         </div>
     </nav>
 

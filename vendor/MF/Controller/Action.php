@@ -14,6 +14,8 @@
 
         protected function render($view, $layout="layout") {
             $this->view->page = $view;
+
+            $this->view->login = $this->validaSessao();
             
             if (file_exists("../App/Views/{$layout}.phtml")) {
                 require_once("../App/Views/{$layout}.phtml");
@@ -31,6 +33,18 @@
             if (file_exists("../App/Views/{$class}/{$this->view->page}.phtml")) {
                 require_once("../App/Views/{$class}/{$this->view->page}.phtml");
             }
+        }
+
+        public function validaSessao() {
+            if ( session_status() !== PHP_SESSION_ACTIVE ) {
+                session_start();
+            }
+
+            if ( !isset($_SESSION["cod_usuario"]) || empty($_SESSION["cod_usuario"]) ) {
+                return false;
+            }
+
+            return true;
         }
 
     }

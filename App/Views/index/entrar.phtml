@@ -31,3 +31,49 @@
     </div>
 
 </section>
+
+<script>
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var data = $("form").serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: "/autenticar",
+            data: data,
+            beforeSend: function() {
+                $("#status").html(
+                    `<div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>`
+                );
+            },
+            success: function(data) {
+                var response = JSON.parse(data);
+
+                if (response.sucesso) {
+                    window.location.href = "/";
+                } else {
+                    $("#status").html(
+                        `<div class="alert alert-danger" role="alert">
+                        Atenção: ${response.mensagem}
+                    </div>`
+                    );
+                }
+            },
+            error: function(xhr) {
+                $("#status").html(
+                    `<div class="alert alert-danger" role="alert">
+                        Não foi possível se conectar.
+                    </div>`
+                );
+            },
+            complete: function() {
+
+            },
+            dataType: 'html'
+        });
+    });
+</script>

@@ -15,8 +15,7 @@
     // Senha de acesso ao banco de dados:
     define('PASS', getenv('DB_PASS'));
 
-    class Connection
-    {
+    class Connection {
         // Nome da tabela a ser manipulada:
         private $table;
 
@@ -24,15 +23,13 @@
         private $connection;
 
         // Define a tabela e instância a conexão:
-        public function __construct( $table = null )
-        {
+        public function __construct( $table = null ) {
             $this->table = $table;
             $this->setConnection();
         }
 
         // Método responsável por criar uma conexão com o banco de dados:
-        private function setConnection()
-        {   
+        private function setConnection() {   
             try {
                 // TENTANDO FAZER A CONEXÃO COM O BANCO DE DADOS:
                 $this->connection = new PDO( 'mysql:host='.HOST.';dbname='.NAME, USER, PASS );
@@ -43,8 +40,7 @@
         }
 
         // Método responsável por executar as queries dentro do banco de dados:
-        public function execute( $query, $params = [] )
-        {
+        public function execute( $query, $params = [] ) {
             try {
                 $statement = $this->connection->prepare($query);
                 $statement->execute($params);
@@ -55,8 +51,7 @@
         }
 
         // Método responsável por inserir dados no banco:
-        public function insert( $values )
-        {
+        public function insert( $values ) {
             // COLETANDO OS DADOS PARA A QUERY:
             $fields = array_keys($values);
             $binds = array_pad( [], count($fields), "?" );
@@ -72,8 +67,7 @@
         }
 
         // Método responsável por executar uma consulta no banco de dados:
-        public function select( $fields="*", $where=null, $order=null, $limit=null  )
-        {
+        public function select( $fields="*", $where=null, $order=null, $limit=null ) {
             // COLETANDO OS DADOS PARA A QUERY:
             $where = strlen($where) ? 'WHERE '.$where : '';
             $order = strlen($order) ? 'ORDER BY '.$order : '';
@@ -87,15 +81,13 @@
         }
 
         // Método responsável por executar atualizações no banco de dados:
-        public function update( $where, $values )
-        {
+        public function update( $where, $values ) {
             // COLETANDO OS DADOS PARA A QUERY:
             $fields = array_keys($values);
 
             // QUERY BUILDER:
             $query = 'UPDATE '.$this->table.' SET '.implode('=?, ', $fields).'=? WHERE '.$where;
             
-
             // EXECUTA A QUERY:
             $this->execute( $query, array_values($values) );
 
@@ -104,8 +96,7 @@
         }
 
         // Método responsável por deletar um registro do banco de dados:
-        public function delete( $where )
-        {
+        public function delete( $where ) {
             //QUERY BUILDER:
             $query = 'DELETE FROM '.$this->table.' WHERE '.$where;
 

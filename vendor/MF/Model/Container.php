@@ -8,8 +8,15 @@
 
         public static function getModel($model) {
             $class = "\\App\\Models\\{$model}";
+            $table = "";
 
-            $db = new Connection();
+            switch($model) {
+                case "Usuario":
+                    $table = "tb_usuarios";
+                break;
+            }
+
+            $db = new Connection($table);
 
             return new $class($db);
         }

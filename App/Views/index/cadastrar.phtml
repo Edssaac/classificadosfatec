@@ -12,8 +12,8 @@
             </div>
 
             <div class="mb-3 mx-4">
-                <label for="dataNascimento" class="form-label">Data de Nascimento</label>
-                <input type="date" id="dataNascimento" name="dataNascimento" class="form-control input-cinza" required>
+                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" id="data_nascimento" name="data_nascimento" class="form-control input-cinza" required>
             </div>
 
             <div class="mb-3 mx-4">
@@ -44,8 +44,8 @@
             </div>
 
             <div class="mb-3 mx-4">
-                <label for="senhaConfirmacao" class="form-label">Confirmar Senha</label>
-                <input type="password" id="senhaConfirmacao" name="senhaConfirmacao" class="form-control input-cinza" required>
+                <label for="senha_confirmacao" class="form-label">Confirmar Senha</label>
+                <input type="password" id="senha_confirmacao" name="senha_confirmacao" class="form-control input-cinza" required>
             </div>
 
             <div id="status" class="mx-3 my-3">
@@ -60,5 +60,61 @@
 </section>
 
 <script>
-    $("#telefone").mask("(99) 9999-99999");
+    $(document).ready(function() {
+        $("#telefone").mask("(99) 9999-99999");
+    });
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var data = $("form").serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: "/registrar",
+            data: data,
+            beforeSend: function() {
+                $("#status").html(
+                    `<div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>`
+                );
+            },
+            success: function(data) {
+                var response = JSON.parse(data);
+
+                if (response.sucesso) {
+                    $("#status").html(
+                        `<div class="alert alert-success" role="alert">
+                        Cadastro realizado com sucesso!
+                    </div>`
+                    );
+
+                    $("form").trigger("reset");
+
+                    setTimeout(function() {
+                        window.location.href = "/entrar";
+                    }, 1500);
+                } else {
+                    $("#status").html(
+                        `<div class="alert alert-danger" role="alert">
+                        Atenção: ${response.mensagem}
+                    </div>`
+                    );
+                }
+            },
+            error: function(xhr) {
+                $("#status").html(
+                    `<div class="alert alert-danger" role="alert">
+                        Não foi possível realizar o cadastro.
+                    </div>`
+                );
+            },
+            complete: function() {
+
+            },
+            dataType: 'html'
+        });
+    });
 </script>

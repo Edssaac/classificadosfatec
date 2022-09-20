@@ -21,15 +21,27 @@
                 'action'     => 'entrar'
             );
 
+            $routes['autenticar'] = array(
+                'route'      => '/autenticar',
+                'controller' => 'AuthController',
+                'action'     => 'autenticar'
+            );
+
             $routes['cadastrar'] = array(
                 'route'      => '/cadastrar',
                 'controller' => 'IndexController',
                 'action'     => 'cadastrar'
             );
 
+            $routes['registrar'] = array(
+                'route'      => '/registrar',
+                'controller' => 'AuthController',
+                'action'     => 'registrar'
+            );
+
             $routes['perfil'] = array(
                 'route'      => '/perfil',
-                'controller' => 'IndexController',
+                'controller' => 'AppController',
                 'action'     => 'perfil'
             );
 
