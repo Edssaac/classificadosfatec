@@ -86,7 +86,7 @@
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar
                         </button>
                     </a>
-            </div>
+                </div>
             <?php } ?>
         </div>
     </nav>
@@ -98,7 +98,7 @@
 
         <ul class="nav-list">
             <li class="nav-item">
-                <a href="/" class="nav-link flex active">
+                <a href="/" class="nav-link flex">
                     <i class="fa-solid fa-house"></i>
                     &nbsp;
                     Home
@@ -165,6 +165,14 @@
     <footer class="fixed-bottom">
         <p class="text-center mb-0">Classificados Fatec</p>
     </footer>
+
+    <script>
+        $(document).ready(function() {
+            var pagina = window.location.pathname;
+
+            $(`a[href="${pagina}"]`).addClass("active")
+        });
+    </script>
 
 </body>
 

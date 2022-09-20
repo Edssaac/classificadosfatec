@@ -54,8 +54,8 @@
 
 .nav-link:hover,
 .nav-link-dropdown:hover,
-.nav-link.active {
-    color: var(--color-primary);
+.active {
+    color: var(--color-primary) !important;
     cursor: pointer;
     min-width: 250px;
 }
