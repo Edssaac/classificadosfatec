@@ -25,9 +25,6 @@
                 <label for="instituicao" class="form-label">Instituição</label>
                 <select class="form-select input-cinza" id="instituicao" name="instituicao" required>
                     <option selected>Selecione sua Fatec</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
                 </select>
             </div>
 
@@ -62,6 +59,12 @@
 <script>
     $(document).ready(function() {
         $("#telefone").mask("(99) 9999-99999");
+    });
+
+    $.getScript("assets/js/fatecs.js", function() {
+        for (var key in fatecs) {
+            $("#instituicao").append(`<option value="${key}"> ${fatecs[key]} </option>`);
+        }
     });
 
     $("form").submit(function(e) {
