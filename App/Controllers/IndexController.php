@@ -21,6 +21,11 @@
             $this->render("cadastrar");
         }
 
+        public function redefinir() {
+            $this->autenticarPagina(true);
+            $this->render("redefinir");
+        }
+
     }
 
 ?>

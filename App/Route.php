@@ -27,6 +27,12 @@
                 'action'     => 'autenticar'
             );
 
+            $routes['redefinir'] = array(
+                'route'      => '/redefinir',
+                'controller' => 'IndexController',
+                'action'     => 'redefinir'
+            );
+
             $routes['cadastrar'] = array(
                 'route'      => '/cadastrar',
                 'controller' => 'IndexController',
