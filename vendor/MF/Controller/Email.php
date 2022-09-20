@@ -40,6 +40,8 @@
 
                 // Conteúdo do e-mail:
                 $mail->isHTML(true);
+                $mail->CharSet  = "UTF-8";
+                $mail->Encoding = 'base64';
                 $mail->Subject = $subject;
                 $mail->Body = $body;
                 $mail->AltBody = $altBody;
@@ -53,12 +55,41 @@
             }
         }
 
-        public static function criarCorpo($informacao) {
+        public static function criarCorpoPadrao($informacao) {
             $mensagem = 
             "<div>
                 <p>Nome: {$informacao['nome']}</p>
                 <p>Email: {$informacao['email']}</p>
                 <p>Mensagem: {$informacao['mensagem']} </p>
+            </div>
+            ";
+            
+            return $mensagem;
+        }
+
+        public static function criarCorpoRedefinicao($informacao) {
+            if ( $_SERVER['SERVER_NAME'] == "localhost" ) {
+                $base = "http://localhost:8088";
+            } else {
+                $base = "https://classificadosfatec.herokuapp.com";
+            }
+
+            $mensagem = 
+            "<div>
+                <p>
+                Olá {$informacao['nome']}, alguém solicitou uma nova senha para a sua conta 
+                <b>Classificados Fatec</b> associada a este e-mail.
+                <br><br>
+                Nenhuma alteração foi feita em sua conta ainda.
+                <br>
+                Você pode redefinir sua senha clicando no link abaixo:
+                <br><br>
+                <a href='{$base}/nova_senha?token={$informacao['token']}' target='_blank'>Redefinir Senha</a>
+                <br><br>
+                Se você não solicitou uma nova senha, por favor ignore este e-mail.
+                <br><br>
+                <b>Classificados Fatec</b>
+                </p>
             </div>
             ";
             

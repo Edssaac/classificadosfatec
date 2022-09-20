@@ -3,6 +3,7 @@
     namespace App\Controllers;
 
     use MF\Controller\Action;
+    use MF\Controller\Email;
     use MF\Model\Container;
 
     class AuthController extends Action {
@@ -92,6 +93,62 @@
                 "sucesso"   => $sucesso,
                 "mensagem"  => $this->erro
             ]);
+        }
+
+        public function redefinirSenha() {
+            $this->autenticarPagina(true);
+            $usuario = Container::getModel("Usuario");
+            $sucesso = true;
+
+            if ( isset($_POST['token']) ) {
+                $usuario->__set("token", $_POST['token']);
+
+                if ( $_POST["senha"] !== $_POST["senha_confirmacao"] ) {
+                    $sucesso = false;
+                    $this->erro = "As senhas não conferem!";
+                } else if ( $usuario->getUsuarioPorToken() ) {
+                    $usuario->__set("senha", $_POST['senha']);
+                    $usuario->salvarToken(true);
+                    $usuario->alterarSenha();
+                } else {
+                    $sucesso = false;
+                    $this->erro = "Token inválido!";
+                }
+
+                header('Content-Type: application/json');
+                echo json_encode([
+                    "sucesso"   => $sucesso,
+                    "mensagem"  => $this->erro
+                ]);
+            } else {
+                $usuario->__set("email",            $_POST['email']);
+                $usuario->__set("data_nascimento",  $_POST['data_nascimento']);
+    
+                if ( $usuario->getUsuarioPorRecuperacao() ) {
+                    $usuario->salvarToken();
+    
+                    $informacao = [
+                        "nome" => $usuario->__get("nome"),
+                        "token" => $usuario->__get("token")
+                    ];
+        
+                    $destinatario   = $usuario->__get("email");
+                    $assunto        = "Redefinição de Senha";
+                    $corpo          = Email::criarCorpoRedefinicao($informacao);
+        
+                    $sucesso = (Email::sendEmail($destinatario, $assunto, $corpo) === true);
+        
+                    if ( !$sucesso ) {
+                        $this->erro = "Não foi possível enviar o e-mail.";
+                    }
+                }
+    
+                header('Content-Type: application/json');
+                echo json_encode([
+                    "sucesso"   => $sucesso,
+                    "mensagem"  => $this->erro
+                ]);
+            }
         }
 
         public function sair() {

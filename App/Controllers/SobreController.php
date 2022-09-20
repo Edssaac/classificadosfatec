@@ -22,7 +22,7 @@
 
             $destinatario   = "classificadosfatec@gmail.com";
             $assunto        = "Nova Mensagem - Fale Conosco";
-            $corpo          = Email::criarCorpo($informacao);
+            $corpo          = Email::criarCorpoPadrao($informacao);
 
             $sucesso = (Email::sendEmail($destinatario, $assunto, $corpo) === true);
 

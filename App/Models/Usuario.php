@@ -14,6 +14,7 @@
 		protected $instituicao;
 		protected $email;
 		protected $senha;
+		protected $token;
 
         public function registrar() {
             $this->db->insert([
@@ -34,6 +35,18 @@
             return $usuario;
         }
 
+        public function getUsuarioPorRecuperacao() {
+            $usuario = $this->db->select("cod_usuario, nome", "email = '{$this->email}' and data_nascimento = '{$this->data_nascimento}'")->fetch(PDO::FETCH_ASSOC);
+            
+            if ( isset($usuario["cod_usuario"]) ) {
+                $this->__set("cod_usuario", $usuario["cod_usuario"]);
+                $this->__set("nome",        $usuario["nome"]);
+                return true;
+            }
+
+            return false;
+        }
+
         public function getPerfil() {
             $usuario = $this->db->select("nome, data_nascimento, telefone, instituicao, email")->fetch(PDO::FETCH_ASSOC);
             
@@ -50,6 +63,39 @@
             }
 
             return false;
+        }
+
+        public function salvarToken($limpar = false) {
+            if ($limpar) {
+                $token = "";
+            } else {
+                $token = sha1(uniqid(mt_rand(), true));
+            }
+
+            $this->db->update("cod_usuario = {$this->cod_usuario}", [
+                "token" => $token
+            ]);
+
+            $this->__set("token", $token);
+
+            return true;
+        }
+
+        public function getUsuarioPorToken() {
+            $usuario = $this->db->select("cod_usuario", "token = '{$this->token}'")->fetch(PDO::FETCH_ASSOC);
+
+            if ( isset($usuario["cod_usuario"]) ) {
+                $this->__set("cod_usuario", $usuario["cod_usuario"]);
+                return true;
+            }
+
+            return false;
+        }
+
+        public function alterarSenha() {
+            $this->db->update("cod_usuario = {$this->cod_usuario}", [
+                "senha" => password_hash($this->senha, PASSWORD_DEFAULT)
+            ]);
         }
 
     }

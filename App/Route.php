@@ -33,6 +33,18 @@
                 'action'     => 'redefinir'
             );
 
+            $routes['redefinir_senha'] = array(
+                'route'      => '/redefinir_senha',
+                'controller' => 'AuthController',
+                'action'     => 'redefinirSenha'
+            );
+
+            $routes['nova_senha'] = array(
+                'route'      => '/nova_senha',
+                'controller' => 'IndexController',
+                'action'     => 'novaSenha'
+            );
+
             $routes['cadastrar'] = array(
                 'route'      => '/cadastrar',
                 'controller' => 'IndexController',

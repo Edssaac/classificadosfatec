@@ -7,14 +7,16 @@
             </div>
 
             <div class="mb-3 mx-4">
-                <label for="email" class="form-label">E-mail</label>
-                <input type="email" id="email" name="email" class="form-control input-cinza" required>
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" id="senha" name="senha" class="form-control input-cinza" required>
             </div>
 
             <div class="mb-3 mx-4">
-                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                <input type="date" id="data_nascimento" name="data_nascimento" class="form-control input-cinza" required>
+                <label for="senha_confirmacao" class="form-label">Confirmar Senha</label>
+                <input type="password" id="senha_confirmacao" name="senha_confirmacao" class="form-control input-cinza" required>
             </div>
+
+            <input type="hidden" id="token" name="token" class="form-control input-cinza" value="<?= $this->view->token ?>" required>
 
             <div id="status" class="mx-3 my-3">
             </div>
@@ -51,13 +53,19 @@
                 if (response.sucesso) {
                     $("#status").html(
                         `<div class="alert alert-success" role="alert">
-                        Foi enviado uma mensagem para seu e-mail, acesse-o para redefinir a senha!
+                        Sua senha foi alterada com sucesso!
                     </div>`
                     );
+
+                    $("form").trigger("reset");
+
+                    setTimeout(function() {
+                        window.location.href = "/entrar";
+                    }, 1500);
                 } else {
                     $("#status").html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: Não foi possível enviar o e-mail.
+                        Atenção: ${response.mensagem}
                     </div>`
                     );
                 }

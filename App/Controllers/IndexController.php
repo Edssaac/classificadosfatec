@@ -26,6 +26,18 @@
             $this->render("redefinir");
         }
 
+        public function novaSenha() {
+            $this->autenticarPagina(true);
+
+            if ( !isset($_GET["token"]) || empty($_GET["token"]) ) {
+                header("Location: /redefinir");
+            }
+
+            $this->view->token = $_GET["token"];
+
+            $this->render("nova_senha");
+        }
+
     }
 
 ?>
