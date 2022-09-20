@@ -47,6 +47,16 @@
             return true;
         }
 
+        public function autenticarPagina( $index = false ) {
+            if ( $this->validaSessao() && $index ) {
+                header("Location: /");
+                exit;
+            } else if ( !$this->validaSessao() && !$index ) {
+                header("Location: /");
+                exit;
+            }
+        }
+
     }
 
 ?>

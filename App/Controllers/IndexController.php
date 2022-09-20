@@ -12,15 +12,13 @@
         }
 
         public function entrar() {
+            $this->autenticarPagina(true);
             $this->render("entrar");
         }
 
         public function cadastrar() {
+            $this->autenticarPagina(true);
             $this->render("cadastrar");
-        }
-
-        public function perfil() {
-            $this->render("perfil");
         }
 
     }

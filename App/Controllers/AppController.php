@@ -17,13 +17,6 @@
             $this->render("perfil");
         }
 
-        public function autenticarPagina() {
-            if ( !$this->validaSessao() ) {
-                header("Location: /");
-                exit;
-            }
-        }
-
     }
 
 ?>
