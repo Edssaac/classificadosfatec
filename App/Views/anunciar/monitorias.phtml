@@ -35,39 +35,47 @@
                 <input type="file" id="foto" name="foto" class="form-control input-cinza" required>
             </div> -->
 
-        <div class="mb-3 mx-4 mt-5" id="horarios_disponiveis">
-            <div class="d-flex justify-content-between mb-3">
-                <p>Horários disponíveis</p>
+        <div class="mb-3 mx-4 mt-5">
+            <div class="d-flex justify-content-start">
+                <p class="fw-bold">Horários disponíveis</p>
+            </div>
+
+            <div id="horarios_disponiveis">
+                <div class="row horario_disponivel">
+                    <div class="col-sm-4 col-md-6 mt-2 select-block">
+                        <label class="form-label">Dia da Semana</label>
+                        <select name="dia_semana[]" class="form-control" required>
+                            <option value="1">Domingo</option>
+                            <option value="2" selected>Segunda-Feira</option>
+                            <option value="3">Terça-Feira</option>
+                            <option value="4">Quarta-Feira</option>
+                            <option value="5">Quinta-Feira</option>
+                            <option value="6">Sexta-Feira</option>
+                            <option value="7">Sábado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-4 col-md-3 mt-2 input-block">
+                        <label class="form-label">Das</label>
+                        <input type="time" name="de_horario[]" class="form-control" required>
+                    </div>
+                    <div class="col-sm-4 col-md-3 mt-2 input-block">
+                        <label for="time_to" class="form-label">Até</label>
+                        <input type="time" name="ate_horario[]" class="form-control" required>
+                    </div>
+
+                    <hr class="mt-4">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-3 mb-5">
+                <button type="button" class="button" id="remover_horario" name="adicionar_horario">
+                    <i class="fa-solid fa-minus"></i> Remover Horário
+                </button>
 
                 <button type="button" class="button" id="adicionar_horario" name="adicionar_horario">
                     <i class="fa-solid fa-plus text-dark"></i> Novo Horário
                 </button>
-            </div>
-
-            <div class="row horario_disponivel">
-                <div class="col-sm-4 col-md-6 mt-2 select-block">
-                    <label class="form-label">Dia da Semana</label>
-                    <select name="dia_semana[]" class="form-control" required>
-                        <option value="1">Domingo</option>
-                        <option value="2" selected>Segunda-Feira</option>
-                        <option value="3">Terça-Feira</option>
-                        <option value="4">Quarta-Feira</option>
-                        <option value="5">Quinta-Feira</option>
-                        <option value="6">Sexta-Feira</option>
-                        <option value="7">Sábado</option>
-                    </select>
-                </div>
-
-                <div class="col-sm-4 col-md-3 mt-2 input-block">
-                    <label class="form-label">Das</label>
-                    <input type="time" name="de_horario[]" class="form-control" required>
-                </div>
-                <div class="col-sm-4 col-md-3 mt-2 input-block">
-                    <label for="time_to" class="form-label">Até</label>
-                    <input type="time" name="ate_horario[]" class="form-control" required>
-                </div>
-
-                <hr class="mt-4">
             </div>
         </div>
 
@@ -102,6 +110,16 @@
         });
 
         document.querySelector('#horarios_disponiveis').appendChild(novoCampo);
+    }
+
+    document.querySelector('#remover_horario').addEventListener('click', removerHorario);
+
+    function removerHorario() {
+        const horarios = document.querySelectorAll('.horario_disponivel');
+
+        if (horarios.length > 1) {
+            $(horarios[horarios.length - 1]).remove()
+        }
     }
 
     $.getScript("assets/js/fatecs.js", function() {
