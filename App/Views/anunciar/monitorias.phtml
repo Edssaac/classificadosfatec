@@ -1,0 +1,168 @@
+<section class="bg-light rounded my-4 mb-5">
+
+    <div class="mx-3 py-4 ">
+        <form action="/monitorias" method="post">
+            <div class="text-center mb-5">
+                <h3 class="text-danger">Criar Anúncio - Monitoria</h3>
+            </div>
+
+            <div class="mb-3 mx-4">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" id="titulo" name="titulo" class="form-control input-cinza" required>
+            </div>
+
+            <div class="mb-3 mx-4">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea name="descricao" id="descricao" rows="5" class="form-control input-cinza" required></textarea>
+            </div>
+
+            <div class="mx-2 row align-items-end">
+                <div class="mb-3 col-sm-6 col-md-4">
+                    <label for="valor" class="form-label">Valor</label>
+                    <input type="text" id="valor" name="valor" class="form-control input-cinza" required>
+                </div>
+                <div class="mb-3 col-sm-6 col-md-4">
+                    <label for="desconto" class="form-label">Desconto</label>
+                    <input type="text" id="desconto" name="desconto" class="form-control input-cinza" required>
+                </div>
+                <div class="mb-3 col-sm-12 col-md-4">
+                    <label for="data_desconto" class="form-label">Data Limite de Desconto</label>
+                    <input type="date" id="data_desconto" name="data_desconto" class="form-control input-cinza" required>
+                </div>
+            </div>
+
+            <!-- <div class="mb-3 mx-4">
+                <label for="foto" class="form-label">Capa do Anúncio</label>
+                <input type="file" id="foto" name="foto" class="form-control input-cinza" required>
+            </div> -->
+
+            <div class="mb-3 mx-4 mt-5" id="horarios_disponiveis">
+                <div class="d-flex justify-content-between mb-3">
+                    <p>Horários disponíveis</p>
+
+                    <button type="button" class="button" id="adicionar_horario" name="adicionar_horario">
+                        <i class="fa-solid fa-plus text-dark"></i> Novo Horário
+                    </button>
+                </div>
+
+                <div class="row horario_disponivel">
+                    <div class="col-sm-4 col-md-6 mt-2 select-block">
+                        <label class="form-label">Dia da Semana</label>
+                        <select name="dia_semana[]" class="form-control" required>
+                            <option value="1">Domingo</option>
+                            <option value="2" selected>Segunda-Feira</option>
+                            <option value="3">Terça-Feira</option>
+                            <option value="4">Quarta-Feira</option>
+                            <option value="5">Quinta-Feira</option>
+                            <option value="6">Sexta-Feira</option>
+                            <option value="7">Sábado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-4 col-md-3 mt-2 input-block">
+                        <label class="form-label">Das</label>
+                        <input type="time" name="de_horario[]" class="form-control" required>
+                    </div>
+                    <div class="col-sm-4 col-md-3 mt-2 input-block">
+                        <label for="time_to" class="form-label">Até</label>
+                        <input type="time" name="ate_horario[]" class="form-control" required>
+                    </div>
+
+                    <hr class="mt-4">
+                </div>
+            </div>
+
+            <div id="status" class="mx-3 my-3">
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="button-input text-light">Anunciar</button>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+<script>
+    $(document).ready(function() {
+        $("#valor").mask("#.##0,00", {
+            reverse: true
+        });
+        $("#desconto").mask("#.##0,00", {
+            reverse: true
+        });
+    });
+
+    document.querySelector('#adicionar_horario').addEventListener('click', adicionarNovoHorario);
+
+    function adicionarNovoHorario() {
+        const novoCampo = document.querySelector('.horario_disponivel').cloneNode(true);
+        const campos = novoCampo.querySelectorAll('input');
+
+        campos.forEach(function(campo) {
+            campo.value = "";
+        });
+
+        document.querySelector('#horarios_disponiveis').appendChild(novoCampo);
+    }
+
+    $.getScript("assets/js/fatecs.js", function() {
+        // for (var key in fatecs) {
+        //     $("#instituicao").append(`<option value="${key}"> ${fatecs[key]} </option>`);
+        // }
+    });
+
+    $("form1").submit(function(e) {
+        e.preventDefault();
+        var data = $("form").serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: "/",
+            data: data,
+            beforeSend: function() {
+                $("#status").html(
+                    `<div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>`
+                );
+            },
+            success: function(data) {
+                var response = JSON.parse(data);
+
+                if (response.sucesso) {
+                    $("#status").html(
+                        `<div class="alert alert-success" role="alert">
+                        Cadastro realizado com sucesso!
+                    </div>`
+                    );
+
+                    $("form").trigger("reset");
+
+                    setTimeout(function() {
+                        window.location.href = "/entrar";
+                    }, 1500);
+                } else {
+                    $("#status").html(
+                        `<div class="alert alert-danger" role="alert">
+                        Atenção: ${response.mensagem}
+                    </div>`
+                    );
+                }
+            },
+            error: function(xhr) {
+                $("#status").html(
+                    `<div class="alert alert-danger" role="alert">
+                        Não foi possível realizar o cadastro.
+                    </div>`
+                );
+            },
+            complete: function() {
+
+            },
+            dataType: 'html'
+        });
+    });
+</script>

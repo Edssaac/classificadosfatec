@@ -70,17 +70,17 @@
             );
 
             // Anunciar:
-            // $routes['monitorias'] = array(
-            //     'route'      => '/monitorias',
-            //     'controller' => 'AnunciarController',
-            //     'action'     => 'monitorias'
-            // );
+            $routes['produtos'] = array(
+                'route'      => '/produtos',
+                'controller' => 'AnunciarController',
+                'action'     => 'produtos'
+            );
 
-            // $routes['produtos'] = array(
-            //     'route'      => '/produtos',
-            //     'controller' => 'AnunciarController',
-            //     'action'     => 'produtos'
-            // );
+            $routes['monitorias'] = array(
+                'route'      => '/monitorias',
+                'controller' => 'AnunciarController',
+                'action'     => 'monitorias'
+            );
 
             //Anuncios:
 

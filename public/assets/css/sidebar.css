@@ -4,6 +4,7 @@
     --color-primary: #b20000;
     --color-body: #eceef0;
     --color-nav-link: #9a9a9a;
+    --cinza-escuro: #666666;
 
     /*========== TAMANHOS ==========*/
     --nav-width-mobile: 70%;
@@ -53,7 +54,12 @@
 }
 
 .nav-link:hover,
-.nav-link-dropdown:hover,
+.nav-link-dropdown:hover {
+    color: var(--cinza-escuro);
+    cursor: pointer;
+    min-width: 250px;
+}
+
 .active {
     color: var(--color-primary) !important;
     cursor: pointer;
