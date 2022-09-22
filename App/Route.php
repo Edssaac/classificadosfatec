@@ -70,16 +70,16 @@
             );
 
             // Anunciar:
-            $routes['produtos'] = array(
-                'route'      => '/produtos',
+            $routes['produto'] = array(
+                'route'      => '/produto',
                 'controller' => 'AnunciarController',
-                'action'     => 'produtos'
+                'action'     => 'produto'
             );
 
-            $routes['monitorias'] = array(
-                'route'      => '/monitorias',
+            $routes['monitoria'] = array(
+                'route'      => '/monitoria',
                 'controller' => 'AnunciarController',
-                'action'     => 'monitorias'
+                'action'     => 'monitoria'
             );
 
             //Anuncios:

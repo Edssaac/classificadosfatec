@@ -7,16 +7,16 @@
 
     class AnunciarController extends Action {
 
-        public function produtos() {
+        public function produto() {
             //$this->autenticarPagina();
 
-            $this->render("produtos");
+            $this->render("produto");
         }
 
-        public function monitorias() {
+        public function monitoria() {
             //$this->autenticarPagina();
 
-            $this->render("monitorias");
+            $this->render("monitoria");
         }
 
     }
