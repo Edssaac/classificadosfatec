@@ -15,25 +15,29 @@
             <textarea name="descricao" id="descricao" rows="5" class="form-control input-cinza" required></textarea>
         </div>
 
-        <div class="mx-2 row align-items-end">
-            <div class="mb-3 col-sm-6 col-md-4">
+        <div class="mb-3 mx-4">
+            <label for="materia" class="form-label">Matéria</label>
+            <input type="text" id="materia" name="materia" class="form-control input-cinza" required>
+        </div>
+
+        <div class="mx-3 row align-items-end">
+            <div class="mb-3 col-6 col-md-3">
                 <label for="valor" class="form-label">Valor</label>
                 <input type="text" id="valor" name="valor" class="form-control input-cinza" required>
             </div>
-            <div class="mb-3 col-sm-6 col-md-4">
+            <div class="mb-3 col-6 col-md-3">
                 <label for="desconto" class="form-label">Desconto</label>
                 <input type="text" id="desconto" name="desconto" class="form-control input-cinza" required>
             </div>
-            <div class="mb-3 col-sm-12 col-md-4">
+            <div class="mb-3 col-6 col-md-3">
                 <label for="data_desconto" class="form-label">Data Limite de Desconto</label>
-                <input type="date" id="data_desconto" name="data_desconto" class="form-control input-cinza" required>
+                <input type="date" id="data_desconto" name="data_desconto" class="form-control input-cinza">
+            </div>
+            <div class="mb-3 col-6 col-md-3">
+                <label for="total" class="form-label">Total</label>
+                <input type="text" id="total" name="total" class="form-control input-cinza" disabled>
             </div>
         </div>
-
-        <!-- <div class="mb-3 mx-4">
-                <label for="foto" class="form-label">Capa do Anúncio</label>
-                <input type="file" id="foto" name="foto" class="form-control input-cinza" required>
-            </div> -->
 
         <div class="mb-3 mx-4 mt-5">
             <div class="d-flex justify-content-start">
@@ -99,6 +103,8 @@
         });
     });
 
+
+    // Interação com o campo de horários:
     document.querySelector('#adicionar_horario').addEventListener('click', adicionarNovoHorario);
 
     function adicionarNovoHorario() {
@@ -121,12 +127,35 @@
             $(horarios[horarios.length - 1]).remove()
         }
     }
+    // Final da interação.
 
-    $.getScript("assets/js/fatecs.js", function() {
-        // for (var key in fatecs) {
-        //     $("#instituicao").append(`<option value="${key}"> ${fatecs[key]} </option>`);
-        // }
+
+    // Interação com o campo de desconto:
+    $("#valor").change(function() {
+        atualizarTotal();
     });
+
+    $("#desconto").change(function() {
+        $("#data_desconto").attr("required", $(this).val() != "");
+        atualizarTotal();
+    });
+
+    function atualizarTotal() {
+        var valor = parseFloat($("#valor").val().replace('.', '').replace(',', '.'));
+        var desconto = parseFloat($("#desconto").val().replace('.', '').replace(',', '.'));
+        var total = 0;
+
+        if (!isNaN(valor) && !isNaN(desconto)) {
+            total = valor - desconto;
+        } else if (!isNaN(valor)) {
+            total = valor;
+        }
+
+        $("#total").val(total.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+    }
+    // Final da interação.
+
+
 
     $("form1").submit(function(e) {
         e.preventDefault();
