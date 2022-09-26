@@ -28,6 +28,16 @@
             $this->setConnection();
         }
 
+        // Método responsável por alterar a tabela atual:
+		public function setTable($table) {
+			$this->table = $table;
+		}
+
+        // Método responsável por devolver a tabela atual:
+		public function getTable() {
+			return $this->table;
+		}
+
         // Método responsável por criar uma conexão com o banco de dados:
         private function setConnection() {   
             try {

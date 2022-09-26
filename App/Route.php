@@ -82,6 +82,18 @@
                 'action'     => 'monitoria'
             );
 
+            $routes['cadastrar_monitoria'] = array(
+                'route'      => '/cadastrar_monitoria',
+                'controller' => 'AnunciarController',
+                'action'     => 'cadastrar_monitoria'
+            );
+
+            $routes['cadastrar_produto'] = array(
+                'route'      => '/cadastrar_produto',
+                'controller' => 'AnunciarController',
+                'action'     => 'cadastrar_produto'
+            );
+
             //Anuncios:
 
             // Sobre:

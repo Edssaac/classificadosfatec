@@ -8,8 +8,6 @@
 
     class AuthController extends Action {
 
-        private $erro;
-
         public function registrar() {
             $sucesso = false;
 

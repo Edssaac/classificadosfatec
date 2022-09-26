@@ -7,6 +7,7 @@
     abstract class Action {
         
         protected $view;
+        protected $erro;
 
         public function __construct() {
             $this->view = new stdClass();

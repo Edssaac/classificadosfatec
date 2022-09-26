@@ -14,6 +14,15 @@
                 case "Usuario":
                     $table = "tb_usuarios";
                 break;
+                case "Anuncio":
+                    $table = "tb_anuncios";
+                break;
+                case "Monitoria":
+                    $table = "tb_monitorias";
+                break;
+                case "Produto":
+                    $table = "tb_produtos";
+                break;
             }
 
             $db = new Connection($table);

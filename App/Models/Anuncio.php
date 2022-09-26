@@ -19,6 +19,24 @@
 		protected $tipo;
 
         // Cadastrar Anuncio:
+        public function inserirAnuncio() {
+            $table = $this->db->getTable();
+            $this->db->setTable("tb_anuncios");
+
+            $cod_anuncio = $this->db->insert([
+                "cod_usuario"   => $this->cod_usuario,
+                "titulo"        => $this->titulo,
+                "descricao"     => $this->descricao,
+                "valor"         => $this->valor,
+                "desconto"      => $this->desconto,
+                "status"        => $this->status,
+                "tipo"          => $this->tipo,
+            ]);
+
+            $this->db->setTable($table);
+
+            return $cod_anuncio;
+        }
 
         // Atualizar Anuncio:
 
