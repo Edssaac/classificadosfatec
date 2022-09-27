@@ -35,12 +35,14 @@
                                         <?php if ($produto["desconto"] && (strtotime($produto["data_desconto"]) > time())) { ?>
                                             <div class="col-6" title="preço">
                                                 <i class="fa-solid fa-dollar-sign"></i>
+                                                <small>R$</small>
                                                 <span class="text-danger">
                                                     <s><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $produto["valor"])) ?></s>
                                                 </span>
                                             </div>
                                             <div class="col-6" title="promoção">
                                                 <i class="fa-solid fa-tag"></i>
+                                                <small>R$</small>
                                                 <span class="text-success">
                                                     <?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $produto["valor"] - $produto["desconto"])) ?>
                                                 </span>
@@ -48,7 +50,9 @@
                                         <?php } else { ?>
                                             <div class="col-6" title="preço">
                                                 <i class="fa-solid fa-dollar-sign"></i>
-                                                <span class="text-success"><?= number_format($produto["valor"], 2, ',') ?></span>
+                                                <small>R$</small>
+                                                <span class="text-success"><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $produto["valor"])) ?></span>
+
                                             </div>
                                         <?php } ?>
                                     </div>
