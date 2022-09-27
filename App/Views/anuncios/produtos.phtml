@@ -1,5 +1,76 @@
 <section class="bg-light rounded my-4 mb-5">
 
+    <div class="row mx-3 py-3">
 
+        <?php if ($this->view->quantidade_produtos === 0) { ?>
+            <div class="alert alert-primary" role="alert">
+                Não existe nenhum produto sendo anunciado no momento.
+            </div>
+        <?php } else { ?>
+            <?php foreach ($this->view->produtos as $produto) { ?>
+                <div class="col-12 col-lg-6">
+                    <div class="card mb-2">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-4 ">
+                                <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" class="img-fluid rounded-start m-lg-2" alt="produto">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body pb-0">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <i class="fa-regular fa-circle-user usuario"></i>
+                                        </div>
+                                        <div class="col-10">
+                                            <p><?= $produto["nome"] ?>
+                                                <br><small><?= $produto["data_anunciada"] ?></small>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-0">
+
+                                    <h5 class="card-title"><?= $produto["titulo"] ?></h5>
+
+                                    <div class="row my-3 text-center">
+                                        <?php if ($produto["desconto"] && (strtotime($produto["data_desconto"]) > time())) { ?>
+                                            <div class="col-6" title="preço">
+                                                <i class="fa-solid fa-dollar-sign"></i>
+                                                <span class="text-danger">
+                                                    <s><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $produto["valor"])) ?></s>
+                                                </span>
+                                            </div>
+                                            <div class="col-6" title="promoção">
+                                                <i class="fa-solid fa-tag"></i>
+                                                <span class="text-success">
+                                                    <?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $produto["valor"] - $produto["desconto"])) ?>
+                                                </span>
+                                            </div>
+                                        <?php } else { ?>
+                                            <div class="col-6" title="preço">
+                                                <i class="fa-solid fa-dollar-sign"></i>
+                                                <span class="text-success"><?= number_format($produto["valor"], 2, ',') ?></span>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+
+                                    <p class="card-text justificado"><?= $produto["descricao"] ?></p>
+
+                                    <div class="row my-3 text-center">
+                                        <div class="col-6">
+                                            <button type="button" class="button-input text-light">Ver Mais</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" class="button-input text-light">Contatar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php } ?>
+
+    </div>
 
 </section>

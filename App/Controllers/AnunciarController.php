@@ -36,8 +36,8 @@
             $monitoria->__set("cod_usuario",    $_SESSION["cod_usuario"]);
             $monitoria->__set("titulo",         $_POST["titulo"]);
             $monitoria->__set("descricao",      $_POST["descricao"]);
-            $monitoria->__set("valor",          $_POST["valor"]);
-            $monitoria->__set("desconto",       $_POST["desconto"]);
+            $monitoria->__set("valor",          $this->formatarNumero($_POST["valor"]));
+            $monitoria->__set("desconto",       $this->formatarNumero($_POST["desconto"]));
             $monitoria->__set("data_desconto",  $_POST["data_desconto"]);
             $monitoria->__set("horarios",       json_encode($horarios));
             $monitoria->__set("materia",        $_POST["materia"]);
@@ -70,8 +70,8 @@
                 $produto->__set("cod_usuario",    $_SESSION["cod_usuario"]);
                 $produto->__set("titulo",         $_POST["titulo"]);
                 $produto->__set("descricao",      $_POST["descricao"]);
-                $produto->__set("valor",          $_POST["valor"]);
-                $produto->__set("desconto",       $_POST["desconto"]);
+                $produto->__set("valor",          $this->formatarNumero($_POST["valor"]));
+                $produto->__set("desconto",       $this->formatarNumero($_POST["desconto"]));
                 $produto->__set("data_desconto",  $_POST["data_desconto"]);
                 $produto->__set("foto_name",      $foto["name"]);
                 $produto->__set("foto_token",     $foto["sha"]);
@@ -90,6 +90,10 @@
                 "sucesso"   => $sucesso,
                 "mensagem"  => $this->erro
             ]);
+        }
+
+        public function formatarNumero($numero) {
+            return str_replace(",", ".", str_replace(".", "", $numero));
         }
 
     }

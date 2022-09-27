@@ -74,6 +74,10 @@ nav {
     color: #000;
 }
 
+.usuario {
+    font-size: 30px;
+}
+
 /*========== INPUTS ==========*/
 .input-cinza {
     background-color: var(--cinza) !important;

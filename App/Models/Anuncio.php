@@ -29,6 +29,7 @@
                 "descricao"     => $this->descricao,
                 "valor"         => $this->valor,
                 "desconto"      => $this->desconto,
+                "data_desconto" => $this->data_desconto,
                 "status"        => $this->status,
                 "tipo"          => $this->tipo,
             ]);

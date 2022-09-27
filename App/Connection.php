@@ -77,14 +77,15 @@
         }
 
         // Método responsável por executar uma consulta no banco de dados:
-        public function select( $fields="*", $where=null, $order=null, $limit=null ) {
+        public function select( $fields="*", $where=null, $order=null, $limit=null, $join=null ) {
             // COLETANDO OS DADOS PARA A QUERY:
             $where = strlen($where) ? 'WHERE '.$where : '';
             $order = strlen($order) ? 'ORDER BY '.$order : '';
             $limit = strlen($limit) ? 'LIMIT '.$limit : '';
+            $join  = strlen($join)  ? $join : '';
 
             // QUERY BUILDER:
-            $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$where.' '.$order.' '.$limit;
+            $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$join.' '.$where.' '.$order.' '.$limit;
 
             // EXECUTA A QUERY:
             return $this->execute($query);
