@@ -63,12 +63,6 @@
 
             $foto = $upload->uploadImagem($_FILES);
 
-            echo "<pre>";
-            print_r($_FILES);
-            var_dump($foto);
-            echo "<pre>";
-            die("--");
-
             if ( !$foto ) {
                 $sucesso = false;
                 $this->erro = "Não foi possível salvar as informações do anúncio!";
