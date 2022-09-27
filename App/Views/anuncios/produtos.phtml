@@ -8,10 +8,10 @@
             </div>
         <?php } else { ?>
             <?php foreach ($this->view->produtos as $produto) { ?>
-                <div class="col-12 col-lg-6">
-                    <div class="card mb-2">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4 ">
+                <div class="col-12 col-lg-6 mb-3">
+                    <div class="card h-100">
+                        <div class="row g-0 align-items-start h-100">
+                            <div class="col-md-4 align-self-center">
                                 <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" class="img-fluid rounded-start m-lg-2" alt="produto">
                             </div>
                             <div class="col-md-8">
@@ -57,7 +57,7 @@
                                         <?php } ?>
                                     </div>
 
-                                    <p class="card-text justificado"><?= $produto["descricao"] ?></p>
+                                    <p class="card-text justificado"><?= strlen($produto["descricao"]) > 250 ? mb_strimwidth($produto["descricao"], 0, 250, "...") : $produto["descricao"] ?></p>
 
                                     <div class="row my-3 text-center">
                                         <div class="col-6">
