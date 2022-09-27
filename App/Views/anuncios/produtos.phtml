@@ -56,7 +56,11 @@
                                         <?php } ?>
                                     </div>
 
-                                    <p class="card-text justificado"><?= strlen($produto["descricao"]) > 250 ? mb_strimwidth($produto["descricao"], 0, 250, "...") : $produto["descricao"] ?></p>
+                                    <?php if (strlen($produto["descricao"]) > 250) { ?>
+                                        <p class="card-text justificado"><?= mb_strimwidth($produto["descricao"], 0, 250, "...") ?></p>
+                                    <?php } else { ?>
+                                        <p class="card-text justificado"><?= $produto["descricao"] ?></p>
+                                    <?php } ?>
 
                                     <div class="row my-3 text-center">
                                         <div class="col-6">
