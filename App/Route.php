@@ -69,11 +69,18 @@
                 'action'     => 'sair'
             );
 
+
             // Anunciar:
             $routes['produto'] = array(
                 'route'      => '/produto',
                 'controller' => 'AnunciarController',
                 'action'     => 'produto'
+            );
+
+            $routes['cadastrar_produto'] = array(
+                'route'      => '/cadastrar_produto',
+                'controller' => 'AnunciarController',
+                'action'     => 'cadastrar_produto'
             );
 
             $routes['monitoria'] = array(
@@ -88,13 +95,20 @@
                 'action'     => 'cadastrar_monitoria'
             );
 
-            $routes['cadastrar_produto'] = array(
-                'route'      => '/cadastrar_produto',
-                'controller' => 'AnunciarController',
-                'action'     => 'cadastrar_produto'
-            );
 
             //Anuncios:
+            $routes['produtos'] = array(
+                'route'      => '/produtos',
+                'controller' => 'AnunciosController',
+                'action'     => 'produtos'
+            );
+
+            $routes['monitorias'] = array(
+                'route'      => '/monitorias',
+                'controller' => 'AnunciosController',
+                'action'     => 'monitorias'
+            );
+
 
             // Sobre:
             $routes['faleconosco'] = array(
