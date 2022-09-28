@@ -1,52 +1,38 @@
 <section class="bg-light rounded my-4">
-    <div class="swiper mySwiper mb-5">
 
-        <div class="swiper-wrapper">
-            <div class="swiper-slide pb-3">
-                <div>
-                    <img src="assets/img/image_placeholder.png" alt="anuncio">
-                </div>
+    <?php if ($this->view->quantidade_produtos === 0) { ?>
 
-                <div>
-                    <p class="px-4 py-3 justificado">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa dolorum, iure ipsa
-                        aspernatur molestiae enim? Consectetur, sequi voluptatibus. Consectetur deleniti culpa
-                        laudantium quia quas voluptate blanditiis eligendi suscipit doloribus aliquam.
-                    </p>
-                </div>
+    <?php } else { ?>
+        <div class="swiper mySwiper mb-5">
+
+            <div class="swiper-wrapper">
+                <?php foreach ($this->view->produtos as $produto) { ?>
+                    <div class="swiper-slide pb-3">
+                        <div class="w-100">
+                            <h4 class="text-left mt-3"><?= $produto["titulo"] ?></h4>
+                            <hr>
+                        </div>
+
+                        <div class="swiper-portrait">
+                            <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" alt="anuncio">
+                        </div>
+
+                        <div class="w-100">
+                            <hr>
+                            <?php if (strlen($produto["descricao"]) > 250) { ?>
+                                <p class="px-4 py-3 justificado"><?= substr($produto["descricao"], 0, 250) ?>...</p>
+                            <?php } else { ?>
+                                <p class="px-4 py-3 justificado"><?= $produto["descricao"] ?></p>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
 
-            <div class="swiper-slide pb-3">
-                <div>
-                    <img src="assets/img/image_placeholder.png" alt="anuncio">
-                </div>
-
-                <div>
-                    <p class="px-4 py-3 justificado">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa dolorum, iure ipsa
-                        aspernatur molestiae enim? Consectetur, sequi voluptatibus. Consectetur deleniti culpa
-                        laudantium quia quas voluptate blanditiis eligendi suscipit doloribus aliquam.
-                    </p>
-                </div>
-            </div>
-
-            <div class="swiper-slide pb-3">
-                <div>
-                    <img src="assets/img/image_placeholder.png" alt="anuncio">
-                </div>
-
-                <div>
-                    <p class="px-4 py-3 justificado">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa dolorum, iure ipsa
-                        aspernatur molestiae enim? Consectetur, sequi voluptatibus. Consectetur deleniti culpa
-                        laudantium quia quas voluptate blanditiis eligendi suscipit doloribus aliquam.
-                    </p>
-                </div>
-            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
+    <?php } ?>
 
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
-    </div>
 </section>

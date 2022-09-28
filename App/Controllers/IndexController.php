@@ -8,6 +8,12 @@
     class IndexController extends Action {
 
         public function index() {
+            $produto = Container::getModel("Produto");
+            $produtos = $produto->getUltimos(5);
+
+            $this->view->quantidade_produtos = count($produtos);
+            $this->view->produtos = $produtos;
+
             $this->render("index");
         }
 

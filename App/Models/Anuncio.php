@@ -50,6 +50,20 @@
         // Obter um anuncio em especifico:
 
         // Obter os últimos 5 anúncios:
+        public function getUltimos($quantidade) {
+            $table = $this->db->getTable();
+            $this->db->setTable("tb_anuncios");
+
+            $fields = "a.cod_anuncio, a.titulo, a.descricao, p.foto_name";
+            $join   = "a inner join tb_produtos p on a.cod_anuncio = p.cod_anuncio";
+            $order  = "a.data_anunciada desc";
+
+            $ultimos = $this->db->select($fields, null, $order, $quantidade, $join)->fetchAll(PDO::FETCH_ASSOC);
+
+            $this->db->setTable($table);
+
+            return $ultimos;
+        }
 
     }
 

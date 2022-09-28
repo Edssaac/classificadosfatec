@@ -25,9 +25,8 @@
         }
 
         protected function run($url) {
-
-            foreach ($this->getRoutes() as $key => $route) {
-                if ($route['route'] == $url) {
+            foreach ($this->getRoutes() as $route) {
+                if (preg_match($route['route'], $url)) {
                     $class = "App\\Controllers\\".$route['controller'];
                     $controller = new $class;
                     $action = $route['action'];
