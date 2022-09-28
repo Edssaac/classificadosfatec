@@ -54,11 +54,7 @@
                                 <?php } ?>
                             </div>
 
-                            <?php if (strlen($this->view->produto["descricao"]) > 250) { ?>
-                                <p class="card-text justificado"><?= substr($this->view->produto["descricao"], 0, 250) ?>...</p>
-                            <?php } else { ?>
-                                <p class="card-text justificado"><?= $this->view->produto["descricao"] ?></p>
-                            <?php } ?>
+                            <p class="card-text justificado"><?= $this->view->produto["descricao"] ?></p>
                         </div>
                     </div>
                 </div>
