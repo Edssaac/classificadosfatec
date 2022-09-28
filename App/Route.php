@@ -59,7 +59,7 @@
 
             $routes["perfil"] = array(
                 "route"      => "/^\/perfil\/*$/",
-                "controller" => "AppController",
+                "controller" => "IndexController",
                 "action"     => "perfil"
             );
 

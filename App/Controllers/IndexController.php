@@ -53,6 +53,16 @@
             $this->render("nova_senha");
         }
 
+        public function perfil() {
+            $this->autenticarPagina();
+
+            $usuario = Container::getModel("Usuario");
+
+            $this->view->usuario = $usuario->getPerfil();
+
+            $this->render("perfil");
+        }
+
     }
 
 ?>
