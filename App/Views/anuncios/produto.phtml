@@ -93,9 +93,7 @@
 
                 <div class="row my-3 text-center">
                     <div class="col-6">
-                        <div id="estrelas" class="text-danger d-none">
-                            <!-- <i class="fa-solid fa-star"></i> -->
-                            <!-- <i class="fa-regular fa-star-half-stroke"></i> -->
+                        <div id="estrelas" class="text-danger d-none user-select-none">
                             <i class="fa-regular fa-star"></i>
                             <i class="fa-regular fa-star"></i>
                             <i class="fa-regular fa-star"></i>
@@ -136,4 +134,28 @@
 
         $("#comentar").html("Comentar");
     });
+
+    // Estrelas - Início da lógica.
+    const estrelas = document.querySelectorAll(".fa-star");
+    let classificacao_anterior = 0;
+    estrelas.forEach((estrela, i) => {
+        estrela.onclick = function() {
+            let classificacao_atual = i + 1;
+
+            if (classificacao_atual === classificacao_anterior) {
+                classificacao_atual = 0;
+            }
+
+            estrelas.forEach((estrela, j) => {
+                if (classificacao_atual >= j + 1) {
+                    estrela.classList.replace("fa-regular", "fa-solid");
+                } else {
+                    estrela.classList.replace("fa-solid", "fa-regular");
+                }
+            });
+
+            classificacao_anterior = classificacao_atual;
+        }
+    });
+    // Estrelas - Fim da lógica.
 </script>
