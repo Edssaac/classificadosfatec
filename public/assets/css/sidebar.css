@@ -48,6 +48,7 @@
 .nav-link-dropdown {
     display: block;
     padding: 16px 32px;
+    min-width: 250px;
     text-decoration: none;
     color: var(--color-nav-link);
     transition: 0.5s;

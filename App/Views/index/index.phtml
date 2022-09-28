@@ -1,3 +1,9 @@
+<?php if ($this->view->aviso === true) { ?>
+    <div class="alert alert-warning mx-3 mt-3" role="alert">
+        Entre em sua <a href="/entrar" class="text-success">conta</a> ou <a href="/cadastrar" class="text-success">cadastre</a> uma nova para ter acesso a essa área.
+    </div>
+<?php }  ?>
+
 <section class="bg-light rounded my-4">
 
     <?php if ($this->view->quantidade_produtos === 0) { ?>

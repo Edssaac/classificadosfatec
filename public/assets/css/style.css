@@ -69,6 +69,10 @@ nav {
     background-color: #666666;
 }
 
+.selected {
+    background-color: #666666;
+}
+
 .button a {
     text-decoration: none;
     color: #000;

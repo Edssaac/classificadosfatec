@@ -79,7 +79,7 @@
             if (  $usuario->autenticar() ) {
                 session_start();
 
-                $_SESSION['cod_usuario']   = $usuario->__get("cod_usuario");
+                $_SESSION['cod_usuario'] = $usuario->__get("cod_usuario");
 
                 $sucesso = true;
             } else {

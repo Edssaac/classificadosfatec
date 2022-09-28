@@ -36,10 +36,14 @@
             }
         }
 
-        public function validaSessao() {
+        public function sessao() {
             if ( session_status() !== PHP_SESSION_ACTIVE ) {
                 session_start();
             }
+        }
+
+        public function validaSessao() {
+            $this->sessao();
 
             if ( !isset($_SESSION["cod_usuario"]) || empty($_SESSION["cod_usuario"]) ) {
                 return false;
@@ -53,6 +57,7 @@
                 header("Location: /");
                 exit;
             } else if ( !$this->validaSessao() && !$index ) {
+                $_SESSION["tentativa_acesso"] = true;
                 header("Location: /");
                 exit;
             }

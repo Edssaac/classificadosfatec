@@ -18,6 +18,22 @@
             $this->render("produtos");
         }
 
+        public function getProduto() {
+            $this->autenticarPagina();
+            $produto = Container::getModel("Produto");
+
+            $cod_anuncio = array_filter(explode("/", $_SERVER["REQUEST_URI"]))[2];
+
+            $this->view->produto = $produto->getProduto($cod_anuncio);
+
+            if ( !isset($this->view->produto["cod_anuncio"]) ) {
+                header("Location: /produtos");
+                exit;
+            }
+            
+            $this->render("produto");
+        }
+
         public function monitorias() {
             $this->autenticarPagina();
             $this->render("monitorias");

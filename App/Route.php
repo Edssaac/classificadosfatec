@@ -98,9 +98,15 @@
 
             //Anuncios:
             $routes["produtos"] = array(
-                "route"      => "/^\/produtos\/*(\d+)*\/*$/",
+                "route"      => "/^\/produtos\/*$/",
                 "controller" => "AnunciosController",
                 "action"     => "produtos"
+            );
+
+            $routes["produtos_get"] = array(
+                "route"      => "/^\/produtos\/(\d+)\/*$/",
+                "controller" => "AnunciosController",
+                "action"     => "getProduto"
             );
 
             $routes["monitorias"] = array(

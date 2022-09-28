@@ -1,0 +1,143 @@
+<section class="bg-light rounded my-4 mb-5">
+
+    <div class="row mx-3 py-3">
+
+        <div class="col-12 col-lg-6 mb-3">
+            <div class="card h-100">
+                <div class="row g-0 align-items-start h-100">
+                    <div class="col-md-4 align-self-center">
+                        <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $this->view->produto["foto_name"] ?>" class="img-fluid rounded-start m-lg-2" alt="produto">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body pb-0">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class="fa-regular fa-circle-user usuario"></i>
+                                </div>
+                                <div class="col-10">
+                                    <p><?= $this->view->produto["nome"] ?>
+                                        <br><small><?= $this->view->produto["data_anunciada"] ?></small>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <hr class="mt-0">
+
+                            <h5 class="card-title"><?= $this->view->produto["titulo"] ?></h5>
+
+                            <div class="row my-3 text-center">
+                                <?php if ($this->view->produto["desconto"] && (strtotime($this->view->produto["data_desconto"]) > time())) { ?>
+                                    <div class="col-6" title="preço">
+                                        <i class="fa-solid fa-dollar-sign"></i>
+                                        <small>R$</small>
+                                        <span class="text-danger">
+                                            <s><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->produto["valor"])) ?></s>
+                                        </span>
+                                    </div>
+                                    <div class="col-6" title="promoção">
+                                        <i class="fa-solid fa-tag"></i>
+                                        <small>R$</small>
+                                        <span class="text-success">
+                                            <?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->produto["valor"] - $this->view->produto["desconto"])) ?>
+                                        </span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-start text-danger fw-bold">Promoção disponível até: <?= date_format(date_create($this->view->produto["data_desconto"]), "d/m/Y - H:i") ?></small>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="col-6" title="preço">
+                                        <i class="fa-solid fa-dollar-sign"></i>
+                                        <small>R$</small>
+                                        <span class="text-success"><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->produto["valor"])) ?></span>
+                                    </div>
+                                <?php } ?>
+                            </div>
+
+                            <?php if (strlen($this->view->produto["descricao"]) > 250) { ?>
+                                <p class="card-text justificado"><?= substr($this->view->produto["descricao"], 0, 250) ?>...</p>
+                            <?php } else { ?>
+                                <p class="card-text justificado"><?= $this->view->produto["descricao"] ?></p>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-3 text-center">
+                    <div class="col-6">
+                        <a href="/produtos">
+                            <button type="button" class="button-input text-light">Voltar</button>
+                        </a>
+                    </div>
+
+                    <div class="col-6">
+                        <button type="button" class="button-input text-light">Denunciar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="d-lg-none mt-5">
+
+        <div class="col-12 col-lg-6 mb-3 bg-white rounded">
+            <div class="py-2">
+                <div class="row mb-3 text-center">
+                    <div class="col-6">
+                        <button type="button" id="duvidas" class="button-input text-light selected">Dúvidas</button>
+                    </div>
+
+                    <div class="col-6">
+                        <button type="button" id="avaliacoes" class="button-input text-light">Avaliações</button>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <textarea name="comentario" id="comentario" rows="5" class="form-control input-cinza"></textarea>
+                </div>
+
+                <div class="row my-3 text-center">
+                    <div class="col-6">
+                        <div id="estrelas" class="text-danger d-none">
+                            <!-- <i class="fa-solid fa-star"></i> -->
+                            <!-- <i class="fa-regular fa-star-half-stroke"></i> -->
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-6 text-end">
+                        <button type="button" id="comentar" class="button-input text-light">Perguntar</button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="comentarios">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    $("#duvidas").click(function() {
+        $("#avaliacoes").toggleClass("selected", false);
+        $("#estrelas").toggleClass("d-none", true);
+        $("#duvidas").toggleClass("selected", true);
+
+        $("#comentar").html("Perguntar");
+    });
+
+    $("#avaliacoes").click(function() {
+        $("#duvidas").toggleClass("selected", false);
+        $("#estrelas").toggleClass("d-none", false);
+        $("#avaliacoes").toggleClass("selected", true);
+
+        $("#comentar").html("Comentar");
+    });
+</script>

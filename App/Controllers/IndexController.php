@@ -14,6 +14,15 @@
             $this->view->quantidade_produtos = count($produtos);
             $this->view->produtos = $produtos;
 
+            $this->sessao();
+
+            if ( isset($_SESSION["tentativa_acesso"]) && $_SESSION["tentativa_acesso"] ) {
+                $this->view->aviso = true;
+                unset($_SESSION["tentativa_acesso"]);
+            } else {
+                $this->view->aviso = false;
+            }
+
             $this->render("index");
         }
 
