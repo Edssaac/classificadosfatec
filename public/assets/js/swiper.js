@@ -5,7 +5,7 @@ var swiper = new Swiper(".mySwiper", {
     spaceBetween: 30,
     loop: true,
     freeMode: true,
-    mousewheel: true,
+    mousewheel: false,
     keyboard: true,
     navigation: {
         nextEl: ".swiper-button-next",
