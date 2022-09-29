@@ -55,12 +55,36 @@
 
         public function perfil() {
             $this->autenticarPagina();
-
+            
             $usuario = Container::getModel("Usuario");
+            $usuario->__set("cod_usuario", $_SESSION["cod_usuario"]);
 
             $this->view->usuario = $usuario->getPerfil();
 
             $this->render("perfil");
+        }
+
+        public function atualizarPerfil() {
+            $this->autenticarPagina();
+
+            $sucesso = true;
+            $usuario = Container::getModel("Usuario");
+            $usuario->__set("cod_usuario",      $_SESSION["cod_usuario"]);
+            $usuario->__set("nome",             $_POST["nome"]);
+            $usuario->__set("data_nascimento",  $_POST["data_nascimento"]);
+            $usuario->__set("telefone",         $_POST["telefone"]);
+            $usuario->__set("instituicao",      $_POST["instituicao"]);
+
+            if ( !$usuario->atualizarPerfil() ) {
+                $sucesso = false;
+                $this->erro = "Não foi possível atualizar o perfil de usuário!";
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode([
+                "sucesso"   => $sucesso,
+                "mensagem"  => $this->erro
+            ]);
         }
 
     }

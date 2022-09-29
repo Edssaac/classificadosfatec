@@ -48,9 +48,18 @@
         }
 
         public function getPerfil() {
-            $usuario = $this->db->select("nome, data_nascimento, telefone, instituicao, email")->fetch(PDO::FETCH_ASSOC);
+            $usuario = $this->db->select("nome, data_nascimento, telefone, instituicao, email", "cod_usuario = $this->cod_usuario")->fetch(PDO::FETCH_ASSOC);
             
             return $usuario;
+        }
+
+        public function atualizarPerfil() {
+            return $this->db->update("cod_usuario = $this->cod_usuario", [
+                "nome"              => $this->nome,
+                "data_nascimento"   => $this->data_nascimento,
+                "telefone"          => $this->telefone,
+                "instituicao"       => $this->instituicao
+            ]);
         }
 
         public function autenticar() {

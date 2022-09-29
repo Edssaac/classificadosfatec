@@ -57,6 +57,12 @@
                 "action"     => "registrar"
             );
 
+            $routes["atualziar_perfil"] = array(
+                "route"      => "/^\/atualziar_perfil\/*$/",
+                "controller" => "IndexController",
+                "action"     => "atualizarPerfil"
+            );
+
             $routes["perfil"] = array(
                 "route"      => "/^\/perfil\/*$/",
                 "controller" => "IndexController",
