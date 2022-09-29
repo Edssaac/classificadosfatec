@@ -24,7 +24,7 @@ body {
 }
 
 /*========== BANNER ==========*/
-header {
+.bg-vermelho {
     background-color: var(--vermelho);
 }
 
@@ -94,6 +94,5 @@ nav {
 
 /*========== RODAPÉ ==========*/
 footer {
-    background-color: var(--vermelho);
     color: var(--branco);
 }
