@@ -82,6 +82,10 @@ nav {
     font-size: 30px;
 }
 
+.estrelas-avaliacao {
+    font-size: 9px;
+}
+
 /*========== INPUTS ==========*/
 .input-cinza {
     background-color: var(--cinza) !important;

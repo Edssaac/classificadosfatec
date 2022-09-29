@@ -3,7 +3,7 @@
     <div class="row mx-3 py-3">
 
         <div class="col-12 col-lg-6 mb-3">
-            <div class="card h-100">
+            <div class="card">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-2">
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="card-body pb-0">
-                    <div class="row g-4 align-items-start h-100">
+                    <div class="row g-4 align-items-start">
                         <div class="col-md-4 text-center">
                             <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $this->view->produto["foto_name"] ?>" class="img-fluid rounded m-lg-2" alt="produto">
                         </div>
@@ -121,7 +121,158 @@
 
                 <hr>
 
-                <div id="comentarios">
+                <div id="bloco_duvidas">
+
+                    <!-- Bloco -->
+                    <div class="mb-3">
+                        <!-- Pergunta -->
+                        <div class="row g-0 align-items-center">
+                            <div class="col-2 col-md-1">
+                                <i class="fa-regular fa-circle-user usuario"></i>
+                            </div>
+                            <div class="col-10 col-md-11">
+                                <div class="row">
+                                    <div class="col-12 text-start order-1">
+                                        Maria Joana Fernadez
+                                    </div>
+                                    <div class="col-12 text-end order-3">
+                                        <small class="text-muted">20/09/2022 | 12h33</small>
+                                    </div>
+                                    <div class="col-12 mt-1 order-2">
+                                        <textarea name="mensagem" id="mensagem" rows="2" class="form-control input-cinza" disabled>Funciona?</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resposta -->
+                        <div class="row g-0 align-items-center resposta">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2 col-lg-1">
+                                <i class="fa-regular fa-circle-user usuario"></i>
+                            </div>
+                            <div class="col-9 col-lg-10">
+                                <div class="row">
+                                    <div class="col-12 text-start order-1">
+                                        Felipe Matanaza Joarez
+                                    </div>
+                                    <div class="col-12 text-end order-3">
+                                        <small class="text-muted">20/09/2022 | 17h48</small>
+                                    </div>
+                                    <div class="col-12 mt-1 order-2">
+                                        <textarea name="mensagem" id="mensagem" rows="2" class="form-control input-cinza" disabled>Sim :)</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloco -->
+                    <div class="mb-3">
+                        <!-- Pergunta -->
+                        <div class="row g-0 align-items-center">
+                            <div class="col-2 col-md-1">
+                                <i class="fa-regular fa-circle-user usuario"></i>
+                            </div>
+                            <div class="col-10 col-md-11">
+                                <div class="row">
+                                    <div class="col-12 text-start order-1">
+                                        Marcos Danetter Cruzes
+                                    </div>
+                                    <div class="col-12 text-end order-3">
+                                        <small class="text-muted">20/09/2022 | 12h33</small>
+                                    </div>
+                                    <div class="col-12 mt-1 order-2">
+                                        <textarea name="mensagem" id="mensagem" rows="2" class="form-control input-cinza" disabled>Ainda disponível?</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resposta -->
+                        <div class="row g-0 align-items-center resposta">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2 col-lg-1">
+                                <i class="fa-regular fa-circle-user usuario"></i>
+                            </div>
+                            <div class="col-9 col-lg-10">
+                                <div class="row">
+                                    <div class="col-12 text-start order-1">
+                                        Felipe Matanaza Joarez
+                                    </div>
+                                    <div class="col-12 text-end order-3">
+                                        <!-- <small class="text-muted">20/09/2022 | 17h48</small> -->
+                                        <button type="button" class="button-input text-light mt-2">Responder</button>
+                                    </div>
+                                    <div class="col-12 mt-1 order-2">
+                                        <textarea name="mensagem" id="mensagem" rows="2" class="form-control input-cinza"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="bloco_avaliacoes" class="d-none">
+
+                    <!-- Bloco -->
+                    <div class="mb-3">
+                        <!-- Pergunta -->
+                        <div class="row g-0 align-items-center">
+                            <div class="col-2 col-md-1">
+                                <i class="fa-regular fa-circle-user usuario"></i>
+                            </div>
+                            <div class="col-10 col-md-11">
+                                <div class="row">
+                                    <div class="col-12 text-start order-1">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <p class="mb-0">Luiz Guilherme Fidalgo</p>
+                                            </div>
+                                            <div class="text-danger user-select-none col-4 text-end">
+                                                <small class="estrelas-avaliacao">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-end order-3">
+                                        <small class="text-muted">12/09/2022 | 06h10</small>
+                                    </div>
+                                    <div class="col-12 mt-1 order-2">
+                                        <textarea name="mensagem" id="mensagem" rows="2" class="form-control input-cinza" disabled>Maravilhoso</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resposta -->
+                        <div class="row g-0 align-items-center resposta">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2 col-lg-1">
+                                <i class="fa-regular fa-circle-user usuario"></i>
+                            </div>
+                            <div class="col-9 col-lg-10">
+                                <div class="row">
+                                    <div class="col-12 text-start order-1">
+                                        Felipe Matanaza Joarez
+                                    </div>
+                                    <div class="col-12 text-end order-3">
+                                        <small class="text-muted">14/09/2022 | 12h08</small>
+                                    </div>
+                                    <div class="col-12 mt-1 order-2">
+                                        <textarea name="mensagem" id="mensagem" rows="2" class="form-control input-cinza" disabled>Sim :)</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -164,6 +315,8 @@
     $("#duvidas").click(function() {
         $("#avaliacoes").toggleClass("selected", false);
         $("#estrelas").toggleClass("d-none", true);
+        $("#bloco_avaliacoes").toggleClass("d-none", true);
+        $("#bloco_duvidas").toggleClass("d-none", false);
         $("#duvidas").toggleClass("selected", true);
 
         $("#comentar").html("Perguntar");
@@ -172,13 +325,15 @@
     $("#avaliacoes").click(function() {
         $("#duvidas").toggleClass("selected", false);
         $("#estrelas").toggleClass("d-none", false);
+        $("#bloco_duvidas").toggleClass("d-none", true);
+        $("#bloco_avaliacoes").toggleClass("d-none", false);
         $("#avaliacoes").toggleClass("selected", true);
 
         $("#comentar").html("Comentar");
     });
 
     // Estrelas - Início da lógica.
-    const estrelas = document.querySelectorAll(".fa-star");
+    const estrelas = document.querySelectorAll("#estrelas .fa-star");
     let classificacao_anterior = 0;
     estrelas.forEach((estrela, i) => {
         estrela.onclick = function() {
