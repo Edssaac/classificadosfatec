@@ -80,6 +80,7 @@
                 session_start();
 
                 $_SESSION['cod_usuario'] = $usuario->__get("cod_usuario");
+                $_SESSION['nome'] = $usuario->__get("nome");
 
                 $sucesso = true;
             } else {

@@ -115,6 +115,24 @@
                 "action"     => "getProduto"
             );
 
+            $routes["duvidas"] = array(
+                "route"      => "/^\/duvidas\/*$/",
+                "controller" => "ChatController",
+                "action"     => "getDuvidas"
+            );
+
+            $routes["comentar_duvida"] = array(
+                "route"      => "/^\/comentar_duvida\/*$/",
+                "controller" => "ChatController",
+                "action"     => "comentarDuvida"
+            );
+
+            $routes["responder_duvida"] = array(
+                "route"      => "/^\/responder_duvida\/*$/",
+                "controller" => "ChatController",
+                "action"     => "responderDuvida"
+            );
+
             $routes["monitorias"] = array(
                 "route"      => "/^\/monitorias\/*(\d+)*\/*$/",
                 "controller" => "AnunciosController",

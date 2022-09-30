@@ -23,6 +23,9 @@
                 case "Produto":
                     $table = "tb_produtos";
                 break;
+                case "Duvida":
+                    $table = "tb_duvidas";
+                break;
             }
 
             $db = new Connection($table);

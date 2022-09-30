@@ -63,10 +63,11 @@
         }
 
         public function autenticar() {
-            $usuario = $this->db->select("cod_usuario, senha", "email = '{$this->email}'")->fetch(PDO::FETCH_ASSOC);
+            $usuario = $this->db->select("cod_usuario, nome, senha", "email = '{$this->email}'")->fetch(PDO::FETCH_ASSOC);
 
             if ( isset($usuario['cod_usuario']) && password_verify($this->senha, $usuario['senha']) ) {
                 $this->__set("cod_usuario", $usuario["cod_usuario"]);
+                $this->__set("nome", $usuario["nome"]);
 
                 return true;
             }
