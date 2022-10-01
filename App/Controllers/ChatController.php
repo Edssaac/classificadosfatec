@@ -154,7 +154,7 @@
                 $html .= "
                 <div class='mb-3'>
                     <!-- Avaliação -->
-                    <div class='row g-0 align-items-center'>
+                    <div class='row g-0'>
                         <div class='col-2 col-md-1'>
                             <i class='fa-regular fa-circle-user usuario'></i>
                         </div>

@@ -189,6 +189,9 @@
         avaliacoes();
     });
 
+    let texto_duvida = "";
+    let texto_avaliacao = "";
+
     $("#duvidas").click(function() {
         $("#avaliacoes").toggleClass("selected", false);
         $("#duvidas").toggleClass("selected", true);
@@ -198,6 +201,9 @@
 
         $("#bloco_avaliacoes").toggleClass("d-none", true);
         $("#bloco_duvidas").toggleClass("d-none", false);
+
+        texto_avaliacao = $("#comentario").val();
+        $("#comentario").val(texto_duvida);
 
         autosize();
     });
@@ -211,6 +217,9 @@
 
         $("#bloco_duvidas").toggleClass("d-none", true);
         $("#bloco_avaliacoes").toggleClass("d-none", false);
+
+        texto_duvida = $("#comentario").val();
+        $("#comentario").val(texto_avaliacao);
 
         autosize();
     });
