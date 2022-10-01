@@ -145,43 +145,6 @@
                 </div>
 
                 <div id="bloco_avaliacoes" class="d-none">
-
-                    <!-- Bloco -->
-                    <div class="mb-3">
-                        <!-- Pergunta -->
-                        <div class="row g-0 align-items-center">
-                            <div class="col-2 col-md-1">
-                                <i class="fa-regular fa-circle-user usuario"></i>
-                            </div>
-                            <div class="col-10 col-md-11">
-                                <div class="row">
-                                    <div class="col-12 text-start order-1">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <p class="mb-0">Luiz Guilherme Fidalgo</p>
-                                            </div>
-                                            <div class="text-danger user-select-none col-4 text-end">
-                                                <small class="estrelas-avaliacao">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 text-end order-3">
-                                        <small class="text-muted">12/09/2022 | 06h10</small>
-                                    </div>
-                                    <div class="col-12 mt-1 order-2">
-                                        <textarea name="mensagem" id="mensagem" rows="2" class="form-control input-cinza" disabled>Maravilhoso</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -223,6 +186,7 @@
 <script>
     $(document).ready(function() {
         duvidas();
+        avaliacoes();
     });
 
     $("#duvidas").click(function() {
@@ -235,6 +199,7 @@
         $("#bloco_avaliacoes").toggleClass("d-none", true);
         $("#bloco_duvidas").toggleClass("d-none", false);
 
+        autosize();
     });
 
     $("#avaliacoes").click(function() {
@@ -246,6 +211,8 @@
 
         $("#bloco_duvidas").toggleClass("d-none", true);
         $("#bloco_avaliacoes").toggleClass("d-none", false);
+
+        autosize();
     });
 
     // Estrelas - Início da lógica.
@@ -270,6 +237,12 @@
             classificacao_anterior = classificacao_atual;
         }
     });
+
+    function limparEstrelas() {
+        estrelas.forEach((estrela, j) => {
+            estrela.classList.replace("fa-solid", "fa-regular");
+        });
+    }
     // Estrelas - Fim da lógica.
 
     // Comentar Dúvida:
@@ -355,10 +328,75 @@
                 $(".responder").each(function(index) {
                     $(this).on("click", responder);
                 });
+                autosize();
             },
             dataType: 'html'
         });
     }
 
     // Comentar Avaliação:
+    $("#avaliar").on("click", avaliar);
+
+    function avaliar() {
+        let texto = $.trim($("#comentario").val());
+
+        if (texto === "") {
+            return;
+        }
+
+        $("#avaliar").prop("disabled", true);
+
+        $.ajax({
+            type: 'POST',
+            url: "/avaliar",
+            data: "anuncio=" + <?= $this->view->produto["cod_anuncio"] ?> + "&texto=" + texto + "&avaliacao=" + classificacao_anterior,
+            beforeSend: function() {
+                $("#spinner-avaliar").html(
+                    `<div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>`
+                );
+            },
+            success: function(data) {
+                $("#comentario").val("");
+                avaliacoes();
+                limparEstrelas();
+            },
+            complete: function() {
+                $("#avaliar").prop("disabled", false);
+                $("#spinner-avaliar").html("");
+            },
+            dataType: 'html'
+        });
+    }
+
+    // Obter Avaliações:
+    function avaliacoes() {
+        $.ajax({
+            type: 'POST',
+            url: "/avaliacoes",
+            data: "anuncio=" + <?= $this->view->produto["cod_anuncio"] ?>,
+            success: function(data) {
+                $("#bloco_avaliacoes").html(data);
+            },
+            complete: function() {
+                autosize();
+            },
+            dataType: 'html'
+        });
+    }
+
+    // Alterar o tamanho das textareas de forma dinâmica:
+    function autosize() {
+        $("textarea:disabled").each(function() {
+            this.style.cssText = 'height:' + (this.scrollHeight + 4) + 'px';
+        });
+
+        $("#bloco_duvidas textarea").on("input", function() {
+            this.style.cssText = 'height:auto; padding:0;';
+            this.style.cssText = 'height:' + (this.scrollHeight + 14) + 'px;';
+        });
+    }
 </script>

@@ -24,7 +24,7 @@
                 <div class='mb-3'>
 
                     <!-- Pergunta -->
-                    <div class='row g-0 align-items-center'>
+                    <div class='row g-0'>
                         <div class='col-2 col-md-1'>
                             <i class='fa-regular fa-circle-user usuario'></i>
                         </div>
@@ -45,7 +45,7 @@
 
                 if ( !empty($d["resposta"]) ) {
                     $html .= "<!-- Resposta -->
-                    <div class='row g-0 align-items-center resposta'>
+                    <div class='row g-0 resposta'>
                         <div class='col-1'>
                         </div>
                         <div class='col-2 col-lg-1'>
@@ -67,7 +67,7 @@
                     </div>";
                 } else if ( $usuario["cod_usuario"] === $d["anunciador"] ) {
                     $html .= "<!-- Resposta -->
-                    <div class='row g-0 align-items-center resposta'>
+                    <div class='row g-0 resposta'>
                         <div class='col-1'>
                         </div>
                         <div class='col-2 col-lg-1'>
@@ -133,6 +133,79 @@
             if ( !$duvida->responder() ) {
                 $sucesso = false;
                 $this->erro = "Não foi possível responder!";
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode([
+                "sucesso"   => $sucesso,
+                "mensagem"  => $this->erro
+            ]);
+        }
+
+        public function getAvaliacoes() {
+            $this->autenticarPagina();
+
+            $avaliacao = Container::getModel("Avaliacao");
+            $avaliacao->__set("cod_anuncio", $_POST["anuncio"]);
+            $avaliacoes = $avaliacao->getAvaliacoes();
+            $html = "";
+
+            foreach ($avaliacoes as $a) {
+                $html .= "
+                <div class='mb-3'>
+                    <!-- Avaliação -->
+                    <div class='row g-0 align-items-center'>
+                        <div class='col-2 col-md-1'>
+                            <i class='fa-regular fa-circle-user usuario'></i>
+                        </div>
+                        <div class='col-10 col-md-11'>
+                            <div class='row'>
+                                <div class='col-12 text-start order-1'>
+                                    <div class='row'>
+                                        <div class='col-8'>
+                                            <p class='mb-0'>" . $a["nome"] . "</p>
+                                        </div>
+                                        <div class='text-danger user-select-none col-4 text-end'>
+                                            <small class='estrelas-avaliacao'>";
+                                                for ($i=1; $i<=5; $i++) {
+                                                    if ( $i <= $a["avaliacao"] ) {
+                                                        $html .= "<i class='fa-solid fa-star'></i>";
+                                                    } else {
+                                                        $html .= "<i class='fa-regular fa-star'></i>";
+                                                    }
+                                                }
+                                            $html .= "</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-12 text-end order-3'>
+                                    <small class='text-muted'>" . $a["data"] . "</small>
+                                </div>
+                                <div class='col-12 mt-1 order-2'>
+                                    <textarea rows='2' class='form-control input-cinza' disabled>" . $a["comentario"] . "</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+            }
+
+            echo $html;
+        }
+
+        public function avaliar() {
+            $this->autenticarPagina();
+
+            $sucesso = true;
+            $avaliacao = Container::getModel("Avaliacao");
+            $avaliacao->__set("cod_anuncio",   $_POST["anuncio"]);
+            $avaliacao->__set("cod_usuario",   $_SESSION["cod_usuario"]);
+            $avaliacao->__set("comentario",    $_POST["texto"]);
+            $avaliacao->__set("avaliacao",     $_POST["avaliacao"]);
+
+            if ( !$avaliacao->avaliar() ) {
+                $sucesso = false;
+                $this->erro = "Não foi possível avaliar!";
             }
 
             header('Content-Type: application/json');

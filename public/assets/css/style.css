@@ -86,6 +86,12 @@ nav {
     font-size: 9px;
 }
 
+#bloco_duvidas textarea,
+#bloco_avaliacoes textarea {
+    overflow: hidden;
+    resize: none;
+}
+
 /*========== INPUTS ==========*/
 .input-cinza {
     background-color: var(--cinza) !important;

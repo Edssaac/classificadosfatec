@@ -133,6 +133,18 @@
                 "action"     => "responderDuvida"
             );
 
+            $routes["avaliacoes"] = array(
+                "route"      => "/^\/avaliacoes\/*$/",
+                "controller" => "ChatController",
+                "action"     => "getAvaliacoes"
+            );
+
+            $routes["avaliar"] = array(
+                "route"      => "/^\/avaliar\/*$/",
+                "controller" => "ChatController",
+                "action"     => "avaliar"
+            );
+
             $routes["monitorias"] = array(
                 "route"      => "/^\/monitorias\/*(\d+)*\/*$/",
                 "controller" => "AnunciosController",
