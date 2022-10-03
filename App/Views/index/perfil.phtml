@@ -35,6 +35,21 @@
         </div>
 
         <div class="mb-3 mx-4">
+            <p class="mb-1">Meus Anúncios</p>
+            <ul class="list-group overflow-auto">
+                <li class="list-group-item"></li>
+                <?php foreach ($this->view->anuncios as $anuncio) { ?>
+                    <?php if ($anuncio["tipo"] === "P") { ?>
+                        <li class="list-group-item"><a href="/produtos/<?= $anuncio["cod_anuncio"] ?>" target="_blank" class="text-decoration-none"><?= $anuncio["titulo"] ?></a></li>
+                    <?php } else { ?>
+                        <li class="list-group-item"><a href="/monitorias/<?= $anuncio["cod_anuncio"] ?>" target="_blank" class="text-decoration-none"><?= $anuncio["titulo"] ?></a></li>
+                    <?php } ?>
+                <?php } ?>
+                <li class="list-group-item"></li>
+            </ul>
+        </div>
+
+        <div class="mb-3 mx-4">
             <label for="">Reputação: </label>
             <div class="text-danger user-select-none">
                 <?php for ($i = 1; $i <= 5; $i++) { ?>

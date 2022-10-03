@@ -58,6 +58,8 @@
             
             $usuario = Container::getModel("Usuario");
             $usuario->__set("cod_usuario", $_SESSION["cod_usuario"]);
+            $anuncio = Container::getModel("Anuncio");
+            $anuncio->__set("cod_usuario", $_SESSION["cod_usuario"]);
 
             $this->view->usuario = $usuario->getPerfil();
             
@@ -66,6 +68,8 @@
             } else {
                 $this->view->reputacao = 0;
             }
+
+            $this->view->anuncios = $anuncio->getAnunciosPorUsuario();
 
             $this->render("perfil");
         }

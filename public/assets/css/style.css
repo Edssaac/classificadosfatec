@@ -92,6 +92,10 @@ nav {
     resize: none;
 }
 
+.list-group {
+    max-height: 200px;
+}
+
 /*========== INPUTS ==========*/
 .input-cinza {
     background-color: var(--cinza) !important;

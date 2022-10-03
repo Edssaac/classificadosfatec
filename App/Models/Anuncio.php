@@ -44,11 +44,19 @@
 
         // Excluir um anuncio:
 
-        // Obter todos os anuncios de produto:
-
-        // Obter todos os anuncios de monitoria:
-
         // Obter um anuncio em especifico:
+        public function getAnunciosPorUsuario() {
+            $this->db->setTable("tb_anuncios");
+
+            $fields = "cod_anuncio, titulo, tipo";
+            $where  = "cod_usuario = $this->cod_usuario";
+            $order  = "data_anunciada desc";
+
+            $anuncios = $this->db->select($fields, $where, $order)->fetchAll(PDO::FETCH_ASSOC);
+
+
+            return $anuncios;
+        }
 
         // Obter os últimos 5 anúncios:
         public function getUltimos($quantidade) {

@@ -115,6 +115,18 @@
                 "action"     => "produto"
             );
 
+            $routes["monitorias"] = array(
+                "route"      => "/^\/monitorias\/*$/",
+                "controller" => "AnunciosController",
+                "action"     => "monitorias"
+            );
+
+            $routes["monitorias_get"] = array(
+                "route"      => "/^\/monitorias\/(\d+)\/*$/",
+                "controller" => "AnunciosController",
+                "action"     => "monitoria"
+            );
+
             $routes["duvidas"] = array(
                 "route"      => "/^\/duvidas\/*$/",
                 "controller" => "ChatController",
@@ -143,18 +155,6 @@
                 "route"      => "/^\/avaliar\/*$/",
                 "controller" => "ChatController",
                 "action"     => "avaliar"
-            );
-
-            $routes["monitorias"] = array(
-                "route"      => "/^\/monitorias\/*$/",
-                "controller" => "AnunciosController",
-                "action"     => "monitorias"
-            );
-
-            $routes["monitorias_get"] = array(
-                "route"      => "/^\/monitorias\/(\d+)\/*$/",
-                "controller" => "AnunciosController",
-                "action"     => "monitoria"
             );
 
 
