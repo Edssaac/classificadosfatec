@@ -51,11 +51,23 @@
                                     <?php } ?>
                                 </div>
 
-                                <?php if (strlen($this->view->produto["descricao"]) > 250) { ?>
-                                    <p class="card-text justificado"><?= substr($this->view->produto["descricao"], 0, 250) ?>...</p>
-                                <?php } else { ?>
-                                    <p class="card-text justificado"><?= $this->view->produto["descricao"] ?></p>
-                                <?php } ?>
+                                <div>
+                                    <p>
+                                        <small>Quantidade: <?= $this->view->produto["quantidade"] ?></small>
+                                        <br>
+                                        <small>Estado: <?= $this->view->estado[$this->view->produto["estado"]] ?></small>
+                                        <br>
+                                        <small>Situação: <?= $this->view->operacao[$this->view->produto["operacao"]] ?></small>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <?php if (strlen($this->view->produto["descricao"]) > 250) { ?>
+                                        <p class="card-text justificado"><?= substr($this->view->produto["descricao"], 0, 250) ?>...</p>
+                                    <?php } else { ?>
+                                        <p class="card-text justificado"><?= $this->view->produto["descricao"] ?></p>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -48,7 +48,11 @@
         }
 
         public function getPerfil() {
-            $usuario = $this->db->select("nome, data_nascimento, telefone, instituicao, email", "cod_usuario = $this->cod_usuario")->fetch(PDO::FETCH_ASSOC);
+            $fields = "nome, data_nascimento, telefone, instituicao, email, COUNT(avaliacao) AS avaliacoes, SUM(avaliacao) AS notas";
+            $join   = "u INNER JOIN tb_anuncios a ON u.cod_usuario = a.cod_usuario INNER JOIN tb_avaliacoes av ON a.cod_anuncio = av.cod_anuncio";
+            $where  = "u.cod_usuario = $this->cod_usuario";
+
+            $usuario = $this->db->select($fields, $where, null, null, $join)->fetch(PDO::FETCH_ASSOC);
             
             return $usuario;
         }

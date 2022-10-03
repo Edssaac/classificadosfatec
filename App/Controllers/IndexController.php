@@ -60,6 +60,7 @@
             $usuario->__set("cod_usuario", $_SESSION["cod_usuario"]);
 
             $this->view->usuario = $usuario->getPerfil();
+            $this->view->reputacao = intval(round($this->view->usuario["notas"]/$this->view->usuario["avaliacoes"]));
 
             $this->render("perfil");
         }

@@ -23,13 +23,24 @@
             $produto = Container::getModel("Produto");
 
             $cod_anuncio = array_filter(explode("/", $_SERVER["REQUEST_URI"]))[2];
-
             $this->view->produto = $produto->getProduto($cod_anuncio);
 
             if ( !isset($this->view->produto["cod_anuncio"]) ) {
                 header("Location: /produtos");
                 exit;
             }
+
+            $this->view->estado = [
+                1 => "Novo",
+                2 => "Seminovo",
+                3 => "Usado"
+            ];
+
+            $this->view->operacao = [
+                "V" => "Venda",
+                "T" => "Troca",
+                "A" => "Venda/Troca"
+            ];
             
             $this->render("produto");
         }

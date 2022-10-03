@@ -37,11 +37,13 @@
         <div class="mb-3 mx-4">
             <label for="">Reputação: </label>
             <div class="text-danger">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star-half-stroke"></i>
-                <i class="fa-regular fa-star"></i>
+                <?php for ($i = 1; $i <= 5; $i++) { ?>
+                    <?php if ($i <= $this->view->reputacao) { ?>
+                        <i class="fa-solid fa-star"></i>
+                    <?php } else { ?>
+                        <i class="fa-regular fa-star"></i>
+                    <?php } ?>
+                <?php } ?>
             </div>
         </div>
 
@@ -56,6 +58,10 @@
 </section>
 
 <script>
+    $(document).ready(function() {
+        $("#telefone").mask("(99) 9999-99999");
+    });
+
     $.getScript("assets/js/fatecs.js", function() {
         for (var key in fatecs) {
             $("#instituicao").append(`<option value="${key}"> ${fatecs[key]} </option>`);
