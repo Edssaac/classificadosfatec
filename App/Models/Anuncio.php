@@ -24,14 +24,15 @@
             $this->db->setTable("tb_anuncios");
 
             $cod_anuncio = $this->db->insert([
-                "cod_usuario"   => $this->cod_usuario,
-                "titulo"        => $this->titulo,
-                "descricao"     => $this->descricao,
-                "valor"         => $this->valor,
-                "desconto"      => $this->desconto,
-                "data_desconto" => $this->data_desconto,
-                "status"        => $this->status,
-                "tipo"          => $this->tipo,
+                "cod_usuario"       => $this->cod_usuario,
+                "titulo"            => $this->titulo,
+                "descricao"         => $this->descricao,
+                "valor"             => $this->valor,
+                "desconto"          => $this->desconto,
+                "data_desconto"     => $this->data_desconto,
+                "status"            => $this->status,
+                "data_anunciada"    => date("Y-m-d H:i:s"),
+                "tipo"              => $this->tipo,
             ]);
 
             $this->db->setTable($table);

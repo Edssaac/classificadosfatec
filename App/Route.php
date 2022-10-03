@@ -112,7 +112,7 @@
             $routes["produtos_get"] = array(
                 "route"      => "/^\/produtos\/(\d+)\/*$/",
                 "controller" => "AnunciosController",
-                "action"     => "getProduto"
+                "action"     => "produto"
             );
 
             $routes["duvidas"] = array(
@@ -146,9 +146,15 @@
             );
 
             $routes["monitorias"] = array(
-                "route"      => "/^\/monitorias\/*(\d+)*\/*$/",
+                "route"      => "/^\/monitorias\/*$/",
                 "controller" => "AnunciosController",
                 "action"     => "monitorias"
+            );
+
+            $routes["monitorias_get"] = array(
+                "route"      => "/^\/monitorias\/(\d+)\/*$/",
+                "controller" => "AnunciosController",
+                "action"     => "monitoria"
             );
 
 

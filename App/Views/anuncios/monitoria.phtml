@@ -10,8 +10,8 @@
                             <i class="fa-regular fa-circle-user usuario"></i>
                         </div>
                         <div class="col-10">
-                            <p class="my-0"><?= $this->view->produto["nome"] ?>
-                                <br><small><?= $this->view->produto["data_anunciada"] ?></small>
+                            <p class="my-0"><?= $this->view->monitoria["nome"] ?>
+                                <br><small><?= $this->view->monitoria["data_anunciada"] ?></small>
                             </p>
                         </div>
                     </div>
@@ -19,66 +19,77 @@
 
                 <div class="card-body pb-0">
                     <div class="row g-4 align-items-start">
-                        <div class="col-md-4 text-center">
-                            <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $this->view->produto["foto_name"] ?>" class="img-fluid rounded m-lg-2" alt="produto">
-                        </div>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div>
-                                <h5 class="card-title"><?= $this->view->produto["titulo"] ?></h5>
+                                <h5 class="card-title"><?= $this->view->monitoria["titulo"] ?></h5>
 
                                 <div class="row my-3 text-center">
-                                    <?php if ($this->view->produto["desconto"] && (strtotime($this->view->produto["data_desconto"]) > time())) { ?>
+                                    <?php if ($this->view->monitoria["desconto"] && (strtotime($this->view->monitoria["data_desconto"]) > time())) { ?>
                                         <div class="col-6" title="preço">
                                             <i class="fa-solid fa-dollar-sign"></i>
                                             <small>R$</small>
                                             <span class="text-danger">
-                                                <s><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->produto["valor"])) ?></s>
+                                                <s><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->monitoria["valor"])) ?></s>
                                             </span>
                                         </div>
                                         <div class="col-6" title="promoção">
                                             <i class="fa-solid fa-tag"></i>
                                             <small>R$</small>
                                             <span class="text-success">
-                                                <?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->produto["valor"] - $this->view->produto["desconto"])) ?>
+                                                <?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->monitoria["valor"] - $this->view->monitoria["desconto"])) ?>
                                             </span>
                                         </div>
                                     <?php } else { ?>
                                         <div class="col-6" title="preço">
                                             <i class="fa-solid fa-dollar-sign"></i>
                                             <small>R$</small>
-                                            <span class="text-success"><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->produto["valor"])) ?></span>
+                                            <span class="text-success"><?= preg_replace("/(\d)(?=(\d{3})+(?!\d))/", "$1.", str_replace(".", ",", $this->view->monitoria["valor"])) ?></span>
                                         </div>
                                     <?php } ?>
                                 </div>
 
                                 <div>
-                                    <p>
-                                        <small>Quantidade: <?= $this->view->produto["quantidade"] ?></small>
-                                        <br>
-                                        <small>Estado: <?= $this->view->estado[$this->view->produto["estado"]] ?></small>
-                                        <br>
-                                        <small>Situação: <?= $this->view->operacao[$this->view->produto["operacao"]] ?></small>
-                                    </p>
+                                    <p><small>Matéria: <?= $this->view->monitoria["materia"] ?></small></p>
                                 </div>
 
                                 <div class="mb-3">
-                                    <p class="card-text justificado"><?= $this->view->produto["descricao"] ?></p>
+                                    <p class="card-text justificado"><?= $this->view->monitoria["descricao"] ?></p>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Dia da Semana</th>
+                                    <th>Início</th>
+                                    <th>Término</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($this->view->horarios as $horario) { ?>
+                                    <tr>
+                                        <td><?= $this->view->dias[$horario["dia"]] ?></td>
+                                        <td><?= $horario["de"] ?></td>
+                                        <td><?= $horario["ate"] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <div class="card-footer">
                     <div class="row g-2">
                         <div class="col-12 col-lg-4 order-3 order-lg-0">
-                            <a href="/produtos">
+                            <a href="/monitorias">
                                 <button type="button" class="button-input text-light w-100">Voltar</button>
                             </a>
                         </div>
 
                         <div class="col-6 col-lg-4">
-                            <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->produto["telefone"]); ?>" target="_blank">
+                            <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->monitoria["telefone"]); ?>" target="_blank">
                                 <button type="button" class="button-input text-light w-100">
                                     <i class="fa-brands fa-whatsapp"></i> Contatar
                                 </button>
@@ -277,7 +288,7 @@
         $.ajax({
             type: 'POST',
             url: "/comentar_duvida",
-            data: "anuncio=" + <?= $this->view->produto["cod_anuncio"] ?> + "&texto=" + texto,
+            data: "anuncio=" + <?= $this->view->monitoria["cod_anuncio"] ?> + "&texto=" + texto,
             beforeSend: function() {
                 $("#spinner-perguntar").html(
                     `<div class="d-flex justify-content-center">
@@ -336,7 +347,7 @@
         $.ajax({
             type: 'POST',
             url: "/duvidas",
-            data: "anuncio=" + <?= $this->view->produto["cod_anuncio"] ?>,
+            data: "anuncio=" + <?= $this->view->monitoria["cod_anuncio"] ?>,
             success: function(data) {
                 $("#bloco_duvidas").html(data);
             },
@@ -366,7 +377,7 @@
         $.ajax({
             type: 'POST',
             url: "/avaliar",
-            data: "anuncio=" + <?= $this->view->produto["cod_anuncio"] ?> + "&texto=" + texto + "&avaliacao=" + classificacao_anterior,
+            data: "anuncio=" + <?= $this->view->monitoria["cod_anuncio"] ?> + "&texto=" + texto + "&avaliacao=" + classificacao_anterior,
             beforeSend: function() {
                 $("#spinner-avaliar").html(
                     `<div class="d-flex justify-content-center">
@@ -394,7 +405,7 @@
         $.ajax({
             type: 'POST',
             url: "/avaliacoes",
-            data: "anuncio=" + <?= $this->view->produto["cod_anuncio"] ?>,
+            data: "anuncio=" + <?= $this->view->monitoria["cod_anuncio"] ?>,
             success: function(data) {
                 $("#bloco_avaliacoes").html(data);
             },
