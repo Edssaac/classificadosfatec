@@ -86,7 +86,7 @@
             $routes["cadastrar_produto"] = array(
                 "route"      => "/^\/cadastrar_produto\/*$/",
                 "controller" => "AnunciarController",
-                "action"     => "cadastrar_produto"
+                "action"     => "cadastrarProduto"
             );
 
             $routes["monitoria"] = array(
@@ -98,7 +98,19 @@
             $routes["cadastrar_monitoria"] = array(
                 "route"      => "/^\/cadastrar_monitoria\/*$/",
                 "controller" => "AnunciarController",
-                "action"     => "cadastrar_monitoria"
+                "action"     => "cadastrarMonitoria"
+            );
+
+            $routes["solicitar"] = array(
+                "route"      => "/^\/solicitar\/*$/",
+                "controller" => "AnunciarController",
+                "action"     => "solicitar"
+            );
+
+            $routes["cadastrar_solicitacao"] = array(
+                "route"      => "/^\/cadastrar_solicitacao\/*$/",
+                "controller" => "AnunciarController",
+                "action"     => "cadastrarSolicitacao"
             );
 
 
@@ -125,6 +137,18 @@
                 "route"      => "/^\/monitorias\/(\d+)\/*$/",
                 "controller" => "AnunciosController",
                 "action"     => "monitoria"
+            );
+
+            $routes["solicitados"] = array(
+                "route"      => "/^\/solicitados\/*$/",
+                "controller" => "AnunciosController",
+                "action"     => "solicitados"
+            );
+
+            $routes["solicitados_get"] = array(
+                "route"      => "/^\/solicitados\/(\d+)\/*$/",
+                "controller" => "AnunciosController",
+                "action"     => "solicitado"
             );
 
             $routes["duvidas"] = array(
@@ -155,6 +179,18 @@
                 "route"      => "/^\/avaliar\/*$/",
                 "controller" => "ChatController",
                 "action"     => "avaliar"
+            );
+
+            $routes["comentarios"] = array(
+                "route"      => "/^\/comentarios\/*$/",
+                "controller" => "ChatController",
+                "action"     => "getComentarios"
+            );
+
+            $routes["comentar"] = array(
+                "route"      => "/^\/comentar\/*$/",
+                "controller" => "ChatController",
+                "action"     => "comentar"
             );
 
 

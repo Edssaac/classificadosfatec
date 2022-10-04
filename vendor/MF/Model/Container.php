@@ -29,6 +29,12 @@
                 case "Avaliacao":
                     $table = "tb_avaliacoes";
                 break;
+                case "Solicitacao":
+                    $table = "tb_solicitacoes";
+                break;
+                case "Comentario":
+                    $table = "tb_comentarios";
+                break;
             }
 
             $db = new Connection($table);

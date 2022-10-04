@@ -18,7 +18,12 @@
             $this->render("monitoria");
         }
 
-        public function cadastrar_monitoria() {
+        public function solicitar() {
+            $this->autenticarPagina();
+            $this->render("solicitar");
+        }
+
+        public function cadastrarMonitoria() {
             $this->autenticarPagina();
 
             $sucesso = true;
@@ -54,7 +59,7 @@
             ]);
         }
 
-        public function cadastrar_produto() {
+        public function cadastrarProduto() {
             $this->autenticarPagina();
 
             $sucesso = true;
@@ -85,6 +90,29 @@
                 }
             }
 
+            header('Content-Type: application/json');
+            echo json_encode([
+                "sucesso"   => $sucesso,
+                "mensagem"  => $this->erro
+            ]);
+        }
+
+        public function cadastrarSolicitacao() {
+            $this->autenticarPagina();
+
+            $sucesso = true;
+            $solicitacao = Container::getModel("Solicitacao");
+
+            $solicitacao->__set("cod_usuario",    $_SESSION["cod_usuario"]);
+            $solicitacao->__set("titulo",         $_POST["titulo"]);
+            $solicitacao->__set("descricao",      $_POST["descricao"]);
+            $solicitacao->__set("tipo",           $_POST["tipo"]);
+
+            if ( !$solicitacao->solicitar() ) {
+                $sucesso = false;
+                $this->erro = "Não foi possível cadastrar solicitação!";
+            }
+            
             header('Content-Type: application/json');
             echo json_encode([
                 "sucesso"   => $sucesso,

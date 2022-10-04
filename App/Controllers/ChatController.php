@@ -215,6 +215,63 @@
             ]);
         }
 
+        public function getComentarios() {
+            $this->autenticarPagina();
+
+            $comentario = Container::getModel("Comentario");
+            $comentario->__set("cod_solicitacao", $_POST["solicitacao"]);
+            $comentarios = $comentario->getComentarios();
+            $html = "";
+
+            foreach ($comentarios as $c) {
+                $html .= "
+                <div class='mb-3'>
+                    <!-- Pergunta -->
+                    <div class='row g-0'>
+                        <div class='col-2 col-md-1'>
+                            <i class='fa-regular fa-circle-user usuario'></i>
+                        </div>
+                        <div class='col-10 col-md-11'>
+                            <div class='row'>
+                                <div class='col-12 text-start order-1'>
+                                    " . $c["nome"] . "
+                                </div>
+                                <div class='col-12 text-end order-3'>
+                                    <small class='text-muted'>" . $c["data"] . "</small>
+                                </div>
+                                <div class='col-12 mt-1 order-2'>
+                                    <textarea class='form-control input-cinza justificado' disabled>" . $c["comentario"] . "</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+            }
+
+            echo $html;
+        }
+
+        public function comentar() {
+            $this->autenticarPagina();
+
+            $sucesso = true;
+            $comentario = Container::getModel("Comentario");
+            $comentario->__set("cod_solicitacao",   $_POST["solicitacao"]);
+            $comentario->__set("cod_usuario",       $_SESSION["cod_usuario"]);
+            $comentario->__set("comentario",        $_POST["texto"]);
+
+            if ( !$comentario->comentar() ) {
+                $sucesso = false;
+                $this->erro = "Não foi possível comentar!";
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode([
+                "sucesso"   => $sucesso,
+                "mensagem"  => $this->erro
+            ]);
+        }
+
     }
 
 ?>

@@ -87,7 +87,8 @@ nav {
 }
 
 #bloco_duvidas textarea,
-#bloco_avaliacoes textarea {
+#bloco_avaliacoes textarea,
+#bloco_comentarios textarea {
     overflow: hidden;
     resize: none;
 }

@@ -82,6 +82,42 @@
             $this->render("monitoria");
         }
 
+        public function solicitados() {
+            $this->autenticarPagina();
+            $solicitacao = Container::getModel("Solicitacao");
+            $solicitados = $solicitacao->getSolicitacoes();
+
+            $this->view->quantidade_solicitados = count($solicitados);
+            $this->view->solicitados = $solicitados;
+
+            $this->view->categorias = [
+                "P" => "Produto",
+                "M" => "Monitoria",
+            ];
+
+            $this->render("solicitados");
+        }
+
+        public function solicitado() {
+            $this->autenticarPagina();
+            $solicitacao = Container::getModel("Solicitacao");
+
+            $cod_solicitacao = array_filter(explode("/", $_SERVER["REQUEST_URI"]))[2];
+            $this->view->solicitacao = $solicitacao->getSolicitacao($cod_solicitacao);
+
+            if ( !isset($this->view->solicitacao["cod_solicitacao"]) ) {
+                header("Location: /solicitados");
+                exit;
+            }
+
+            $this->view->categorias = [
+                "P" => "Produto",
+                "M" => "Monitoria",
+            ];
+
+            $this->render("solicitado");
+        }
+
     }
 
 ?>
