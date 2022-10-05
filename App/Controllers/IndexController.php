@@ -60,6 +60,8 @@
             $usuario->__set("cod_usuario", $_SESSION["cod_usuario"]);
             $anuncio = Container::getModel("Anuncio");
             $anuncio->__set("cod_usuario", $_SESSION["cod_usuario"]);
+            $solicitacao = Container::getModel("Solicitacao");
+            $solicitacao->__set("cod_usuario", $_SESSION["cod_usuario"]);
 
             $this->view->usuario = $usuario->getPerfil();
             
@@ -70,6 +72,7 @@
             }
 
             $this->view->anuncios = $anuncio->getAnunciosPorUsuario();
+            $this->view->solicitacoes = $solicitacao->getSolicitacoesPorUsuario();
 
             $this->render("perfil");
         }

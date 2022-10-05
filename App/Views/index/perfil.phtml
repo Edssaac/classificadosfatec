@@ -50,6 +50,21 @@
         </div>
 
         <div class="mb-3 mx-4">
+            <p class="mb-1">Minhas Solicitações</p>
+            <ul class="list-group overflow-auto">
+                <li class="list-group-item"></li>
+                <?php foreach ($this->view->solicitacoes as $solicitacao) { ?>
+                    <?php if ($solicitacao["tipo"] === "P") { ?>
+                        <li class="list-group-item"><a href="/produtos/<?= $solicitacao["cod_solicitacao"] ?>" target="_blank" class="text-decoration-none"><?= $solicitacao["titulo"] ?></a></li>
+                    <?php } else { ?>
+                        <li class="list-group-item"><a href="/monitorias/<?= $solicitacao["cod_solicitacao"] ?>" target="_blank" class="text-decoration-none"><?= $solicitacao["titulo"] ?></a></li>
+                    <?php } ?>
+                <?php } ?>
+                <li class="list-group-item"></li>
+            </ul>
+        </div>
+
+        <div class="mb-3 mx-4">
             <label for="">Reputação: </label>
             <div class="text-danger user-select-none">
                 <?php for ($i = 1; $i <= 5; $i++) { ?>

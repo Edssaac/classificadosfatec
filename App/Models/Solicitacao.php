@@ -47,6 +47,16 @@
             return $solicitacao;
         }
 
+        public function getSolicitacoesPorUsuario() {
+            $fields = "cod_solicitacao, titulo, tipo";
+            $where  = "cod_usuario = $this->cod_usuario";
+            $order  = "data desc";
+
+            $solicitacoes = $this->db->select($fields, $where, $order)->fetchAll(PDO::FETCH_ASSOC);
+
+            return $solicitacoes;
+        }
+
     }
 
 ?>
