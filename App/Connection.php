@@ -25,7 +25,7 @@
         // Define a tabela e instância a conexão:
         public function __construct( $table = null ) {
             $this->table = $table;
-            $this->setConnection();
+            //$this->setConnection();
         }
 
         // Método responsável por alterar a tabela atual:
@@ -49,13 +49,21 @@
             }
         }
 
+        // Método responsável por fechar a conexão com o banco de dados:
+        public function close() {
+            $this->connection = null;
+        }
+
         // Método responsável por executar as queries dentro do banco de dados:
         public function execute( $query, $params = [] ) {
             try {
+                $this->setConnection();
                 $statement = $this->connection->prepare($query);
                 $statement->execute($params);
+                $this->close();
                 return $statement;
             } catch ( PDOException $e ) {
+                $this->close();
                 die("EROR: ". $e->getMessage() );
             }
         }

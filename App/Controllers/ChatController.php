@@ -37,7 +37,7 @@
                                     <small class='text-muted'>" . $d["data_pergunta"] . "</small>
                                 </div>
                                 <div class='col-12 mt-1 order-2'>
-                                    <textarea class='form-control input-cinza justificado' disabled>" . $d["pergunta"] . "?</textarea>
+                                    <textarea class='form-control input-cinza justificado' disabled>" . $d["pergunta"] . "</textarea>
                                 </div>
                             </div>
                         </div>
