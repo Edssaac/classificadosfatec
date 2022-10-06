@@ -40,9 +40,9 @@
                 <li class="list-group-item"></li>
                 <?php foreach ($this->view->anuncios as $anuncio) { ?>
                     <?php if ($anuncio["tipo"] === "P") { ?>
-                        <li class="list-group-item"><a href="/produtos/<?= $anuncio["cod_anuncio"] ?>" target="_blank" class="text-decoration-none"><?= $anuncio["titulo"] ?></a></li>
+                        <li class="list-group-item"><a href="/produtos/editar/<?= $anuncio["cod_anuncio"] ?>" target="_blank" class="text-decoration-none"><?= $anuncio["titulo"] ?></a></li>
                     <?php } else { ?>
-                        <li class="list-group-item"><a href="/monitorias/<?= $anuncio["cod_anuncio"] ?>" target="_blank" class="text-decoration-none"><?= $anuncio["titulo"] ?></a></li>
+                        <li class="list-group-item"><a href="/monitorias/editar/<?= $anuncio["cod_anuncio"] ?>" target="_blank" class="text-decoration-none"><?= $anuncio["titulo"] ?></a></li>
                     <?php } ?>
                 <?php } ?>
                 <li class="list-group-item"></li>
@@ -54,11 +54,7 @@
             <ul class="list-group overflow-auto">
                 <li class="list-group-item"></li>
                 <?php foreach ($this->view->solicitacoes as $solicitacao) { ?>
-                    <?php if ($solicitacao["tipo"] === "P") { ?>
-                        <li class="list-group-item"><a href="/produtos/<?= $solicitacao["cod_solicitacao"] ?>" target="_blank" class="text-decoration-none"><?= $solicitacao["titulo"] ?></a></li>
-                    <?php } else { ?>
-                        <li class="list-group-item"><a href="/monitorias/<?= $solicitacao["cod_solicitacao"] ?>" target="_blank" class="text-decoration-none"><?= $solicitacao["titulo"] ?></a></li>
-                    <?php } ?>
+                    <li class="list-group-item"><a href="/solicitados/editar/<?= $solicitacao["cod_solicitacao"] ?>" target="_blank" class="text-decoration-none"><?= $solicitacao["titulo"] ?></a></li>
                 <?php } ?>
                 <li class="list-group-item"></li>
             </ul>

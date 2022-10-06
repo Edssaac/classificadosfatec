@@ -41,6 +41,24 @@
         }
 
         // Atualizar Anuncio:
+        public function atualizarAnuncio() {
+            $table = $this->db->getTable();
+            $this->db->setTable("tb_anuncios");
+
+            $cod_anuncio = $this->db->update("cod_anuncio = $this->cod_anuncio", [
+                "titulo"            => $this->titulo,
+                "descricao"         => $this->descricao,
+                "valor"             => $this->valor,
+                "desconto"          => $this->desconto,
+                "data_desconto"     => $this->data_desconto,
+                //"status"            => $this->status,
+                //"data_anunciada"    => date("Y-m-d H:i:s"),
+            ]);
+
+            $this->db->setTable($table);
+
+            return $cod_anuncio;
+        }
 
         // Excluir um anuncio:
 

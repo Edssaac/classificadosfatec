@@ -1,29 +1,29 @@
 <section class="bg-light rounded my-4 mb-5">
 
-    <form action="/solicitar" method="post" enctype="multipart/form-data" class="py-4 mx-lg-5">
+    <form action="/solicitar" method="post" class="py-4 mx-lg-5">
         <div class="text-center mb-5">
-            <h3 class="text-danger">Solicitar Anúncio</h3>
+            <h3 class="text-danger">Editar Solicitação de Anúncio</h3>
         </div>
 
         <div class="mb-3 mx-4">
             <label for="titulo" class="form-label">Título</label>
-            <input type="text" id="titulo" name="titulo" class="form-control input-cinza" required>
+            <input type="text" id="titulo" name="titulo" class="form-control input-cinza" required value="<?= $this->view->solicitacao["titulo"] ?>">
         </div>
 
         <div class="mb-3 mx-4">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea name="descricao" id="descricao" rows="5" class="form-control input-cinza" required></textarea>
+            <textarea name="descricao" id="descricao" rows="5" class="form-control input-cinza" required><?= $this->view->solicitacao["descricao"] ?></textarea>
         </div>
 
         <div class="mx-3 row align-items-end">
             <div class="mb-3 col-sm-12 col-md-4">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="tipo" id="produto" value="P" checked>
+                    <input class="form-check-input" type="radio" name="tipo" id="produto" value="P" <?= $this->view->solicitacao["tipo"] == "P" ? "checked" : "" ?>>
                     <label class="form-check-label" for="produto">Produto</label>
                 </div>
                 <div class="form-check">
                     <label class="form-check-label" for="monitoria">Monitoria</label>
-                    <input class="form-check-input" type="radio" name="tipo" id="monitoria" value="M">
+                    <input class="form-check-input" type="radio" name="tipo" id="monitoria" value="M" <?= $this->view->solicitacao["tipo"] == "M" ? "checked" : "" ?>>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
         </div>
 
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="submit" class="button-input text-light">Solicitar</button>
+            <button type="submit" class="button-input text-light">Atualizar</button>
         </div>
     </form>
 
@@ -41,11 +41,13 @@
 <script>
     $("form").submit(function(e) {
         e.preventDefault();
-        var data = new FormData(this);
+
+        let data = new FormData(this);
+        data.append("cod_solicitacao", <?= $this->view->solicitacao["cod_solicitacao"] ?>)
 
         $.ajax({
             type: 'POST',
-            url: "/cadastrar_solicitacao",
+            url: "/editar_solicitacao",
             dataType: "JSON",
             data: data,
             processData: false,
@@ -63,14 +65,14 @@
                 if (data.sucesso) {
                     $("#status").html(
                         `<div class="alert alert-success" role="alert">
-                        Solicitação anunciada com sucesso!
+                        Solicitação atualizada com sucesso!
                     </div>`
                     );
 
                     $("form").trigger("reset");
 
                     setTimeout(function() {
-                        window.location.href = "/solicitados";
+                        window.location.href = "/solicitados/<?= $this->view->solicitacao["cod_solicitacao"] ?>";
                     }, 1500);
                 } else {
                     $("#status").html(
@@ -83,7 +85,7 @@
             error: function(xhr) {
                 $("#status").html(
                     `<div class="alert alert-danger" role="alert">
-                        Não foi possível anunciar a solicitação.
+                        Não foi possível atualizar a solicitação.
                     </div>`
                 );
             },

@@ -121,7 +121,7 @@
                 "action"     => "produtos"
             );
 
-            $routes["produtos_get"] = array(
+            $routes["get_produtos"] = array(
                 "route"      => "/^\/produtos\/(\d+)\/*$/",
                 "controller" => "AnunciosController",
                 "action"     => "produto"
@@ -133,7 +133,7 @@
                 "action"     => "monitorias"
             );
 
-            $routes["monitorias_get"] = array(
+            $routes["get_monitorias"] = array(
                 "route"      => "/^\/monitorias\/(\d+)\/*$/",
                 "controller" => "AnunciosController",
                 "action"     => "monitoria"
@@ -145,7 +145,7 @@
                 "action"     => "solicitados"
             );
 
-            $routes["solicitados_get"] = array(
+            $routes["get_solicitados"] = array(
                 "route"      => "/^\/solicitados\/(\d+)\/*$/",
                 "controller" => "AnunciosController",
                 "action"     => "solicitado"
@@ -193,6 +193,42 @@
                 "action"     => "comentar"
             );
 
+            // Editar:
+            $routes["editar_solicitados"] = array(
+                "route"      => "/^\/solicitados\/editar\/(\d+)\/*$/",
+                "controller" => "EditarController",
+                "action"     => "solicitado"
+            );
+
+            $routes["editar_solicitacao"] = array(
+                "route"      => "/^\/editar_solicitacao\/*$/",
+                "controller" => "EditarController",
+                "action"     => "editarSolicitacao"
+            );
+            
+            $routes["editar_monitorias"] = array(
+                "route"      => "/^\/monitorias\/editar\/(\d+)\/*$/",
+                "controller" => "EditarController",
+                "action"     => "monitoria"
+            );
+
+            $routes["editar_monitoria"] = array(
+                "route"      => "/^\/editar_monitoria\/*$/",
+                "controller" => "EditarController",
+                "action"     => "editarMonitoria"
+            );
+
+            $routes["editar_produtos"] = array(
+                "route"      => "/^\/produtos\/editar\/(\d+)\/*$/",
+                "controller" => "EditarController",
+                "action"     => "produto"
+            );
+
+            $routes["editar_produto"] = array(
+                "route"      => "/^\/editar_produto\/*$/",
+                "controller" => "EditarController",
+                "action"     => "editarProduto"
+            );
 
             // Sobre:
             $routes["faleconosco"] = array(

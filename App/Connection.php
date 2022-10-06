@@ -57,10 +57,8 @@
         // Método responsável por executar as queries dentro do banco de dados:
         public function execute( $query, $params = [] ) {
             try {
-                $this->setConnection();
                 $statement = $this->connection->prepare($query);
                 $statement->execute($params);
-                $this->close();
                 return $statement;
             } catch ( PDOException $e ) {
                 $this->close();
@@ -77,11 +75,18 @@
             // QUERY BUILDER:
             $query = 'INSERT INTO '.$this->table.' ('.implode(",", $fields).') VALUES ('.implode(",", $binds).')';
 
+            // Iniciando Conexão:
+            $this->setConnection();
+
             // EXECUTA O INSERT:
             $this->execute( $query, array_values($values) );
+            $lastId = $this->connection->lastInsertId();
+
+            // Fechando Conexão:
+            $this->close();
 
             // RETORNA O ID INSERIDO:
-            return $this->connection->lastInsertId();
+            return $lastId;
         }
 
         // Método responsável por executar uma consulta no banco de dados:
@@ -95,8 +100,16 @@
             // QUERY BUILDER:
             $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$join.' '.$where.' '.$order.' '.$limit;
 
+            // Iniciando Conexão:
+            $this->setConnection();
+
+            $result = $this->execute($query);
+
+            // Fechando Conexão:
+            $this->close();
+
             // EXECUTA A QUERY:
-            return $this->execute($query);
+            return $result;
         }
 
         // Método responsável por executar atualizações no banco de dados:
@@ -107,8 +120,14 @@
             // QUERY BUILDER:
             $query = 'UPDATE '.$this->table.' SET '.implode('=?, ', $fields).'=? WHERE '.$where;
             
+            // Iniciando Conexão:
+            $this->setConnection();
+
             // EXECUTA A QUERY:
             $this->execute( $query, array_values($values) );
+
+            // Fechando Conexão:
+            $this->close();
 
             // RETORNANDO SUCESSO:
             return true;
@@ -119,7 +138,14 @@
             //QUERY BUILDER:
             $query = 'DELETE FROM '.$this->table.' WHERE '.$where;
 
+            // Iniciando Conexão:
+            $this->setConnection();
+
+            // EXECUTA A QUERY:
             $this->execute($query);
+
+            // Fechando Conexão:
+            $this->close();
 
             // RETORNANDO SUCESSO:
             return true;

@@ -14,13 +14,23 @@
 		protected $data;
 		protected $tipo;
 
-        // Cadastrar Solicitação:
         public function solicitar() {
             $this->db->insert([
                 "cod_usuario"   => $this->cod_usuario,
                 "titulo"        => $this->titulo,
                 "descricao"     => $this->descricao,
                 "data"          => date("Y-m-d H:i:s"),
+                "tipo"          => $this->tipo
+            ]);
+
+            return true;
+        }
+
+        public function atualizar() {
+            $this->db->update("cod_solicitacao = $this->cod_solicitacao", [
+                "titulo"        => $this->titulo,
+                "descricao"     => $this->descricao,
+                //"data"          => date("Y-m-d H:i:s"),
                 "tipo"          => $this->tipo
             ]);
 
