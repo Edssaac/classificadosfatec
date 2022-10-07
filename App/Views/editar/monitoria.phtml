@@ -90,6 +90,7 @@
 
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="button-input text-light">Atualizar</button>
+            <button type="button" id="excluir" class="button-input text-light">Excluir</button>
         </div>
     </form>
 
@@ -159,6 +160,55 @@
     // Final da interação.
 
 
+    $("#excluir").on("click", function() {
+        if (confirm("Tem certeza de que deseja excluir essa monitoria?")) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/excluir_monitoria",
+                dataType: "html",
+                data: "cod_anuncio=<?= $this->view->monitoria["cod_anuncio"] ?>",
+                beforeSend: function() {
+                    $("#status").html(
+                        `<div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>`
+                    );
+                },
+                success: function(data) {
+                    data = JSON.parse(data);
+
+                    if (data.sucesso) {
+                        $("#status").html(
+                            `<div class="alert alert-success" role="alert">
+                        Monitoria excluída com sucesso!
+                    </div>`
+                        );
+
+                        setTimeout(function() {
+                            window.location.href = "/monitorias/";
+                        }, 1500);
+                    } else {
+                        $("#status").html(
+                            `<div class="alert alert-danger" role="alert">
+                        Atenção: ${data.mensagem}
+                    </div>`
+                        );
+                    }
+                },
+                error: function(xhr) {
+                    $("#status").html(
+                        `<div class="alert alert-danger" role="alert">
+                        Não foi possível excluir a monitoria.
+                    </div>`
+                    );
+                },
+            });
+        }
+    });
+
     $("form").submit(function(e) {
         e.preventDefault();
         var data = $("form").serializeArray();
@@ -190,8 +240,6 @@
                         Monitoria atualizada com sucesso!
                     </div>`
                     );
-
-                    $("form").trigger("reset");
 
                     setTimeout(function() {
                         window.location.href = "/monitorias/<?= $this->view->monitoria["cod_anuncio"] ?>";

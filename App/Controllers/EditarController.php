@@ -46,6 +46,26 @@
             ]);
         }
 
+        public function excluirSolicitacao() {
+            $this->autenticarPagina();
+
+            $sucesso = true;
+            $solicitacao = Container::getModel("Solicitacao");
+
+            $solicitacao->__set("cod_solicitacao",  $_POST["cod_solicitacao"]);
+
+            if ( !$solicitacao->excluir() ) {
+                $sucesso = false;
+                $this->erro = "Não foi possível excluir solicitação!";
+            }
+            
+            header('Content-Type: application/json');
+            echo json_encode([
+                "sucesso"   => $sucesso,
+                "mensagem"  => $this->erro
+            ]);
+        }
+
         public function monitoria() {
             $this->autenticarPagina();
 
@@ -90,6 +110,26 @@
             if ( !$monitoria->atualizar() ) {
                 $sucesso = false;
                 $this->erro = "Não foi possível atualizar anúncio!";
+            }
+            
+            header('Content-Type: application/json');
+            echo json_encode([
+                "sucesso"   => $sucesso,
+                "mensagem"  => $this->erro
+            ]);
+        }
+
+        public function excluirMonitoria() {
+            $this->autenticarPagina();
+
+            $sucesso = true;
+            $monitoria = Container::getModel("Monitoria");
+
+            $monitoria->__set("cod_anuncio",    $_POST["cod_anuncio"]);
+
+            if ( !$monitoria->excluir() ) {
+                $sucesso = false;
+                $this->erro = "Não foi possível excluir a monitoria!";
             }
             
             header('Content-Type: application/json');
@@ -145,6 +185,26 @@
                 }
             }
 
+            header('Content-Type: application/json');
+            echo json_encode([
+                "sucesso"   => $sucesso,
+                "mensagem"  => $this->erro
+            ]);
+        }
+
+        public function excluirProduto() {
+            $this->autenticarPagina();
+
+            $sucesso = true;
+            $produto = Container::getModel("Produto");
+     
+            $produto->__set("cod_anuncio",    $_POST["cod_anuncio"]);
+
+            if ( !$produto->excluir() ) {
+                $sucesso = false;
+                $this->erro = "Não foi possível atualizar o produto!";
+            }
+            
             header('Content-Type: application/json');
             echo json_encode([
                 "sucesso"   => $sucesso,

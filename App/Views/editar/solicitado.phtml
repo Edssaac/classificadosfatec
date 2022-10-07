@@ -33,12 +33,62 @@
 
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="button-input text-light">Atualizar</button>
+            <button type="button" id="excluir" class="button-input text-light">Excluir</button>
         </div>
     </form>
 
 </section>
 
 <script>
+    $("#excluir").on("click", function() {
+        if (confirm("Tem certeza de que deseja excluir essa solicitação?")) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/excluir_solicitacao",
+                dataType: "html",
+                data: "cod_solicitacao=<?= $this->view->solicitacao["cod_solicitacao"] ?>",
+                beforeSend: function() {
+                    $("#status").html(
+                        `<div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>`
+                    );
+                },
+                success: function(data) {
+                    data = JSON.parse(data);
+
+                    if (data.sucesso) {
+                        $("#status").html(
+                            `<div class="alert alert-success" role="alert">
+                        Solicitação excluída com sucesso!
+                    </div>`
+                        );
+
+                        setTimeout(function() {
+                            window.location.href = "/solicitados/";
+                        }, 1500);
+                    } else {
+                        $("#status").html(
+                            `<div class="alert alert-danger" role="alert">
+                        Atenção: ${data.mensagem}
+                    </div>`
+                        );
+                    }
+                },
+                error: function(xhr) {
+                    $("#status").html(
+                        `<div class="alert alert-danger" role="alert">
+                        Não foi possível excluir a solicitação.
+                    </div>`
+                    );
+                },
+            });
+        }
+    });
+
     $("form").submit(function(e) {
         e.preventDefault();
 
@@ -68,8 +118,6 @@
                         Solicitação atualizada com sucesso!
                     </div>`
                     );
-
-                    $("form").trigger("reset");
 
                     setTimeout(function() {
                         window.location.href = "/solicitados/<?= $this->view->solicitacao["cod_solicitacao"] ?>";

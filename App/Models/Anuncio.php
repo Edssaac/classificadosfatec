@@ -61,6 +61,16 @@
         }
 
         // Excluir um anuncio:
+        public function deletarAnuncio() {
+            $table = $this->db->getTable();
+            $this->db->setTable("tb_anuncios");
+
+            $cod_anuncio = $this->db->delete("cod_anuncio = $this->cod_anuncio");
+
+            $this->db->setTable($table);
+
+            return $cod_anuncio;
+        }
 
         // Obter um anuncio em especifico:
         public function getAnunciosPorUsuario() {

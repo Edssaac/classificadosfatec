@@ -37,6 +37,12 @@
             return true;
         }
 
+        public function excluir() {
+            $this->db->delete("cod_solicitacao = $this->cod_solicitacao");
+
+            return true;
+        }
+
         public function getSolicitacoes() {
             $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.tipo";
             $join   = "s INNER JOIN tb_usuarios u ON s.cod_usuario = u.cod_usuario";

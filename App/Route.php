@@ -205,6 +205,12 @@
                 "controller" => "EditarController",
                 "action"     => "editarSolicitacao"
             );
+
+            $routes["excluir_solicitacao"] = array(
+                "route"      => "/^\/excluir_solicitacao\/*$/",
+                "controller" => "EditarController",
+                "action"     => "excluirSolicitacao"
+            );
             
             $routes["editar_monitorias"] = array(
                 "route"      => "/^\/monitorias\/editar\/(\d+)\/*$/",
@@ -218,6 +224,12 @@
                 "action"     => "editarMonitoria"
             );
 
+            $routes["excluir_monitoria"] = array(
+                "route"      => "/^\/excluir_monitoria\/*$/",
+                "controller" => "EditarController",
+                "action"     => "excluirMonitoria"
+            );
+
             $routes["editar_produtos"] = array(
                 "route"      => "/^\/produtos\/editar\/(\d+)\/*$/",
                 "controller" => "EditarController",
@@ -229,6 +241,13 @@
                 "controller" => "EditarController",
                 "action"     => "editarProduto"
             );
+
+            $routes["excluir_produto"] = array(
+                "route"      => "/^\/excluir_produto\/*$/",
+                "controller" => "EditarController",
+                "action"     => "excluirProduto"
+            );
+            
 
             // Sobre:
             $routes["faleconosco"] = array(

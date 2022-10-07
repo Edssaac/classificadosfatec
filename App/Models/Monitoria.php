@@ -41,6 +41,12 @@
         }
 
         // Excluir monitoria:
+        public function excluir() {
+            $this->db->delete("cod_anuncio = $this->cod_anuncio");
+            $this->deletarAnuncio();
+
+            return true;
+        }
 
         // Obter todas as monitorias:
         public function getMonitorias() {
