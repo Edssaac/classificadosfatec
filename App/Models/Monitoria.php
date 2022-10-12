@@ -67,6 +67,33 @@
             return $this->db->select($fields, $where, null, null, $join)->fetch(PDO::FETCH_ASSOC);
         }
 
+        public function getMonitoriaFiltrada($materia, $dias) {
+            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, m.materia";
+            $join   = "m INNER JOIN tb_anuncios a ON m.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
+            $where  = "a.status = 1";
+            $order  = "data_anunciada DESC";
+
+            if ( !empty($materia) ) {
+                $where .= " AND m.materia LIKE '%". filter_var($materia) ."%'";
+            }
+
+            if ( !empty($dias) && is_array($dias) ) {
+                $where .= " AND (";
+
+                foreach ($dias as $key => $dia) {
+                    if ($key > 0) {
+                        $where .= " || m.horarios LIKE '%:\"". $dia ."\"%'";
+                    } else {
+                        $where .= "m.horarios LIKE '%:\"". $dia ."\"%'";
+                    }
+                }
+
+                $where .= ")";
+            }
+
+            return $this->db->select($fields, $where, $order, null, $join)->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>

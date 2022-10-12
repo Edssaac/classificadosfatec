@@ -76,6 +76,31 @@
             return $this->db->select($fields, $where, null, null, $join)->fetch(PDO::FETCH_ASSOC);
         }
 
+        public function getProdutoFiltrada($estado, $operacao) {
+            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, p.foto_name";
+            $join   = "p INNER JOIN tb_anuncios a ON p.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
+            $where  = "a.status = 1";
+            $order  = "data_anunciada DESC";
+
+            if ( !empty($estado) && is_array($estado) ) {
+                $where .= " AND p.estado IN ('". implode("', '", $estado)  ."')";
+            }
+
+            if ( !empty($operacao) && is_array($operacao) ) {
+
+                if ( in_array("A", $operacao) ) {
+                    $operacao[] = "V";
+                    $operacao[] = "T";
+
+                    $operacao = array_unique($operacao);
+                }
+
+                $where .= " AND p.operacao IN ('". implode("', '", $operacao)  ."')";
+            }
+
+            return $this->db->select($fields, $where, $order, null, $join)->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     }
 
 ?>

@@ -247,6 +247,26 @@
                 "controller" => "EditarController",
                 "action"     => "excluirProduto"
             );
+
+            
+            // Filtrar:
+            $routes["filtrar_monitoria"] = array(
+                "route"      => "/^\/filtrar_monitoria\/*$/",
+                "controller" => "FiltrarController",
+                "action"     => "filtrarPorMonitoria"
+            );
+
+            $routes["filtrar_produto"] = array(
+                "route"      => "/^\/filtrar_produto\/*$/",
+                "controller" => "FiltrarController",
+                "action"     => "filtrarPorProduto"
+            );
+
+            $routes["filtrar_solicitacao"] = array(
+                "route"      => "/^\/filtrar_solicitacao\/*$/",
+                "controller" => "FiltrarController",
+                "action"     => "filtrarPorSolicitacao"
+            );
             
 
             // Sobre:

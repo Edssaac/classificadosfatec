@@ -54,8 +54,13 @@
     <nav class="container-fluid py-3">
         <div class="row align-items-center">
             <form action="/pesquisar" method="post" class="d-flex me-auto mb-3 mb-lg-0 col-md-6">
-                <!-- <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-                <button class="button-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+                <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                <button class="button-search" type="submit" title="pesquisar"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <?php if (isset($this->view->filtrar) && $this->view->filtrar) { ?>
+                    <div class="mx-1">
+                        <button class="button button-input" type="button" data-bs-toggle="modal" data-bs-target="#modalFiltrar"><i class="fa-solid fa-filter"></i></button>
+                    </div>
+                <?php } ?>
             </form>
 
             <?php if ($this->view->login) { ?>

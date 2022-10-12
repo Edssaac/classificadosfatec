@@ -15,6 +15,8 @@
             $this->view->quantidade_produtos = count($produtos);
             $this->view->produtos = $produtos;
 
+            $this->view->filtrar = true;
+
             $this->render("produtos");
         }
 
@@ -53,6 +55,8 @@
             $this->view->quantidade_monitorias = count($monitorias);
             $this->view->monitorias = $monitorias;
 
+            $this->view->filtrar = true;
+
             $this->render("monitorias");
         }
 
@@ -76,7 +80,7 @@
                 4 => "Quarta",
                 5 => "Quinta",
                 6 => "Sexta",
-                6 => "Sábado"
+                7 => "Sábado"
             ];
             
             $this->render("monitoria");
@@ -94,6 +98,8 @@
                 "P" => "Produto",
                 "M" => "Monitoria",
             ];
+
+            $this->view->filtrar = true;
 
             $this->render("solicitados");
         }
