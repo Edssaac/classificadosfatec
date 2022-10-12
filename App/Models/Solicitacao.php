@@ -73,7 +73,7 @@
             return $solicitacoes;
         }
 
-        public function getSolicitacaoFiltrada($tipo) {
+        public function getSolicitacaoFiltrada($tipo=null, $titulo=null) {
             $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.tipo";
             $join   = "s INNER JOIN tb_usuarios u ON s.cod_usuario = u.cod_usuario";
             $order  = "s.cod_solicitacao DESC";
@@ -81,6 +81,12 @@
 
             if ( !empty($tipo) && is_array($tipo) ) {
                 $where .= "s.tipo IN ('". implode("', '", $tipo)  ."')";
+                
+                if ( !empty($titulo) ) {
+                    $where .= " AND s.titulo LIKE '%$titulo%'";
+                }
+            } else if ( !empty($titulo) ) {
+                $where .= "s.titulo LIKE '%$titulo%'";
             }
 
             $solicitacoes = $this->db->select($fields, $where, $order, null, $join)->fetchAll(PDO::FETCH_ASSOC);

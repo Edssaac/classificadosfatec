@@ -76,7 +76,7 @@
             return $this->db->select($fields, $where, null, null, $join)->fetch(PDO::FETCH_ASSOC);
         }
 
-        public function getProdutoFiltrada($estado, $operacao) {
+        public function getProdutoFiltrada($estado=null, $operacao=null, $titulo=null) {
             $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, p.foto_name";
             $join   = "p INNER JOIN tb_anuncios a ON p.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
             $where  = "a.status = 1";
@@ -96,6 +96,10 @@
                 }
 
                 $where .= " AND p.operacao IN ('". implode("', '", $operacao)  ."')";
+            }
+
+            if ( !empty($titulo) ) {
+                $where .= " AND a.titulo LIKE '%$titulo%'";
             }
 
             return $this->db->select($fields, $where, $order, null, $join)->fetchAll(PDO::FETCH_ASSOC);

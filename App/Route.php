@@ -267,6 +267,18 @@
                 "controller" => "FiltrarController",
                 "action"     => "filtrarPorSolicitacao"
             );
+
+            $routes["pesquisar"] = array(
+                "route"      => "/^\/pesquisar\/*$/",
+                "controller" => "FiltrarController",
+                "action"     => "pesquisar"
+            );
+
+            $routes["filtrar_pesquisa"] = array(
+                "route"      => "/^\/filtrar_pesquisa\/*$/",
+                "controller" => "FiltrarController",
+                "action"     => "filtrarPorPesquisa"
+            );
             
 
             // Sobre:
