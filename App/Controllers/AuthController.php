@@ -76,7 +76,9 @@
             $usuario->__set("email", $_POST['email']);
             $usuario->__set("senha", $_POST['senha']);
 
-            if (  $usuario->autenticar() ) {
+            if ( isset($_POST['bloquear']) && $_POST['bloquear'] ) {
+                $usuario->bloquear();
+            } else if ( $usuario->autenticar() ) {
                 session_start();
 
                 $_SESSION['cod_usuario'] = $usuario->__get("cod_usuario");

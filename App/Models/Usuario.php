@@ -74,9 +74,23 @@
                 $this->__set("nome", $usuario["nome"]);
 
                 return true;
+            } else if ( !isset($usuario['cod_usuario']) ) {
+                return null;
             }
 
             return false;
+        }
+
+        public function bloquear() {
+            $usuario = $this->db->select("cod_usuario", "email = '{$this->email}'")->fetch(PDO::FETCH_ASSOC);
+
+            if ( isset($usuario['cod_usuario']) ) {
+                $this->__set("cod_usuario", $usuario["cod_usuario"]);
+
+                $this->db->update("cod_usuario = {$this->cod_usuario}", [
+                    "senha" => password_hash(time(), PASSWORD_DEFAULT)
+                ]);
+            }
         }
 
         public function salvarToken($limpar = false) {
