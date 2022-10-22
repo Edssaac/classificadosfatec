@@ -25,6 +25,8 @@
 
 .swiper-portrait {
     height: 400px;
+    display: grid;
+    place-items: center;
 }
 
 .swiper-portrait img {

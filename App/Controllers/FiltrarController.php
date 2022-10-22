@@ -364,7 +364,7 @@
                                     <div class='text-start'>
                                         <p class='mb-0'><b>Categoria: </b>". $categorias[$a["tipo"]] ."</p>
                                     </div>
-                                    <a href='/produtos/". $a["cod_solicitacao"] ."'>
+                                    <a href='/solicitados/". $a["cod_solicitacao"] ."'>
                                         <button type='button' class='button-input text-light'>Ver Mais</button>
                                     </a>
                                 </div>

@@ -9,7 +9,6 @@
     class SobreController extends Action {
 
         public function faleConosco() {
-            
             $this->render("faleconosco");
         }
 
@@ -17,6 +16,7 @@
             $informacao = [
                 "nome"      => $_POST['nome']       ?? "nenhum nome anexado",
                 "email"     => $_POST['email']      ?? "nenhum email anexado",
+                "telefone"  => $_POST['telefone']   ?? "nenhum telefone anexado",
                 "mensagem"  => $_POST['mensagem']   ?? "nenhuma mensagem anexada",
             ];
 
@@ -30,12 +30,10 @@
         }
 
         public function politicas() {
-            
             $this->render("politicas");
         }
 
         public function equipe() {
-            
             $this->render("equipe");
         }
 

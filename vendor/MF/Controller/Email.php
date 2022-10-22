@@ -60,6 +60,7 @@
             "<div>
                 <p>Nome: {$informacao['nome']}</p>
                 <p>Email: {$informacao['email']}</p>
+                <p>Telefone: {$informacao['telefone']}</p>
                 <p>Mensagem: {$informacao['mensagem']} </p>
             </div>
             ";

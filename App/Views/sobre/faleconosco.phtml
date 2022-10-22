@@ -14,6 +14,11 @@
         </div>
 
         <div class="mb-3 mx-4">
+            <label for="email" class="form-label">Telefone</label>
+            <input type="text" id="telefone" name="telefone" class="form-control input-cinza" required>
+        </div>
+
+        <div class="mb-3 mx-4">
             <label for="mensagem" class="form-label">Mensagem</label>
             <textarea name="mensagem" id="mensagem" rows="5" class="form-control input-cinza" required></textarea>
         </div>
@@ -29,6 +34,10 @@
 </section>
 
 <script>
+    $(document).ready(function() {
+        $("#telefone").mask("(99) 9999-99999");
+    });
+
     $("form").submit(function(e) {
         e.preventDefault();
         var data = $("form").serialize();
