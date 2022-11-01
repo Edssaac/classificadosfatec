@@ -59,7 +59,7 @@
 
         // Obter todos os produtos:
         public function getProdutos() {
-            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, p.foto_name";
+            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.data_vencimento, a.valor, a.desconto, a.data_desconto, p.foto_name";
             $join   = "p INNER JOIN tb_anuncios a ON p.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
             $where  = "a.status = 1";
             $order  = "data_anunciada DESC";
@@ -69,7 +69,7 @@
 
         // Obter um produto em especifico:
         public function getProduto($cod_anuncio) {
-            $fields = "u.nome, u.telefone, a.cod_anuncio, a.cod_usuario, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, p.foto_name, p.estado, p.operacao, p.quantidade";
+            $fields = "u.nome, u.telefone, a.cod_anuncio, a.cod_usuario, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.data_vencimento, a.valor, a.desconto, a.data_desconto, p.foto_name, p.estado, p.operacao, p.quantidade";
             $join   = "p INNER JOIN tb_anuncios a ON p.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
             $where  = "a.status = 1 and a.cod_anuncio = $cod_anuncio";
 
@@ -77,7 +77,7 @@
         }
 
         public function getProdutoFiltrada($estado=null, $operacao=null, $titulo=null) {
-            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, p.foto_name";
+            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.data_vencimento, a.valor, a.desconto, a.data_desconto, p.foto_name";
             $join   = "p INNER JOIN tb_anuncios a ON p.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
             $where  = "a.status = 1";
             $order  = "data_anunciada DESC";

@@ -33,6 +33,7 @@
             $solicitacao->__set("titulo",           $_POST["titulo"]);
             $solicitacao->__set("descricao",        $_POST["descricao"]);
             $solicitacao->__set("tipo",             $_POST["tipo"]);
+            $solicitacao->__set("data_vencimento",  $_POST["data_vencimento"]);
 
             if ( !$solicitacao->atualizar() ) {
                 $sucesso = false;
@@ -106,6 +107,7 @@
             $monitoria->__set("data_desconto",  $_POST["data_desconto"]);
             $monitoria->__set("horarios",       json_encode($horarios));
             $monitoria->__set("materia",        $_POST["materia"]);
+            $monitoria->__set("data_vencimento",  $_POST["data_vencimento"]);
 
             if ( !$monitoria->atualizar() ) {
                 $sucesso = false;
@@ -178,6 +180,7 @@
                 $produto->__set("estado",         $_POST["estado"]);
                 $produto->__set("operacao",       $_POST["operacao"]);
                 $produto->__set("quantidade",     $_POST["quantidade"]);
+                $produto->__set("data_vencimento",  $_POST["data_vencimento"]);
     
                 if ( !$produto->atualizar() ) {
                     $sucesso = false;

@@ -17,6 +17,7 @@
 		protected $desconto;
 		protected $data_desconto;
 		protected $tipo;
+		protected $data_vencimento;
 
         // Cadastrar Anuncio:
         public function inserirAnuncio() {
@@ -33,6 +34,7 @@
                 "status"            => $this->status,
                 "data_anunciada"    => date("Y-m-d H:i:s"),
                 "tipo"              => $this->tipo,
+                "data_vencimento"   => $this->data_vencimento,
             ]);
 
             $this->db->setTable($table);
@@ -53,6 +55,7 @@
                 "data_desconto"     => $this->data_desconto,
                 //"status"            => $this->status,
                 //"data_anunciada"    => date("Y-m-d H:i:s"),
+                "data_vencimento"    => $this->data_vencimento,
             ]);
 
             $this->db->setTable($table);

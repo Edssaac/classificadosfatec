@@ -12,6 +12,9 @@
                         <div class="col-10">
                             <p class="my-0"><?= $this->view->solicitacao["nome"] ?>
                                 <br><small><?= $this->view->solicitacao["data"] ?></small>
+                                <?php if ($this->view->solicitacao["data_vencimento"] !== "0000-00-00") { ?>
+                                    <br><small>Disponível até: <?= date_format(date_create($this->view->solicitacao["data_vencimento"]), "d/m/Y") ?></small>
+                                <?php } ?>
                             </p>
                         </div>
                     </div>
@@ -37,23 +40,39 @@
 
                 <div class="card-footer">
                     <div class="row g-2">
-                        <div class="col-12 col-lg-4 order-3 order-lg-0">
-                            <a href="/solicitados">
-                                <button type="button" class="button-input text-light w-100">Voltar</button>
-                            </a>
-                        </div>
+                        <?php if ($this->view->solicitacao["cod_usuario"] !== $_SESSION["cod_usuario"]) { ?>
+                            <div class="col-12 col-lg-4 order-3 order-lg-0">
+                                <a href="/solicitados">
+                                    <button type="button" class="button-input text-light w-100">Voltar</button>
+                                </a>
+                            </div>
 
-                        <div class="col-6 col-lg-4">
-                            <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->solicitacao["telefone"]); ?>" target="_blank">
-                                <button type="button" class="button-input text-light w-100">
-                                    <i class="fa-brands fa-whatsapp"></i> Contatar
-                                </button>
-                            </a>
-                        </div>
+                            <div class="col-6 col-lg-4">
+                                <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->solicitacao["telefone"]); ?>" target="_blank">
+                                    <button type="button" class="button-input text-light w-100">
+                                        <i class="fa-brands fa-whatsapp"></i> Contatar
+                                    </button>
+                                </a>
+                            </div>
 
-                        <div class="col-6 col-lg-4">
-                            <button type="button" class="button-input text-light w-100" data-bs-toggle="modal" data-bs-target="#modalDenunciar">Denunciar</button>
-                        </div>
+                            <div class="col-6 col-lg-4">
+                                <button type="button" class="button-input text-light w-100" data-bs-toggle="modal" data-bs-target="#modalDenunciar">Denunciar</button>
+                            </div>
+                        <?php } else { ?>
+                            <div class="col-12 col-lg-6 order-3 order-lg-0">
+                                <a href="/solicitados">
+                                    <button type="button" class="button-input text-light w-100">Voltar</button>
+                                </a>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->solicitacao["telefone"]); ?>" target="_blank">
+                                    <button type="button" class="button-input text-light w-100">
+                                        <i class="fa-brands fa-whatsapp"></i> Contatar
+                                    </button>
+                                </a>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

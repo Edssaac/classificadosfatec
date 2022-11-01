@@ -50,7 +50,7 @@
 
         // Obter todas as monitorias:
         public function getMonitorias() {
-            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, m.materia";
+            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.data_vencimento, a.valor, a.desconto, a.data_desconto, m.materia";
             $join   = "m INNER JOIN tb_anuncios a ON m.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
             $where  = "a.status = 1";
             $order  = "data_anunciada DESC";
@@ -60,7 +60,7 @@
 
         // Obter uma monitoria em especifico:
         public function getMonitoria($cod_anuncio) {
-            $fields = "u.nome, u.telefone, a.cod_anuncio, a.cod_usuario, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, m.materia, m.horarios";
+            $fields = "u.nome, u.telefone, a.cod_anuncio, a.cod_usuario, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.data_vencimento, a.valor, a.desconto, a.data_desconto, m.materia, m.horarios";
             $join   = "m INNER JOIN tb_anuncios a ON m.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
             $where  = "a.status = 1 and a.cod_anuncio = $cod_anuncio";
 
@@ -68,7 +68,7 @@
         }
 
         public function getMonitoriaFiltrada($materia=null, $dias=null, $titulo=null) {
-            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.valor, a.desconto, a.data_desconto, m.materia";
+            $fields = "u.nome, a.cod_anuncio, a.titulo, a.descricao, DATE_FORMAT(a.data_anunciada, '%d/%m/%Y | %Hh%i') as data_anunciada, a.data_vencimento, a.valor, a.desconto, a.data_desconto, m.materia";
             $join   = "m INNER JOIN tb_anuncios a ON m.cod_anuncio = a.cod_anuncio INNER JOIN tb_usuarios u ON a.cod_usuario = u.cod_usuario";
             $where  = "a.status = 1";
             $order  = "data_anunciada DESC";

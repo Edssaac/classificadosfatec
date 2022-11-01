@@ -34,6 +34,13 @@
             </div>
         </div>
 
+        <div class="mx-3 row my-5">
+            <div class="mb-3 col-12 col-md-3">
+                <label for="data_vencimento" class="form-label">Data de Vencimento do Anúncio</label>
+                <input type="date" id="data_vencimento" name="data_vencimento" class="form-control input-cinza" value="<?= $this->view->produto["data_vencimento"] ?>">
+            </div>
+        </div>
+
         <div class="mb-3 mx-4">
             <label for="foto" class="form-label">Imagem do Produto</label>
             <input type="file" accept="image/*" id="foto" name="foto" class="form-control input-cinza" required>

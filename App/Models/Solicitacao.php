@@ -13,14 +13,16 @@
 		protected $descricao;
 		protected $data;
 		protected $tipo;
+		protected $data_vencimento;
 
         public function solicitar() {
             $this->db->insert([
-                "cod_usuario"   => $this->cod_usuario,
-                "titulo"        => $this->titulo,
-                "descricao"     => $this->descricao,
-                "data"          => date("Y-m-d H:i:s"),
-                "tipo"          => $this->tipo
+                "cod_usuario"       => $this->cod_usuario,
+                "titulo"            => $this->titulo,
+                "descricao"         => $this->descricao,
+                "data"              => date("Y-m-d H:i:s"),
+                "tipo"              => $this->tipo,
+                "data_vencimento"   => $this->data_vencimento,
             ]);
 
             return true;
@@ -28,10 +30,11 @@
 
         public function atualizar() {
             $this->db->update("cod_solicitacao = $this->cod_solicitacao", [
-                "titulo"        => $this->titulo,
-                "descricao"     => $this->descricao,
-                //"data"          => date("Y-m-d H:i:s"),
-                "tipo"          => $this->tipo
+                "titulo"            => $this->titulo,
+                "descricao"         => $this->descricao,
+                // "data"              => date("Y-m-d H:i:s"),
+                "tipo"              => $this->tipo,
+                "data_vencimento"   => $this->data_vencimento,
             ]);
 
             return true;
@@ -44,7 +47,7 @@
         }
 
         public function getSolicitacoes() {
-            $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.tipo";
+            $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.data_vencimento, s.tipo";
             $join   = "s INNER JOIN tb_usuarios u ON s.cod_usuario = u.cod_usuario";
             $order  = "s.cod_solicitacao DESC";
 
@@ -54,7 +57,7 @@
         }
 
         public function getSolicitacao($cod_solicitacao) {
-            $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, u.telefone, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.tipo";
+            $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, u.telefone, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.data_vencimento, s.tipo";
             $join   = "s INNER JOIN tb_usuarios u ON s.cod_usuario = u.cod_usuario";
             $where  = "s.cod_solicitacao = $cod_solicitacao";
 
@@ -74,7 +77,7 @@
         }
 
         public function getSolicitacaoFiltrada($tipo=null, $titulo=null) {
-            $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.tipo";
+            $fields = "s.cod_solicitacao, s.cod_usuario, u.nome, s.titulo, s.descricao, DATE_FORMAT(s.data, '%d/%m/%Y | %Hh%i') as data, s.data_vencimento, s.tipo";
             $join   = "s INNER JOIN tb_usuarios u ON s.cod_usuario = u.cod_usuario";
             $order  = "s.cod_solicitacao DESC";
             $where = "";
