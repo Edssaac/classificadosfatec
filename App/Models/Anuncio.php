@@ -78,7 +78,7 @@
         // Obter um anuncio em especifico:
         public function getAnunciosPorUsuario() {
             $fields = "cod_anuncio, titulo, tipo";
-            $where  = "cod_usuario = $this->cod_usuario";
+            $where  = "cod_usuario = $this->cod_usuario AND (data_vencimento > '".date("Y-m-d")."' OR data_vencimento = '0000-00-00')";
             $order  = "data_anunciada desc";
 
             $anuncios = $this->db->select($fields, $where, $order)->fetchAll(PDO::FETCH_ASSOC);
@@ -94,8 +94,9 @@
             $fields = "a.cod_anuncio, a.titulo, a.descricao, p.foto_name";
             $join   = "a inner join tb_produtos p on a.cod_anuncio = p.cod_anuncio";
             $order  = "a.data_anunciada desc";
+            $where  = "a.data_vencimento > '".date("Y-m-d")."' OR a.data_vencimento = '0000-00-00'";
 
-            $ultimos = $this->db->select($fields, null, $order, $quantidade, $join)->fetchAll(PDO::FETCH_ASSOC);
+            $ultimos = $this->db->select($fields, $where, $order, $quantidade, $join)->fetchAll(PDO::FETCH_ASSOC);
 
             $this->db->setTable($table);
 
