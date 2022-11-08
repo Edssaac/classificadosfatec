@@ -33,13 +33,7 @@
 <script>
     $(document).ready(function() {
         if (parseInt(localStorage.tentativas) <= 0) {
-            $("#status").html(
-                `<div class="alert alert-danger" role="alert">
-                    Acesso bloqueado! Entre em seu e-mail para atualizar a senha.
-                </div>`
-            );
-
-            $("#entrar").remove();
+            localStorage.tentativas = 3;
         }
     });
 
@@ -49,12 +43,14 @@
 
         if (localStorage.tentativas === undefined) {
             localStorage.tentativas = 3;
-        } else if ((parseInt(localStorage.tentativas) <= 0)) {
-            data.push({
-                name: "bloquear",
-                value: true
-            });
-        } else {
+        }
+        /*else if ((parseInt(localStorage.tentativas) <= 0)) {
+                   data.push({
+                       name: "bloquear",
+                       value: true
+                   });
+               } */
+        else {
             localStorage.tentativas = parseInt(localStorage.tentativas) - 1;
         }
 
