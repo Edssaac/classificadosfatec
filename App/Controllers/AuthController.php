@@ -142,6 +142,9 @@
                     if ( !$sucesso ) {
                         $this->erro = "Não foi possível enviar o e-mail.";
                     }
+                } else {
+                    $sucesso = false;
+                    $this->erro = "E-mail ou Data de Nascimento incorretos.";
                 }
     
                 header('Content-Type: application/json');
