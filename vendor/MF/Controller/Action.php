@@ -36,6 +36,10 @@
             }
         }
 
+        public function formatarNumero($numero) {
+            return str_replace(",", ".", str_replace(".", "", $numero));
+        }
+
         public function sessao() {
             if ( session_status() !== PHP_SESSION_ACTIVE ) {
                 session_start();

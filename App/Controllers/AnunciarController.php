@@ -123,10 +123,6 @@
             ]);
         }
 
-        public function formatarNumero($numero) {
-            return str_replace(",", ".", str_replace(".", "", $numero));
-        }
-
     }
 
 ?>
