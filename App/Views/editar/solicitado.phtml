@@ -18,7 +18,7 @@
         <div class="mx-3 row my-5">
             <div class="mb-3 col-12 col-md-3">
                 <label for="data_vencimento" class="form-label">Data de Vencimento do Anúncio</label>
-                <input type="date" id="data_vencimento" name="data_vencimento" max="2999-12-31" class="form-control input-cinza" value="<?= $this->view->solicitacao["data_vencimento"] ?>">
+                <input type="date" id="data_vencimento" name="data_vencimento" min="<?= date("Y-m-d") ?>" max="2999-12-31" class="form-control input-cinza" value="<?= $this->view->solicitacao["data_vencimento"] ?>">
             </div>
         </div>
 
