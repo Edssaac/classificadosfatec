@@ -229,8 +229,13 @@
         $("#bloco_avaliacoes").toggleClass("d-none", true);
         $("#bloco_duvidas").toggleClass("d-none", false);
 
-        texto_avaliacao = $("#comentario").val();
-        $("#comentario").val(texto_duvida);
+        <?php if ($this->view->produto["cod_usuario"] !== $_SESSION["cod_usuario"]) { ?>
+            texto_avaliacao = $("#comentario").val();
+            $("#comentario").val(texto_duvida);
+        <?php } else { ?>
+            $("#comentario").toggleClass("d-none", false);
+            $("#bloco_avaliacao").toggleClass("d-none", true);
+        <?php } ?>
 
         autosize();
     });
@@ -245,8 +250,13 @@
         $("#bloco_duvidas").toggleClass("d-none", true);
         $("#bloco_avaliacoes").toggleClass("d-none", false);
 
-        texto_duvida = $("#comentario").val();
-        $("#comentario").val(texto_avaliacao);
+        <?php if ($this->view->produto["cod_usuario"] !== $_SESSION["cod_usuario"]) { ?>
+            texto_duvida = $("#comentario").val();
+            $("#comentario").val(texto_avaliacao);
+        <?php } else { ?>
+            $("#comentario").toggleClass("d-none", true);
+            $("#bloco_avaliacao").toggleClass("d-none", true);
+        <?php } ?>
 
         autosize();
     });
