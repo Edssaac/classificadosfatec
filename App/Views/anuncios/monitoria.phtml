@@ -203,7 +203,7 @@
                     <div class="mb-3 mx-4">
                         <label for="motivo" class="form-label">Motivo</label>
                         <select class="form-select input-cinza" id="motivo" name="motivo" required>
-                            <option selected>---</option>
+                            <option value="0" selected>Outros</option>
                         </select>
                     </div>
 
@@ -213,7 +213,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="button-input text-light" data-bs-dismiss="modal">Enviar</button>
+                    <button type="button" class="button-input text-light" id="denunciar" data-bs-dismiss="modal">Enviar</button>
                 </div>
             </div>
         </div>
@@ -225,6 +225,12 @@
     $(document).ready(function() {
         duvidas();
         avaliacoes();
+    });
+
+    $.getScript("/assets/js/motivos.js", function() {
+        for (var key in motivos) {
+            $("#motivo").append(`<option value="${key}"> ${motivos[key]} </option>`);
+        }
     });
 
     let texto_duvida = "";
