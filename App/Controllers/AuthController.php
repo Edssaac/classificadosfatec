@@ -22,10 +22,25 @@
 
                 if ( count($usuario->getUsuarioPorEmail()) ) {
                     $this->erro = "Este e-mail já foi cadastrado!";
-                } else if ( $usuario->registrar() ) {
-                    $sucesso = true;
                 } else {
-                    $this->erro = "Este e-mail já foi cadastrado!";
+                    $token = sha1(uniqid(mt_rand(), true));
+
+                    if ( $usuario->registrar($token) ) {
+                        $informacao = [
+                            "nome" => $usuario->__get("nome"),
+                            "token" => $token
+                        ];
+    
+                        $destinatario   = $usuario->__get("email");
+                        $assunto        = "Confirme seu e-mail";
+                        $corpo          = Email::confirmacaoEmail($informacao);
+    
+                        Email::sendEmail($destinatario, $assunto, $corpo);
+    
+                        $sucesso = true;
+                    } else {
+                        $this->erro = "Não foi possivel realizar o cadastro!";
+                    }
                 }
             }
 
@@ -78,13 +93,24 @@
 
             /*if ( isset($_POST['bloquear']) && $_POST['bloquear'] ) {
                 $usuario->bloquear();
-            } else */ if ( $usuario->autenticar() ) {
-                session_start();
+            } else */ 
+            if ( $usuario->autenticar() ) {
+                if ( isset($_POST['hash']) ) {
+                    if ( !$usuario->validarHash(filter_var($_POST['hash'])) ) {
+                        $this->erro = "Código de segurança inválido!<br>Verifique novamente o link enviado pelo e-mail ou entre em contato com o suporte se persistir.";
+                    }
+                } else if ($usuario->verificarInatividade()) {
+                    $this->erro = "Usuário não ativo, verifique o seu e-mail ou entre em contato com o suporte se persistir!";
+                } 
 
-                $_SESSION['cod_usuario'] = $usuario->__get("cod_usuario");
-                $_SESSION['nome'] = $usuario->__get("nome");
-
-                $sucesso = true;
+                if (empty($this->erro)) {
+                    session_start();
+    
+                    $_SESSION['cod_usuario'] = $usuario->__get("cod_usuario");
+                    $_SESSION['nome'] = $usuario->__get("nome");
+                    $usuario->atualizarAcesso();
+                    $sucesso = true;
+                }
             } else {
                 $this->erro = "E-mail ou senha incorretos!";
             }

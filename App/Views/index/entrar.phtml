@@ -16,6 +16,8 @@
             <input type="password" id="senha" name="senha" class="form-control input-cinza" required>
         </div>
 
+        <input type="hidden" name="hash" value="<?= $this->view->hash ?>">
+
         <div class="text-center">
             <small>Esqueceu sua senha? <a href="/redefinir" class="text-danger">Redefinir senha</a>.</small>
         </div>

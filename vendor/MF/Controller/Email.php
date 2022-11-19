@@ -97,5 +97,28 @@
             return $mensagem;
         }
 
+        public static function confirmacaoEmail($informacao) {
+            if ( $_SERVER['SERVER_NAME'] == "localhost" ) {
+                $base = "http://localhost:8088";
+            } else {
+                $base = "https://classificadosfatec.herokuapp.com";
+            }
+
+            $mensagem = 
+            "<div>
+                <p>
+                Olá {$informacao['nome']}, confirme o e-mail para sua conta 
+                <b>Classificados Fatec</b> no link abaixo.
+                <br><br>
+                <a href='{$base}/entrar?hash={$informacao['token']}' target='_blank'>Confirmar cadastro</a>
+                <br><br>
+                <b>Classificados Fatec</b>
+                </p>
+            </div>
+            ";
+            
+            return $mensagem;
+        }
+
     }
 ?>

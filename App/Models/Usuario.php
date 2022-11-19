@@ -16,14 +16,15 @@
 		protected $senha;
 		protected $token;
 
-        public function registrar() {
+        public function registrar($token) {
             $this->db->insert([
                 "nome"               => $this->nome,
                 "data_nascimento"    => $this->data_nascimento,
                 "telefone"           => $this->telefone,
                 "instituicao"        => $this->instituicao,
                 "email"              => $this->email,
-                "senha"              => password_hash($this->senha, PASSWORD_DEFAULT)
+                "senha"              => password_hash($this->senha, PASSWORD_DEFAULT),
+                "token"              => $token
             ]);
 
             return true;
@@ -123,6 +124,37 @@
         public function alterarSenha() {
             $this->db->update("cod_usuario = {$this->cod_usuario}", [
                 "senha" => password_hash($this->senha, PASSWORD_DEFAULT)
+            ]);
+        }
+
+        public function verificarInatividade() {
+            $usuario = $this->db->select("cod_usuario", "email = '{$this->email}' AND ativo = 1")->fetch(PDO::FETCH_ASSOC);
+
+            if ( isset($usuario['cod_usuario']) ) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public function validarHash($hash) {
+            $usuario = $this->db->select("cod_usuario", "email = '{$this->email}' AND token = '{$hash}'")->fetch(PDO::FETCH_ASSOC);
+
+            if ( isset($usuario['cod_usuario']) ) {
+                $this->db->update("cod_usuario = {$usuario['cod_usuario']}", [
+                    "token" => "",
+                    "ativo" => 1,
+                ]);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public function atualizarAcesso() {
+            $this->db->update("cod_usuario = {$this->cod_usuario}", [
+                "ultimo_acesso" => date('Y-m-d H:i:s')
             ]);
         }
 

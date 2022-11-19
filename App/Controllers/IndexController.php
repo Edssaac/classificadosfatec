@@ -28,6 +28,13 @@
 
         public function entrar() {
             $this->autenticarPagina(true);
+
+            if ( isset($_GET['hash']) ) {
+                $this->view->hash = filter_var($_GET['hash']);
+            } else {
+                $this->view->hash = "";
+            }
+
             $this->render("entrar");
         }
 
