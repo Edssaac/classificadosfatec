@@ -17,6 +17,7 @@
             $this->view->page = $view;
 
             $this->view->login = $this->validaSessao();
+            $this->view->admin = $this->validaAdmin();
             
             if (file_exists("../App/Views/{$layout}.phtml")) {
                 require_once("../App/Views/{$layout}.phtml");
@@ -56,8 +57,11 @@
             return true;
         }
 
-        public function autenticarPagina( $index = false ) {
-            if ( $this->validaSessao() && $index ) {
+        public function autenticarPagina( $index = false, $admin = false ) {
+            if ($admin && !$this->validaAdmin()) {
+                header("Location: /");
+                exit;
+            } else if ( $this->validaSessao() && $index ) {
                 header("Location: /");
                 exit;
             } else if ( !$this->validaSessao() && !$index ) {
@@ -65,6 +69,16 @@
                 header("Location: /");
                 exit;
             }
+        }
+
+        public function validaAdmin() {
+            $this->sessao();
+
+            if ( isset($_SESSION["admin"]) && $_SESSION["admin"] ) {
+                return true;
+            }
+
+            return false;
         }
 
     }

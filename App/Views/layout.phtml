@@ -63,10 +63,18 @@
                 <?php } ?>
             </form>
 
-            <?php if ($this->view->login) { ?>
-                <div class="d-flex gap-3 col-md-6 justify-content-md-end">
-                    <button class="button btn-menu" id="btn-menu"><i class="fa-solid fa-bars"></i></button>
+            <div class="d-flex gap-3 col-md-6 justify-content-md-end">
+                <button class="button btn-menu" id="btn-menu"><i class="fa-solid fa-bars"></i></button>
 
+                <?php if ($this->view->login && $this->view->admin) { ?>
+                    <a href="/relatorio" target="_blank">
+                        <button class="button" type="button" title="Relatório de usuários">
+                            <i class="fa-regular fa-clipboard"></i>
+                        </button>
+                    </a>
+                <?php } ?>
+
+                <?php if ($this->view->login) { ?>
                     <a href="/perfil">
                         <button class="button" type="button">
                             <i class="fa-solid fa-user"></i> Meu Perfil
@@ -78,11 +86,7 @@
                             <i class="fa-solid fa-door-open"></i> Sair
                         </button>
                     </a>
-                </div>
-            <?php } else { ?>
-                <div class="d-flex gap-3 col-md-6 justify-content-md-end">
-                    <button class="button btn-menu" id="btn-menu"><i class="fa-solid fa-bars"></i></button>
-
+                <?php } else { ?>
                     <a href="/cadastrar">
                         <button class="button" type="button">
                             <i class="fa-solid fa-user-plus"></i> Cadastrar
@@ -94,8 +98,8 @@
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Entrar
                         </button>
                     </a>
-                </div>
-            <?php } ?>
+                <?php } ?>
+            </div>
         </div>
     </nav>
 

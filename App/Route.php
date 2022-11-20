@@ -75,6 +75,12 @@
                 "action"     => "sair"
             );
 
+            $routes["relatorio"] = array(
+                "route"      => "/^\/relatorio\/*$/",
+                "controller" => "IndexController",
+                "action"     => "relatorio"
+            );
+
 
             // Anunciar:
             $routes["produto"] = array(

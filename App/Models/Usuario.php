@@ -8,6 +8,7 @@
     class Usuario extends Model {
 
         protected $cod_usuario;
+		protected $admin;
 		protected $nome;
 		protected $data_nascimento;
 		protected $telefone;
@@ -15,6 +16,8 @@
 		protected $email;
 		protected $senha;
 		protected $token;
+		protected $ativo;
+		protected $ultimo_acesso;
 
         public function registrar($token) {
             $this->db->insert([
@@ -156,6 +159,49 @@
             $this->db->update("cod_usuario = {$this->cod_usuario}", [
                 "ultimo_acesso" => date('Y-m-d H:i:s')
             ]);
+        }
+
+        public function administrador() {
+            $usuario = $this->db->select("cod_usuario", "email = '{$this->email}' AND admin = 1")->fetch(PDO::FETCH_ASSOC);
+
+            if ( isset($usuario['cod_usuario']) ) {
+                return true;
+            }
+
+            return false;
+        }
+
+        public function relatorioUsuarios($campos) {
+            $campos_banco = [
+                "chkDataNascimento" => "DATE_FORMAT(data_nascimento, '%d/%m/%Y') as data_nascimento",
+                "chkTelefone" => "telefone",
+                "chkEmail" => "email",
+                "chkUltimoAcesso" => "DATE_FORMAT(ultimo_acesso, '%d/%m/%Y | %Hh%i') as ultimo_acesso",
+            ];
+
+            $campos_apresentacao = [
+                "chkDataNascimento" => "Data de Nascimento",
+                "chkTelefone" => "Telefone",
+                "chkEmail" => "E-mail",
+                "chkUltimoAcesso" => "Último Acesso",
+            ];
+
+            $selecionados = ["nome"];
+            $apresentacao = ["Nome"];
+
+            foreach ($campos as $campo) {
+                if (isset($campos_banco[$campo])) {
+                    $selecionados[] = $campos_banco[$campo];
+                    $apresentacao[] = $campos_apresentacao[$campo];
+                }
+            }
+
+            $rows = $this->db->select(implode(", ", $selecionados))->fetchAll(PDO::FETCH_ASSOC);
+
+            $tabela["cabecalhos"] = $apresentacao;
+            $tabela["linhas"] = $rows;
+
+            return $tabela;
         }
 
     }

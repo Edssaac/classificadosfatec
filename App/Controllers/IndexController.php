@@ -107,6 +107,20 @@
             ]);
         }
 
+        public function relatorio() {
+            $this->autenticarPagina(false, true);
+
+            if ( count($_POST) > 0 ) {
+                $usuario = Container::getModel("Usuario");
+
+                $this->view->tabela = $usuario->relatorioUsuarios(array_keys($_POST));
+
+                $this->render("relatorio");
+            } else {
+                $this->render("relatorio_formulario");
+            }
+        }
+
     }
 
 ?>

@@ -108,6 +108,11 @@
     
                     $_SESSION['cod_usuario'] = $usuario->__get("cod_usuario");
                     $_SESSION['nome'] = $usuario->__get("nome");
+
+                    if ( $usuario->administrador() ) {
+                        $_SESSION['admin'] = true;
+                    }
+
                     $usuario->atualizarAcesso();
                     $sucesso = true;
                 }
