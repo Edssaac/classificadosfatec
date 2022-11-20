@@ -1,26 +1,27 @@
 <?php
 
-    namespace App\Controllers;
+namespace App\Controllers;
 
-    use MF\Controller\Action;
-    use MF\Model\Container;
+use MF\Controller\Action;
+use MF\Model\Container;
 
-    class ChatController extends Action {
+class ChatController extends Action
+{
+    public function getDuvidas()
+    {
+        $this->autenticarPagina();
 
-        public function getDuvidas() {
-            $this->autenticarPagina();
+        $duvida = Container::getModel("Duvida");
+        $duvida->__set("cod_anuncio", $_POST["anuncio"]);
+        $duvidas = $duvida->getDuvidas();
+        $html = "";
+        $usuario = [
+            "cod_usuario"   => $_SESSION["cod_usuario"],
+            "nome"          => $_SESSION["nome"]
+        ];
 
-            $duvida = Container::getModel("Duvida");
-            $duvida->__set("cod_anuncio", $_POST["anuncio"]);
-            $duvidas = $duvida->getDuvidas();
-            $html = "";
-            $usuario = [
-                "cod_usuario"   => $_SESSION["cod_usuario"],
-                "nome"          => $_SESSION["nome"]
-            ];
-
-            foreach ($duvidas as $d) {
-                $html .= "
+        foreach ($duvidas as $d) {
+            $html .= "
                 <div class='mb-3'>
 
                     <!-- Pergunta -->
@@ -43,8 +44,8 @@
                         </div>
                     </div>";
 
-                if ( !empty($d["resposta"]) ) {
-                    $html .= "<!-- Resposta -->
+            if (!empty($d["resposta"])) {
+                $html .= "<!-- Resposta -->
                     <div class='row g-0 resposta'>
                         <div class='col-1'>
                         </div>
@@ -65,8 +66,8 @@
                             </div>
                         </div>
                     </div>";
-                } else if ( $usuario["cod_usuario"] === $d["anunciador"] ) {
-                    $html .= "<!-- Resposta -->
+            } else if ($usuario["cod_usuario"] === $d["anunciador"]) {
+                $html .= "<!-- Resposta -->
                     <div class='row g-0 resposta'>
                         <div class='col-1'>
                         </div>
@@ -93,65 +94,68 @@
                             </div>
                         </div>
                     </div>";
-                }
-
-                $html .= "</div>";
             }
 
-            echo $html;
+            $html .= "</div>";
         }
 
-        public function comentarDuvida() {
-            $this->autenticarPagina();
+        echo $html;
+    }
 
-            $sucesso = true;
-            $duvida = Container::getModel("Duvida");
-            $duvida->__set("cod_anuncio",   $_POST["anuncio"]);
-            $duvida->__set("cod_usuario",   $_SESSION["cod_usuario"]);
-            $duvida->__set("pergunta",      $_POST["texto"]);
+    public function comentarDuvida()
+    {
+        $this->autenticarPagina();
 
-            if ( !$duvida->perguntar() ) {
-                $sucesso = false;
-                $this->erro = "Não foi possível comentar!";
-            }
+        $sucesso = true;
+        $duvida = Container::getModel("Duvida");
+        $duvida->__set("cod_anuncio",   $_POST["anuncio"]);
+        $duvida->__set("cod_usuario",   $_SESSION["cod_usuario"]);
+        $duvida->__set("pergunta",      $_POST["texto"]);
 
-            header('Content-Type: application/json');
-            echo json_encode([
-                "sucesso"   => $sucesso,
-                "mensagem"  => $this->erro
-            ]);
+        if (!$duvida->perguntar()) {
+            $sucesso = false;
+            $this->erro = "Não foi possível comentar!";
         }
 
-        public function responderDuvida() {
-            $this->autenticarPagina();
+        header('Content-Type: application/json');
+        echo json_encode([
+            "sucesso"   => $sucesso,
+            "mensagem"  => $this->erro
+        ]);
+    }
 
-            $sucesso = true;
-            $duvida = Container::getModel("Duvida");
-            $duvida->__set("cod_duvida",    $_POST["duvida"]);
-            $duvida->__set("resposta",      $_POST["resposta"]);
+    public function responderDuvida()
+    {
+        $this->autenticarPagina();
 
-            if ( !$duvida->responder() ) {
-                $sucesso = false;
-                $this->erro = "Não foi possível responder!";
-            }
+        $sucesso = true;
+        $duvida = Container::getModel("Duvida");
+        $duvida->__set("cod_duvida",    $_POST["duvida"]);
+        $duvida->__set("resposta",      $_POST["resposta"]);
 
-            header('Content-Type: application/json');
-            echo json_encode([
-                "sucesso"   => $sucesso,
-                "mensagem"  => $this->erro
-            ]);
+        if (!$duvida->responder()) {
+            $sucesso = false;
+            $this->erro = "Não foi possível responder!";
         }
 
-        public function getAvaliacoes() {
-            $this->autenticarPagina();
+        header('Content-Type: application/json');
+        echo json_encode([
+            "sucesso"   => $sucesso,
+            "mensagem"  => $this->erro
+        ]);
+    }
 
-            $avaliacao = Container::getModel("Avaliacao");
-            $avaliacao->__set("cod_anuncio", $_POST["anuncio"]);
-            $avaliacoes = $avaliacao->getAvaliacoes();
-            $html = "";
+    public function getAvaliacoes()
+    {
+        $this->autenticarPagina();
 
-            foreach ($avaliacoes as $a) {
-                $html .= "
+        $avaliacao = Container::getModel("Avaliacao");
+        $avaliacao->__set("cod_anuncio", $_POST["anuncio"]);
+        $avaliacoes = $avaliacao->getAvaliacoes();
+        $html = "";
+
+        foreach ($avaliacoes as $a) {
+            $html .= "
                 <div class='mb-3'>
                     <!-- Avaliação -->
                     <div class='row g-0'>
@@ -167,14 +171,14 @@
                                         </div>
                                         <div class='text-danger user-select-none col-4 text-end'>
                                             <small class='estrelas-avaliacao'>";
-                                                for ($i=1; $i<=5; $i++) {
-                                                    if ( $i <= $a["avaliacao"] ) {
-                                                        $html .= "<i class='fa-solid fa-star'></i>";
-                                                    } else {
-                                                        $html .= "<i class='fa-regular fa-star'></i>";
-                                                    }
-                                                }
-                                            $html .= "</small>
+            for ($i = 1; $i <= 5; $i++) {
+                if ($i <= $a["avaliacao"]) {
+                    $html .= "<i class='fa-solid fa-star'></i>";
+                } else {
+                    $html .= "<i class='fa-regular fa-star'></i>";
+                }
+            }
+            $html .= "</small>
                                         </div>
                                     </div>
                                 </div>
@@ -188,43 +192,45 @@
                         </div>
                     </div>
                 </div>";
-            }
-
-            echo $html;
         }
 
-        public function avaliar() {
-            $this->autenticarPagina();
+        echo $html;
+    }
 
-            $sucesso = true;
-            $avaliacao = Container::getModel("Avaliacao");
-            $avaliacao->__set("cod_anuncio",   $_POST["anuncio"]);
-            $avaliacao->__set("cod_usuario",   $_SESSION["cod_usuario"]);
-            $avaliacao->__set("comentario",    $_POST["texto"]);
-            $avaliacao->__set("avaliacao",     $_POST["avaliacao"]);
+    public function avaliar()
+    {
+        $this->autenticarPagina();
 
-            if ( !$avaliacao->avaliar() ) {
-                $sucesso = false;
-                $this->erro = "Não foi possível avaliar!";
-            }
+        $sucesso = true;
+        $avaliacao = Container::getModel("Avaliacao");
+        $avaliacao->__set("cod_anuncio",   $_POST["anuncio"]);
+        $avaliacao->__set("cod_usuario",   $_SESSION["cod_usuario"]);
+        $avaliacao->__set("comentario",    $_POST["texto"]);
+        $avaliacao->__set("avaliacao",     $_POST["avaliacao"]);
 
-            header('Content-Type: application/json');
-            echo json_encode([
-                "sucesso"   => $sucesso,
-                "mensagem"  => $this->erro
-            ]);
+        if (!$avaliacao->avaliar()) {
+            $sucesso = false;
+            $this->erro = "Não foi possível avaliar!";
         }
 
-        public function getComentarios() {
-            $this->autenticarPagina();
+        header('Content-Type: application/json');
+        echo json_encode([
+            "sucesso"   => $sucesso,
+            "mensagem"  => $this->erro
+        ]);
+    }
 
-            $comentario = Container::getModel("Comentario");
-            $comentario->__set("cod_solicitacao", $_POST["solicitacao"]);
-            $comentarios = $comentario->getComentarios();
-            $html = "";
+    public function getComentarios()
+    {
+        $this->autenticarPagina();
 
-            foreach ($comentarios as $c) {
-                $html .= "
+        $comentario = Container::getModel("Comentario");
+        $comentario->__set("cod_solicitacao", $_POST["solicitacao"]);
+        $comentarios = $comentario->getComentarios();
+        $html = "";
+
+        foreach ($comentarios as $c) {
+            $html .= "
                 <div class='mb-3'>
                     <!-- Pergunta -->
                     <div class='row g-0'>
@@ -246,32 +252,32 @@
                         </div>
                     </div>
                 </div>";
-            }
-
-            echo $html;
         }
 
-        public function comentar() {
-            $this->autenticarPagina();
-
-            $sucesso = true;
-            $comentario = Container::getModel("Comentario");
-            $comentario->__set("cod_solicitacao",   $_POST["solicitacao"]);
-            $comentario->__set("cod_usuario",       $_SESSION["cod_usuario"]);
-            $comentario->__set("comentario",        $_POST["texto"]);
-
-            if ( !$comentario->comentar() ) {
-                $sucesso = false;
-                $this->erro = "Não foi possível comentar!";
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode([
-                "sucesso"   => $sucesso,
-                "mensagem"  => $this->erro
-            ]);
-        }
-
+        echo $html;
     }
+
+    public function comentar()
+    {
+        $this->autenticarPagina();
+
+        $sucesso = true;
+        $comentario = Container::getModel("Comentario");
+        $comentario->__set("cod_solicitacao",   $_POST["solicitacao"]);
+        $comentario->__set("cod_usuario",       $_SESSION["cod_usuario"]);
+        $comentario->__set("comentario",        $_POST["texto"]);
+
+        if (!$comentario->comentar()) {
+            $sucesso = false;
+            $this->erro = "Não foi possível comentar!";
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode([
+            "sucesso"   => $sucesso,
+            "mensagem"  => $this->erro
+        ]);
+    }
+}
 
 ?>
