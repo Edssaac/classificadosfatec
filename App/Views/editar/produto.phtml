@@ -49,7 +49,7 @@
         <div class="mx-3 row align-items-end">
             <div class="mb-3 col-sm-6 col-md-4">
                 <label for="quantidade" class="form-label">Quantidade</label>
-                <input type="number" id="quantidade" name="quantidade" class="form-control input-cinza" required value="<?= $this->view->produto["quantidade"] ?>">
+                <input type="number" id="quantidade" name="quantidade" min="1" class="form-control input-cinza" required value="<?= $this->view->produto["quantidade"] ?>">
             </div>
             <div class="mb-3 col-sm-6 col-md-4">
                 <label for="estado" class="form-label">Estado do Produto</label>
