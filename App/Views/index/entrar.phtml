@@ -16,6 +16,8 @@
             <input type="password" id="senha" name="senha" class="form-control input-cinza" required>
         </div>
 
+        <input type="hidden" name="hash" value="<?= $this->view->hash ?>">
+
         <div class="text-center">
             <small>Esqueceu sua senha? <a href="/redefinir" class="text-danger">Redefinir senha</a>.</small>
         </div>
@@ -24,41 +26,83 @@
         </div>
 
         <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="submit" class="button-input text-light">Entrar</button>
+            <button type="submit" id="entrar" class="button-input text-light">Entrar</button>
         </div>
     </form>
 
 </section>
 
 <script>
+    $(document).ready(function() {
+        if (parseInt(localStorage.tentativas) <= 0) {
+            localStorage.tentativas = 3;
+        }
+    });
+
     $("form").submit(function(e) {
         e.preventDefault();
-        var data = $("form").serialize();
+        var data = $("form").serializeArray();
+
+        if (localStorage.tentativas === undefined) {
+            localStorage.tentativas = 3;
+        }
+        /*else if ((parseInt(localStorage.tentativas) <= 0)) {
+                   data.push({
+                       name: "bloquear",
+                       value: true
+                   });
+               } */
+        else {
+            localStorage.tentativas = parseInt(localStorage.tentativas) - 1;
+        }
 
         $.ajax({
             type: 'POST',
             url: "/autenticar",
             data: data,
+            dataType: 'html',
             beforeSend: function() {
-                $("#status").html(
-                    `<div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>`
-                );
+                if (parseInt(localStorage.tentativas) >= 0) {
+                    $("#status").html(
+                        `<div class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>`
+                    );
+                }
             },
             success: function(data) {
                 var response = JSON.parse(data);
 
                 if (response.sucesso) {
+                    localStorage.clear();
                     window.location.href = "/";
-                } else {
+                } else if (response.sucesso === null) {
                     $("#status").html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: ${response.mensagem}
-                    </div>`
+                            Atenção: ${response.mensagem}
+                        </div>`
                     );
+                } else {
+                    if (parseInt(localStorage.tentativas) > 0) {
+                        $("#status").html(
+                            `<div class="alert alert-warning" role="alert">
+                                Atenção: ${response.mensagem}
+                                <br>
+                                Você tem <b>${localStorage.tentativas}</b> tentativas restantes!
+                            </div>`
+                        );
+                    } else {
+                        $("#status").html(
+                            `<div class="alert alert-danger" role="alert">
+                                Acesso bloqueado! Redefina sua senha.
+                            </div>`
+                        );
+
+                        $("#entrar").click();
+                        $("#entrar").remove();
+                    }
                 }
             },
             error: function(xhr) {
@@ -67,11 +111,7 @@
                         Não foi possível se conectar.
                     </div>`
                 );
-            },
-            complete: function() {
-
-            },
-            dataType: 'html'
+            }
         });
     });
 </script>

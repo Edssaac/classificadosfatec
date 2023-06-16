@@ -12,7 +12,7 @@
 
         <div class="mb-3 mx-4">
             <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-            <input type="date" id="data_nascimento" name="data_nascimento" class="form-control input-cinza" required>
+            <input type="date" id="data_nascimento" name="data_nascimento" max="2999-12-31" class="form-control input-cinza" required>
         </div>
 
         <div id="status" class="mx-3 my-3">
@@ -55,7 +55,7 @@
                 } else {
                     $("#status").html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: Não foi possível enviar o e-mail.
+                        Atenção: ${response.mensagem}
                     </div>`
                     );
                 }

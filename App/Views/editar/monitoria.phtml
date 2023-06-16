@@ -31,11 +31,18 @@
             </div>
             <div class="mb-3 col-6 col-md-3">
                 <label for="data_desconto" class="form-label">Data Limite de Desconto</label>
-                <input type="datetime-local" id="data_desconto" name="data_desconto" class="form-control input-cinza" value="<?= $this->view->monitoria["data_desconto"] ?>">
+                <input type="datetime-local" id="data_desconto" name="data_desconto" max="2999-12-31T23:59" class="form-control input-cinza" value="<?= $this->view->monitoria["data_desconto"] ?>">
             </div>
             <div class="mb-3 col-6 col-md-3">
                 <label for="total" class="form-label">Total</label>
                 <input type="text" id="total" name="total" class="form-control input-cinza" disabled>
+            </div>
+        </div>
+
+        <div class="mx-3 row my-5">
+            <div class="mb-3 col-12 col-md-3">
+                <label for="data_vencimento" class="form-label">Data de Vencimento do Anúncio</label>
+                <input type="date" id="data_vencimento" name="data_vencimento" min="<?= date("Y-m-d") ?>" max="2999-12-31" class="form-control input-cinza" value="<?= $this->view->monitoria["data_vencimento"] ?>">
             </div>
         </div>
 

@@ -15,12 +15,24 @@
                 <?php foreach ($this->view->produtos as $produto) { ?>
                     <div class="swiper-slide pb-3">
                         <div class="w-100">
-                            <h4 class="text-left mt-3"><?= $produto["titulo"] ?></h4>
+                            <?php if ($this->view->login) { ?>
+                                <h4 class="text-left mt-3"><a href="/produtos/<?= $produto["cod_anuncio"] ?>"><?= $produto["titulo"] ?></a></h4>
+                            <?php } else { ?>
+                                <h4 class="text-left mt-3"><?= $produto["titulo"] ?></h4>
+                            <?php } ?>
                             <hr>
                         </div>
 
                         <div class="swiper-portrait">
-                            <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" alt="anuncio">
+                            <?php if ($this->view->login) { ?>
+                                <h4 class="text-left mt-3">
+                                    <a href="/produtos/<?= $produto["cod_anuncio"] ?>">
+                                        <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" alt="anuncio">
+                                    </a>
+                                </h4>
+                            <?php } else { ?>
+                                <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" alt="anuncio">
+                            <?php } ?>
                         </div>
 
                         <div class="w-100">

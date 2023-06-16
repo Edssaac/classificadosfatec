@@ -58,6 +58,7 @@
                     $("form").trigger("reset");
 
                     setTimeout(function() {
+                        localStorage.clear();
                         window.location.href = "/entrar";
                     }, 1500);
                 } else {

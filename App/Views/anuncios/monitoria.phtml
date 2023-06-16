@@ -12,6 +12,9 @@
                         <div class="col-10">
                             <p class="my-0"><?= $this->view->monitoria["nome"] ?>
                                 <br><small><?= $this->view->monitoria["data_anunciada"] ?></small>
+                                <?php if ($this->view->monitoria["data_vencimento"] !== "0000-00-00") { ?>
+                                    <br><small>Disponível até: <?= date_format(date_create($this->view->monitoria["data_vencimento"]), "d/m/Y") ?></small>
+                                <?php } ?>
                             </p>
                         </div>
                     </div>
@@ -53,7 +56,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <p class="card-text justificado"><?= $this->view->monitoria["descricao"] ?></p>
+                                    <p class="card-text justificado"><?= nl2br($this->view->monitoria["descricao"]) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -82,23 +85,39 @@
 
                 <div class="card-footer">
                     <div class="row g-2">
-                        <div class="col-12 col-lg-4 order-3 order-lg-0">
-                            <a href="/monitorias">
-                                <button type="button" class="button-input text-light w-100">Voltar</button>
-                            </a>
-                        </div>
+                        <?php if ($this->view->monitoria["cod_usuario"] !== $_SESSION["cod_usuario"]) { ?>
+                            <div class="col-12 col-lg-4 order-3 order-lg-0">
+                                <a href="/produtos">
+                                    <button type="button" class="button-input text-light w-100">Voltar</button>
+                                </a>
+                            </div>
 
-                        <div class="col-6 col-lg-4">
-                            <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->monitoria["telefone"]); ?>" target="_blank">
-                                <button type="button" class="button-input text-light w-100">
-                                    <i class="fa-brands fa-whatsapp"></i> Contatar
-                                </button>
-                            </a>
-                        </div>
+                            <div class="col-6 col-lg-4">
+                                <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->monitoria["telefone"]); ?>" target="_blank">
+                                    <button type="button" class="button-input text-light w-100">
+                                        <i class="fa-brands fa-whatsapp"></i> Contatar
+                                    </button>
+                                </a>
+                            </div>
 
-                        <div class="col-6 col-lg-4">
-                            <button type="button" class="button-input text-light w-100" data-bs-toggle="modal" data-bs-target="#modalDenunciar">Denunciar</button>
-                        </div>
+                            <div class="col-6 col-lg-4">
+                                <button type="button" class="button-input text-light w-100" data-bs-toggle="modal" data-bs-target="#modalDenunciar">Denunciar</button>
+                            </div>
+                        <?php } else { ?>
+                            <div class="col-12 col-lg-6 order-3 order-lg-0">
+                                <a href="/monitorias">
+                                    <button type="button" class="button-input text-light w-100">Voltar</button>
+                                </a>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <a href="https://wa.me/55<?= preg_replace("/[^0-9]/", "", $this->view->monitoria["telefone"]); ?>" target="_blank">
+                                    <button type="button" class="button-input text-light w-100">
+                                        <i class="fa-brands fa-whatsapp"></i> Contatar
+                                    </button>
+                                </a>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -184,7 +203,7 @@
                     <div class="mb-3 mx-4">
                         <label for="motivo" class="form-label">Motivo</label>
                         <select class="form-select input-cinza" id="motivo" name="motivo" required>
-                            <option selected>---</option>
+                            <option value="0" selected>Outros</option>
                         </select>
                     </div>
 
@@ -194,7 +213,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="button-input text-light" data-bs-dismiss="modal">Enviar</button>
+                    <button type="button" class="button-input text-light" id="denunciar" data-bs-dismiss="modal">Enviar</button>
                 </div>
             </div>
         </div>
@@ -206,6 +225,12 @@
     $(document).ready(function() {
         duvidas();
         avaliacoes();
+    });
+
+    $.getScript("/assets/js/motivos.js", function() {
+        for (var key in motivos) {
+            $("#motivo").append(`<option value="${key}"> ${motivos[key]} </option>`);
+        }
     });
 
     let texto_duvida = "";
@@ -221,8 +246,13 @@
         $("#bloco_avaliacoes").toggleClass("d-none", true);
         $("#bloco_duvidas").toggleClass("d-none", false);
 
-        texto_avaliacao = $("#comentario").val();
-        $("#comentario").val(texto_duvida);
+        <?php if ($this->view->monitoria["cod_usuario"] !== $_SESSION["cod_usuario"]) { ?>
+            texto_avaliacao = $("#comentario").val();
+            $("#comentario").val(texto_duvida);
+        <?php } else { ?>
+            $("#comentario").toggleClass("d-none", false);
+            $("#bloco_avaliacao").toggleClass("d-none", true);
+        <?php } ?>
 
         autosize();
     });
@@ -237,8 +267,13 @@
         $("#bloco_duvidas").toggleClass("d-none", true);
         $("#bloco_avaliacoes").toggleClass("d-none", false);
 
-        texto_duvida = $("#comentario").val();
-        $("#comentario").val(texto_avaliacao);
+        <?php if ($this->view->monitoria["cod_usuario"] !== $_SESSION["cod_usuario"]) { ?>
+            texto_duvida = $("#comentario").val();
+            $("#comentario").val(texto_avaliacao);
+        <?php } else { ?>
+            $("#comentario").toggleClass("d-none", true);
+            $("#bloco_avaliacao").toggleClass("d-none", true);
+        <?php } ?>
 
         autosize();
     });
@@ -269,6 +304,7 @@
     function limparEstrelas() {
         estrelas.forEach((estrela, j) => {
             estrela.classList.replace("fa-solid", "fa-regular");
+            classificacao_anterior = 0;
         });
     }
     // Estrelas - Fim da lógica.
