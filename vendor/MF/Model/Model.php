@@ -1,24 +1,27 @@
 <?php
 
-    namespace MF\Model;
+namespace MF\Model;
 
-    use PDO;
+use PDO;
 
-    class Model {
-        protected $db;
+class Model
+{
+    protected $db;
 
-        public function __construct($db) {
-            $this->db = $db;
-        }
-
-        public function __get($atributo) {
-            return $this->$atributo;
-        }
-
-        public function __set($atributo, $valor) {
-            $this->$atributo = $valor;
-        }
-
+    public function __construct($db)
+    {
+        $this->db = $db;
     }
+
+    public function __get($atributo)
+    {
+        return $this->$atributo;
+    }
+
+    public function __set($atributo, $valor)
+    {
+        $this->$atributo = $valor;
+    }
+}
 
 ?>
