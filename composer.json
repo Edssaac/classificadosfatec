@@ -1,0 +1,19 @@
+{
+    "name" : "edssaac/classificadosfatec",
+    "require" : {
+        "php" : ">=8.0",
+        "phpmailer/phpmailer": "^6.5"
+    },
+    "authors": [
+        {
+            "name" : "Edson Isaac",
+            "email": "edssaac@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\" : "App/",
+            "MF\\" : "vendor/MF"
+        }
+    }
+}
