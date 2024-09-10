@@ -1,0 +1,28 @@
+<section class="bg-light rounded my-4 mb-5">
+    <div class="mx-3 py-4">
+        <h3 class="text-center text-danger mb-4">Relatório de Usuários</h3>
+        <a href="/relatorio" title="Retornar">
+            <i class="fa-solid fa-arrow-left text-danger"></i>
+        </a>
+        <div class="table-responsive mt-4">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <?php foreach ($this->view->tabela["cabecalhos"] as $cabecalho) { ?>
+                            <th scope="col"><?= $cabecalho ?></th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->view->tabela["linhas"] as $linha) { ?>
+                        <tr>
+                            <?php foreach ($linha as $l) { ?>
+                                <td><?= $l ?></td>
+                            <?php } ?>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

@@ -2,11 +2,17 @@
 
 namespace App;
 
-use MF\Init\Bootstrap;
-
-class Route extends Bootstrap
+class Route
 {
-    protected function initRoutes()
+    private array $routes;
+
+    public function __construct()
+    {
+        $this->initRoutes();
+        $this->run($this->getUrl());
+    }
+
+    private function initRoutes()
     {
         // Home:
         $routes["home"] = array(
@@ -199,7 +205,7 @@ class Route extends Bootstrap
             "action"     => "comentar"
         );
 
-        
+
         // Editar:
         $routes["editar_solicitados"] = array(
             "route"      => "/^\/solicitados\/editar\/(\d+)\/*$/",
@@ -315,6 +321,35 @@ class Route extends Bootstrap
 
         $this->setRoutes($routes);
     }
-}
 
-?>
+    private function getRoutes(): array
+    {
+        return $this->routes;
+    }
+
+    private function setRoutes(array $routes): void
+    {
+        $this->routes = $routes;
+    }
+
+    private function run(string $url): void
+    {
+        foreach ($this->getRoutes() as $route) {
+            if (preg_match($route['route'], $url)) {
+                $class = "App\\Controller\\" . $route['controller'];
+                $controller = new $class;
+                $action = $route['action'];
+                $controller->$action();
+                exit;
+            }
+        }
+
+        header("Location: /");
+        exit;
+    }
+
+    private function getUrl(): string
+    {
+        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    }
+}
