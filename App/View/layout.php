@@ -37,6 +37,7 @@
     <!-- Classificados Fatec JS -->
     <script src="/assets/js/sliderbar.js" defer></script>
     <script src="/assets/js/swiper.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
 
     <title>Classificados Fatec</title>
 </head>
@@ -163,16 +164,6 @@
     <footer class="fixed-bottom bg-vermelho">
         <p class="text-center mb-0 user-select-none">Classificados Fatec</p>
     </footer>
-
-    <script>
-        $(document).ready(function() {
-            const page = window.location.pathname;
-
-            if (page) {
-                $(`li a[href="${page}"]`).addClass('active');
-            }
-        });
-    </script>
 </body>
 
 </html>

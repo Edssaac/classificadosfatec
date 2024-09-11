@@ -79,6 +79,7 @@
         $('#valor').mask('#.##0,00', {
             reverse: true
         });
+
         $('#desconto').mask('#.##0,00', {
             reverse: true
         });
@@ -122,7 +123,7 @@
             processData: false,
             contentType: false,
             beforeSend: function() {
-                $("#status").html(
+                $('#status').html(
                     `<div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -132,19 +133,19 @@
             },
             success: function(data) {
                 if (data.sucesso) {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="alert alert-success" role="alert">
                             Produto anunciado com sucesso!
                         </div>`
                     );
 
-                    $("form").trigger("reset");
+                    $('form').trigger("reset");
 
                     setTimeout(function() {
                         window.location.href = "/produtos";
                     }, 1500);
                 } else {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="alert alert-danger" role="alert">
                             Atenção: ${data.mensagem}
                         </div>`
@@ -152,7 +153,7 @@
                 }
             },
             error: function() {
-                $("#status").html(
+                $('#status').html(
                     `<div class="alert alert-danger" role="alert">
                         Não foi possível anunciar o produto.
                     </div>`

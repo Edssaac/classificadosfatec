@@ -1,7 +1,5 @@
-/*========== FONTE IMPORTADA ==========*/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
 
-/*========== VARIÁVEIS CSS ==========*/
 :root {
     --vermelho: #b20000;
     --cinza: #b8b4b4;
@@ -10,20 +8,17 @@
     --branco: #ffffff;
 }
 
-/*========== RESET ==========*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/*========== CORPO DA PÁGINA ==========*/
 body {
     background-color: var(--cinza);
     font-family: 'Inter', sans-serif;
 }
 
-/*========== BANNER ==========*/
 .bg-vermelho {
     background-color: var(--vermelho);
 }
@@ -34,7 +29,6 @@ body {
     padding: 10px;
 }
 
-/*========== ÁREA DE PESQUISA E BOTÕES ==========*/
 nav {
     background-color: var(--cinza-escuro);
 }
@@ -97,17 +91,14 @@ nav {
     max-height: 200px;
 }
 
-/*========== INPUTS ==========*/
 .input-cinza {
     background-color: var(--cinza) !important;
 }
 
-/*========== TEXTO ==========*/
 .justificado {
     text-align: justify;
 }
 
-/*========== RODAPÉ ==========*/
 footer {
     color: var(--branco);
 }

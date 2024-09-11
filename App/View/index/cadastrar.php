@@ -45,12 +45,12 @@
 <script>
     $(document).ready(function() {
         $('#telefone').mask('(99) 9999-99999');
-    });
 
-    $.getScript('assets/js/fatecs.js', function() {
-        for (let fatec in fatecs) {
-            $('#instituicao').append(`<option value="${fatec}"> ${fatecs[fatec]} </option>`);
-        }
+        $.getScript('assets/js/fatecs.js', function() {
+            for (let fatec in fatecs) {
+                $('#instituicao').append(`<option value="${fatec}"> ${fatecs[fatec]} </option>`);
+            }
+        });
     });
 
     $('form').submit(function(e) {
@@ -78,9 +78,9 @@
                 if (response.sucesso) {
                     $('#status').html(
                         `<div class="alert alert-success" role="alert">
-                        Cadastro realizado com sucesso!<br>
-                        Acesse seu e-mail para realizar a confirmação do cadastro.
-                    </div>`
+                            Cadastro realizado com sucesso!<br>
+                            Acesse seu e-mail para realizar a confirmação do cadastro.
+                        </div>`
                     );
 
                     $('form').trigger('reset');

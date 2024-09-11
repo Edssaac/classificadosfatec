@@ -133,12 +133,12 @@
 <script>
     $(document).ready(function() {
         comentarios();
-    });
 
-    $.getScript('/assets/js/motivos.js', function() {
-        for (let motivo in motivos) {
-            $('#motivo').append(`<option value="${motivo}"> ${motivos[motivo]} </option>`);
-        }
+        $.getScript('/assets/js/motivos.js', function() {
+            for (let motivo in motivos) {
+                $('#motivo').append(`<option value="${motivo}"> ${motivos[motivo]} </option>`);
+            }
+        });
     });
 
     $('#comentar').on('click', comentar);
@@ -189,6 +189,7 @@
             },
             complete: function() {
                 $('#status').html('');
+
                 autosize();
             }
         });

@@ -96,7 +96,6 @@
             data: form_data,
             success: function(data) {
                 $('form').trigger('reset');
-
                 $('#quadro_solicitacoes').html(data);
             }
         });

@@ -9,19 +9,30 @@ class SolicitacaoModel extends Model
 {
     public function solicitar(array $data): bool
     {
+        $accepted_fields = [
+            'cod_usuario',
+            'titulo',
+            'descricao',
+            'tipo',
+            'data_vencimento'
+        ];
+
+        foreach ($data as $name => $value) {
+            if (!in_array($name, $accepted_fields) || empty($value)) {
+                unset($data[$name]);
+            }
+        }
+
+        $fields = implode(', ', array_keys($data));
+        $data = $this->mapToBind($data);
+
         $result = $this->query(
             "INSERT INTO solicitacao (
-                cod_usuario, titulo, descricao, data, tipo, data_vencimento
+                $fields
             ) VALUES (
-                :cod_usuario, :titulo, :descricao, NOW(), :tipo, :data_vencimento
+                " . implode(', ', array_keys($data)) . "
             )",
-            $this->mapToBind([
-                'cod_usuario'       => $data['cod_usuario'],
-                'titulo'            => $data['titulo'],
-                'descricao'         => $data['descricao'],
-                'tipo'              => $data['tipo'],
-                'data_vencimento'   => $data['data_vencimento']
-            ])
+            $data
         );
 
         return (bool) $result->rowCount();

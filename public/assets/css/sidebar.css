@@ -1,25 +1,20 @@
-/*========== VARIÁVEIS CSS ==========*/
 :root {
-    /*========== CORES ==========*/
     --color-primary: #b20000;
     --color-body: #eceef0;
     --color-nav-link: #9a9a9a;
     --cinza-escuro: #666666;
 
-    /*========== TAMANHOS ==========*/
     --nav-width-mobile: 70%;
     --nav-width-tablet: 40%;
     --nav-width-desktop: 250px;
 }
 
-/*========== CLASSES REUTILIZÁVEIS ==========*/
 .flex {
     display: flex;
     align-items: center;
     justify-items: center;
 }
 
-/*========== NAVEGAÇÃO ==========*/
 .nav {
     background-color: #fff;
     height: 100%;
@@ -86,15 +81,12 @@
     color: var(--color-primary);
 }
 
-/*========== MEDIA QUERY ==========*/
-/* Tablet */
 @media screen and (min-width: 768px) {
     .nav.nav-show {
         width: var(--nav-width-tablet);
     }
 }
 
-/* Desktop */
 @media screen and (min-width: 1024px) {
     body {
         padding-left: var(--nav-width-desktop);

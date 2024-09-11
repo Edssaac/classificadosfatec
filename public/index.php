@@ -85,7 +85,8 @@ function loadEnvironmentVariables()
         'UPLOAD_NAME',
         'UPLOAD_EMAIL',
         'UPLOAD_TOKEN',
-        'UPLOAD_PATH'
+        'UPLOAD_PATH',
+        'IMAGE_BASE_PATH'
     ];
 
     $diff = array_diff($requested, array_keys($_ENV));

@@ -23,7 +23,7 @@
                         <div class="card-body pb-0">
                             <div class="row g-4 text-center h-100">
                                 <div class="col-md-4 align-self-center">
-                                    <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto['foto_name'] ?>" class="img-fluid rounded m-lg-2" alt="produto">
+                                    <img src="<?= $this->view->image_base_path . $produto['foto_name'] ?>" class="img-fluid rounded m-lg-2" alt="produto">
                                 </div>
                                 <div class="col-md-8">
                                     <div>
@@ -139,7 +139,6 @@
             data: data,
             success: function(data) {
                 $('form').trigger('reset');
-
                 $('#quadro_produtos').html(data);
             }
         });

@@ -17,6 +17,7 @@ abstract class Controller
     protected function render(string $view, string $layout = 'layout'): void
     {
         $this->view->page = $view;
+        $this->view->image_base_path = $_ENV["IMAGE_BASE_PATH"];
 
         if (!isset($this->view->pesquisar)) {
             $this->view->pesquisar = '';

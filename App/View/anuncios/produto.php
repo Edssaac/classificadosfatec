@@ -20,7 +20,7 @@
                 <div class="card-body pb-0">
                     <div class="row g-4 align-items-start">
                         <div class="col-md-4 text-center">
-                            <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $this->view->produto['foto_name'] ?>" class="img-fluid rounded m-lg-2" alt="produto">
+                            <img src="<?= $this->view->image_base_path . $this->view->produto['foto_name'] ?>" class="img-fluid rounded m-lg-2" alt="produto">
                         </div>
                         <div class="col-md-8">
                             <div>
@@ -188,12 +188,12 @@
     $(document).ready(function() {
         duvidas();
         avaliacoes();
-    });
 
-    $.getScript('/assets/js/motivos.js', function() {
-        for (var motivo in motivos) {
-            $('#motivo').append(`<option value="${motivo}"> ${motivos[motivo]} </option>`);
-        }
+        $.getScript('/assets/js/motivos.js', function() {
+            for (let motivo in motivos) {
+                $('#motivo').append(`<option value="${motivo}"> ${motivos[motivo]} </option>`);
+            }
+        });
     });
 
     let texto_duvida = "";
@@ -266,7 +266,7 @@
     });
 
     function limparEstrelas() {
-        estrelas.forEach((estrela, j) => {
+        estrelas.forEach((estrela) => {
             estrela.classList.replace('fa-solid', 'fa-regular');
             classificacao_anterior = 0;
         });
@@ -348,9 +348,11 @@
             },
             complete: function() {
                 $('#status').html('');
+
                 $('.responder').each(function(index) {
                     $(this).on('click', responder);
                 });
+
                 autosize();
             }
         });

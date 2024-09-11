@@ -44,14 +44,14 @@
                 if (response.sucesso) {
                     $('#status').html(
                         `<div class="alert alert-success" role="alert">
-                        Foi enviado uma mensagem para seu e-mail, acesse-o para redefinir a senha!
-                    </div>`
+                            Foi enviado uma mensagem para seu e-mail, acesse-o para redefinir a senha!
+                        </div>`
                     );
                 } else {
                     $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: ${response.mensagem}
-                    </div>`
+                            Atenção: ${response.mensagem}
+                        </div>`
                     );
                 }
             },

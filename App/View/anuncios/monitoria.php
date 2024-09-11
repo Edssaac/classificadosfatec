@@ -176,14 +176,12 @@
                     <div class="text-center mb-3">
                         <h4 class="modal-title">Denúncia de Anúncio</h4>
                     </div>
-
                     <div class="mb-3 mx-4">
                         <label for="motivo" class="form-label">Motivo</label>
                         <select class="form-select input-cinza" id="motivo" name="motivo" required>
                             <option value="0" selected>Outros</option>
                         </select>
                     </div>
-
                     <div class="mb-3 mx-4">
                         <label for="mensagem" class="form-label">Mensagem</label>
                         <textarea name="mensagem" id="mensagem" rows="5" class="form-control input-cinza" required></textarea>
@@ -201,12 +199,12 @@
     $(document).ready(function() {
         duvidas();
         avaliacoes();
-    });
 
-    $.getScript('/assets/js/motivos.js', function() {
-        for (var motivo in motivos) {
-            $('#motivo').append(`<option value="${motivo}"> ${motivos[motivo]} </option>`);
-        }
+        $.getScript('/assets/js/motivos.js', function() {
+            for (let motivo in motivos) {
+                $('#motivo').append(`<option value="${motivo}"> ${motivos[motivo]} </option>`);
+            }
+        });
     });
 
     let texto_duvida = "";

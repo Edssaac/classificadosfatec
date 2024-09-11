@@ -1,25 +1,20 @@
 <section class="bg-light rounded my-4 mb-5">
-
     <form action="/monitoria" method="post" class="py-4 mx-lg-5">
         <div class="text-center mb-5">
             <h3 class="text-danger">Editar Anúncio - Monitoria</h3>
         </div>
-
         <div class="mb-3 mx-4">
             <label for="titulo" class="form-label">Título</label>
             <input type="text" id="titulo" name="titulo" class="form-control input-cinza" required value="<?= $this->view->monitoria["titulo"] ?>">
         </div>
-
         <div class="mb-3 mx-4">
             <label for="descricao" class="form-label">Descrição</label>
             <textarea name="descricao" id="descricao" rows="5" class="form-control input-cinza" required><?= $this->view->monitoria["descricao"] ?></textarea>
         </div>
-
         <div class="mb-3 mx-4">
             <label for="materia" class="form-label">Matéria</label>
             <input type="text" id="materia" name="materia" class="form-control input-cinza" required value="<?= $this->view->monitoria["materia"] ?>">
         </div>
-
         <div class="mx-3 row align-items-end">
             <div class="mb-3 col-6 col-md-3">
                 <label for="valor" class="form-label">Valor</label>
@@ -38,19 +33,16 @@
                 <input type="text" id="total" name="total" class="form-control input-cinza" disabled>
             </div>
         </div>
-
         <div class="mx-3 row my-5">
             <div class="mb-3 col-12 col-md-3">
                 <label for="data_vencimento" class="form-label">Data de Vencimento do Anúncio</label>
                 <input type="date" id="data_vencimento" name="data_vencimento" min="<?= date("Y-m-d") ?>" max="2999-12-31" class="form-control input-cinza" value="<?= $this->view->monitoria["data_vencimento"] ?>">
             </div>
         </div>
-
         <div class="mb-3 mx-4 mt-5">
             <div class="d-flex justify-content-start">
                 <p class="fw-bold">Horários disponíveis</p>
             </div>
-
             <div id="horarios_disponiveis">
                 <?php foreach ($this->view->horarios as $horario) { ?>
                     <div class="row horario_disponivel">
@@ -66,7 +58,6 @@
                                 <option value="7" <?= $horario["dia"] == "7" ? "selected" : "" ?>>Sábado</option>
                             </select>
                         </div>
-
                         <div class="col-sm-4 col-md-3 mt-2 input-block">
                             <label class="form-label">Das</label>
                             <input type="time" name="de_horario[]" class="form-control" required value="<?= $horario["de"] ?>">
@@ -80,7 +71,6 @@
                     </div>
                 <?php } ?>
             </div>
-
             <div class="d-flex justify-content-end gap-3 mb-5">
                 <button type="button" class="button" id="remover_horario" name="adicionar_horario">
                     <i class="fa-solid fa-minus"></i> Remover Horário
@@ -91,10 +81,7 @@
                 </button>
             </div>
         </div>
-
-        <div id="status" class="mx-3 my-3">
-        </div>
-
+        <div id="status" class="mx-3 my-3"></div>
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="button-input text-light">Atualizar</button>
             <button type="button" id="excluir" class="button-input text-light">Excluir</button>
@@ -105,17 +92,17 @@
 
 <script>
     $(document).ready(function() {
-        $("#valor").mask("#.##0,00", {
+        $('#valor').mask('#.##0,00', {
             reverse: true
         });
-        $("#desconto").mask("#.##0,00", {
+
+        $('#desconto').mask('#.##0,00', {
             reverse: true
         });
+
         atualizarTotal();
     });
 
-
-    // Interação com o campo de horários:
     document.querySelector('#adicionar_horario').addEventListener('click', adicionarNovoHorario);
 
     function adicionarNovoHorario() {
@@ -123,7 +110,7 @@
         const campos = novoCampo.querySelectorAll('input');
 
         campos.forEach(function(campo) {
-            campo.value = "";
+            campo.value = '';
         });
 
         document.querySelector('#horarios_disponiveis').appendChild(novoCampo);
@@ -138,23 +125,22 @@
             $(horarios[horarios.length - 1]).remove()
         }
     }
-    // Final da interação.
 
-
-    // Interação com o campo de desconto:
-    $("#valor").change(function() {
+    $('#valor').change(function() {
         atualizarTotal();
     });
 
-    $("#desconto").change(function() {
-        $("#data_desconto").attr("required", $(this).val() != "");
+    $('#desconto').change(function() {
+        $('#data_desconto').attr('required', $(this).val() != '');
+
         atualizarTotal();
     });
 
     function atualizarTotal() {
-        var valor = parseFloat($("#valor").val().replace('.', '').replace(',', '.'));
-        var desconto = parseFloat($("#desconto").val().replace('.', '').replace(',', '.'));
-        var total = 0;
+        const valor = parseFloat($('#valor').val().replace('.', '').replace(',', '.'));
+        const desconto = parseFloat($('#desconto').val().replace('.', '').replace(',', '.'));
+
+        let total = 0;
 
         if (!isNaN(valor) && !isNaN(desconto)) {
             total = valor - desconto;
@@ -162,75 +148,74 @@
             total = valor;
         }
 
-        $("#total").val(total.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+        $('#total').val(total.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
     }
-    // Final da interação.
 
-
-    $("#excluir").on("click", function() {
-        if (confirm("Tem certeza de que deseja excluir essa monitoria?")) {
-
+    $('#excluir').on('click', function() {
+        if (confirm('Tem certeza de que deseja excluir essa monitoria?')) {
             $.ajax({
                 type: 'POST',
-                url: "/excluir_monitoria",
-                dataType: "html",
-                data: "cod_anuncio=<?= $this->view->monitoria["cod_anuncio"] ?>",
+                url: '/excluir_monitoria',
+                dataType: 'html',
+                data: 'cod_anuncio=<?= $this->view->monitoria['cod_anuncio'] ?>',
                 beforeSend: function() {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>`
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>`
                     );
                 },
                 success: function(data) {
                     data = JSON.parse(data);
 
                     if (data.sucesso) {
-                        $("#status").html(
+                        $('#status').html(
                             `<div class="alert alert-success" role="alert">
-                        Monitoria excluída com sucesso!
-                    </div>`
+                                Monitoria excluída com sucesso!
+                            </div>`
                         );
 
                         setTimeout(function() {
-                            window.location.href = "/monitorias/";
+                            window.location.href = '/monitorias/';
                         }, 1500);
                     } else {
-                        $("#status").html(
+                        $('#status').html(
                             `<div class="alert alert-danger" role="alert">
-                        Atenção: ${data.mensagem}
-                    </div>`
+                                Atenção: ${data.mensagem}
+                            </div>`
                         );
                     }
                 },
                 error: function(xhr) {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Não foi possível excluir a monitoria.
-                    </div>`
+                            Não foi possível excluir a monitoria.
+                        </div>`
                     );
                 },
             });
         }
     });
 
-    $("form").submit(function(e) {
+    $('form').submit(function(e) {
         e.preventDefault();
-        var data = $("form").serializeArray();
-        data.push({
-            name: "cod_anuncio",
-            value: "<?= $this->view->monitoria["cod_anuncio"] ?>"
+
+        let form_data = $('form').serializeArray();
+
+        form_data.push({
+            name: 'cod_anuncio',
+            value: '<?= $this->view->monitoria['cod_anuncio'] ?>'
         });
 
         $.ajax({
             type: 'POST',
-            url: "/editar_monitoria",
-            data: data,
+            url: '/editar_monitoria',
+            data: form_data,
             dataType: 'html',
             beforeSend: function() {
-                $("#status").html(
+                $('#status').html(
                     `<div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -239,28 +224,28 @@
                 );
             },
             success: function(data) {
-                var response = JSON.parse(data);
+                data = JSON.parse(data);
 
-                if (response.sucesso) {
-                    $("#status").html(
+                if (data.sucesso) {
+                    $('#status').html(
                         `<div class="alert alert-success" role="alert">
-                        Monitoria atualizada com sucesso!
-                    </div>`
+                            Monitoria atualizada com sucesso!
+                        </div>`
                     );
 
                     setTimeout(function() {
-                        window.location.href = "/monitorias/<?= $this->view->monitoria["cod_anuncio"] ?>";
+                        window.location.href = '/monitorias/<?= $this->view->monitoria['cod_anuncio'] ?>';
                     }, 1500);
                 } else {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: ${response.mensagem}
-                    </div>`
+                            Atenção: ${data.mensagem}
+                        </div>`
                     );
                 }
             },
-            error: function(xhr) {
-                $("#status").html(
+            error: function() {
+                $('#status').html(
                     `<div class="alert alert-danger" role="alert">
                         Não foi possível atualizar a monitoria.
                     </div>`

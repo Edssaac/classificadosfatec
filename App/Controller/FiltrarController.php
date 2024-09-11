@@ -319,7 +319,7 @@ class FiltrarController extends Controller
                                 <div class='card-body pb-0'>
                                     <div class='row g-4 text-center h-100'>
                                         <div class='col-md-4 align-self-center'>
-                                            <img src='https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/" . $anuncio["foto_name"] . "' class='img-fluid rounded m-lg-2' alt='produto'>
+                                            <img src='" . $_ENV["IMAGE_BASE_PATH"] . $anuncio["foto_name"] . "' class='img-fluid rounded m-lg-2' alt='produto'>
                                         </div>
                                         <div class='col-md-8'>
                                             <div>

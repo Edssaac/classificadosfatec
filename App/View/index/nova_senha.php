@@ -45,8 +45,8 @@
                 if (response.sucesso) {
                     $('#status').html(
                         `<div class="alert alert-success" role="alert">
-                        Sua senha foi alterada com sucesso!
-                    </div>`
+                            Sua senha foi alterada com sucesso!
+                        </div>`
                     );
 
                     $('form').trigger('reset');
@@ -58,8 +58,8 @@
                 } else {
                     $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: ${response.mensagem}
-                    </div>`
+                            Atenção: ${response.mensagem}
+                        </div>`
                     );
                 }
             },

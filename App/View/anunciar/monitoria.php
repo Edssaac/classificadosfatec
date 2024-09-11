@@ -89,6 +89,7 @@
         $('#valor').mask('#.##0,00', {
             reverse: true
         });
+
         $('#desconto').mask('#.##0,00', {
             reverse: true
         });
@@ -141,13 +142,13 @@
     $('form').submit(function(e) {
         e.preventDefault();
 
-        const data = $('form').serialize();
+        const form_data = $('form').serialize();
 
         $.ajax({
             type: 'POST',
             url: "/cadastrar_monitoria",
             dataType: 'html',
-            data: data,
+            data: form_data,
             beforeSend: function() {
                 $('#status').html(
                     `<div class="d-flex justify-content-center">
@@ -163,8 +164,8 @@
                 if (response.sucesso) {
                     $('#status').html(
                         `<div class="alert alert-success" role="alert">
-                        Monitoria anunciada com sucesso!
-                    </div>`
+                            Monitoria anunciada com sucesso!
+                        </div>`
                     );
 
                     $('form').trigger('reset');
@@ -175,8 +176,8 @@
                 } else {
                     $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: ${response.mensagem}
-                    </div>`
+                            Atenção: ${response.mensagem}
+                        </div>`
                     );
                 }
             },

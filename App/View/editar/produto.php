@@ -1,20 +1,16 @@
 <section class="bg-light rounded my-4 mb-5">
-
     <form action="/produto" method="post" enctype="multipart/form-data" class="py-4 mx-lg-5">
         <div class="text-center mb-5">
             <h3 class="text-danger">Editar Anúncio - Produto</h3>
         </div>
-
         <div class="mb-3 mx-4">
             <label for="titulo" class="form-label">Título</label>
             <input type="text" id="titulo" name="titulo" class="form-control input-cinza" required value="<?= $this->view->produto["titulo"] ?>">
         </div>
-
         <div class=" mb-3 mx-4">
             <label for="descricao" class="form-label">Descrição</label>
             <textarea name="descricao" id="descricao" rows="5" class="form-control input-cinza" required><?= $this->view->produto["descricao"] ?></textarea>
         </div>
-
         <div class="mx-3 row align-items-end">
             <div class="mb-3 col-6 col-md-3">
                 <label for="valor" class="form-label">Valor</label>
@@ -33,19 +29,16 @@
                 <input type="text" id="total" name="total" class="form-control input-cinza" disabled>
             </div>
         </div>
-
         <div class="mx-3 row my-5">
             <div class="mb-3 col-12 col-md-3">
                 <label for="data_vencimento" class="form-label">Data de Vencimento do Anúncio</label>
                 <input type="date" id="data_vencimento" name="data_vencimento" min="<?= date("Y-m-d") ?>" max="2999-12-31" class="form-control input-cinza" value="<?= $this->view->produto["data_vencimento"] ?>">
             </div>
         </div>
-
         <div class="mb-3 mx-4">
             <label for="foto" class="form-label">Imagem do Produto</label>
             <input type="file" accept="image/*" id="foto" name="foto" class="form-control input-cinza" required>
         </div>
-
         <div class="mx-3 row align-items-end">
             <div class="mb-3 col-sm-6 col-md-4">
                 <label for="quantidade" class="form-label">Quantidade</label>
@@ -74,44 +67,42 @@
                 </div>
             </div>
         </div>
-
-        <div id="status" class="mx-3 my-3">
-        </div>
-
+        <div id="status" class="mx-3 my-3"></div>
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="button-input text-light">Atualizar</button>
             <button type="button" id="excluir" class="button-input text-light">Excluir</button>
         </div>
     </form>
-
 </section>
 
 <script>
     $(document).ready(function() {
-        $("#valor").mask("#.##0,00", {
+        $('#valor').mask('#.##0,00', {
             reverse: true
         });
-        $("#desconto").mask("#.##0,00", {
+
+        $('#desconto').mask('#.##0,00', {
             reverse: true
         });
+
         atualizarTotal();
     });
 
-
-    // Interação com o campo de desconto:
-    $("#valor").change(function() {
+    $('#valor').change(function() {
         atualizarTotal();
     });
 
-    $("#desconto").change(function() {
-        $("#data_desconto").attr("required", $(this).val() != "");
+    $('#desconto').change(function() {
+        $('#data_desconto').attr('required', $(this).val() != '');
+
         atualizarTotal();
     });
 
     function atualizarTotal() {
-        var valor = parseFloat($("#valor").val().replace('.', '').replace(',', '.'));
-        var desconto = parseFloat($("#desconto").val().replace('.', '').replace(',', '.'));
-        var total = 0;
+        const valor = parseFloat($('#valor').val().replace('.', '').replace(',', '.'));
+        const desconto = parseFloat($('#desconto').val().replace('.', '').replace(',', '.'));
+
+        let total = 0;
 
         if (!isNaN(valor) && !isNaN(desconto)) {
             total = valor - desconto;
@@ -119,74 +110,73 @@
             total = valor;
         }
 
-        $("#total").val(total.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+        $('#total').val(total.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
     }
 
-
-    $("#excluir").on("click", function() {
-        if (confirm("Tem certeza de que deseja excluir esse produto?")) {
-
+    $('#excluir').on('click', function() {
+        if (confirm('Tem certeza de que deseja excluir esse produto?')) {
             $.ajax({
                 type: 'POST',
-                url: "/excluir_produto",
-                dataType: "html",
-                data: "cod_anuncio=<?= $this->view->produto["cod_anuncio"] ?>",
+                url: '/excluir_produto',
+                dataType: 'html',
+                data: 'cod_anuncio=<?= $this->view->produto['cod_anuncio'] ?>',
                 beforeSend: function() {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>`
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>`
                     );
                 },
                 success: function(data) {
                     data = JSON.parse(data);
 
                     if (data.sucesso) {
-                        $("#status").html(
+                        $('#status').html(
                             `<div class="alert alert-success" role="alert">
-                        Produto excluído com sucesso!
-                    </div>`
+                                Produto excluído com sucesso!
+                            </div>`
                         );
 
                         setTimeout(function() {
                             window.location.href = "/produtos/";
                         }, 1500);
                     } else {
-                        $("#status").html(
+                        $('#status').html(
                             `<div class="alert alert-danger" role="alert">
-                        Atenção: ${data.mensagem}
-                    </div>`
+                                Atenção: ${data.mensagem}
+                            </div>`
                         );
                     }
                 },
                 error: function(xhr) {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Não foi possível excluir o produto.
-                    </div>`
+                            Não foi possível excluir o produto.
+                        </div>`
                     );
                 },
             });
         }
     });
 
-    // Final da interação.
-    $("form").submit(function(e) {
+    $('form').submit(function(e) {
         e.preventDefault();
-        var data = new FormData(this);
-        data.append("cod_anuncio", "<?= $this->view->produto["cod_anuncio"] ?>");
+
+        let form_data = new FormData(this);
+
+        form_data.append('cod_anuncio', '<?= $this->view->produto['cod_anuncio'] ?>');
 
         $.ajax({
             type: 'POST',
-            url: "/editar_produto",
-            dataType: "JSON",
-            data: data,
+            url: '/editar_produto',
+            dataType: 'JSON',
+            data: form_data,
             processData: false,
             contentType: false,
             beforeSend: function() {
-                $("#status").html(
+                $('#status').html(
                     `<div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -196,33 +186,30 @@
             },
             success: function(data) {
                 if (data.sucesso) {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="alert alert-success" role="alert">
-                        Produto atualizado com sucesso!
-                    </div>`
+                            Produto atualizado com sucesso!
+                        </div>`
                     );
 
                     setTimeout(function() {
                         window.location.href = "/produtos/<?= $this->view->produto["cod_anuncio"] ?>";
                     }, 1500);
                 } else {
-                    $("#status").html(
+                    $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: ${data.mensagem}
-                    </div>`
+                            Atenção: ${data.mensagem}
+                        </div>`
                     );
                 }
             },
-            error: function(xhr) {
-                $("#status").html(
+            error: function() {
+                $('#status').html(
                     `<div class="alert alert-danger" role="alert">
                         Não foi possível atualizar o produto.
                     </div>`
                 );
-            },
-            complete: function() {
-
-            },
+            }
         });
     });
 </script>

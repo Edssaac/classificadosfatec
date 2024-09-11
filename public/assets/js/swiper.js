@@ -1,5 +1,4 @@
-// Initialize Swiper
-var swiper = new Swiper(".mySwiper", {
+const swiper = new Swiper(".mySwiper", {
     cssMode: false,
     slidesPerView: 1,
     spaceBetween: 30,
@@ -16,4 +15,3 @@ var swiper = new Swiper(".mySwiper", {
         clickable: true
     },
 });
-

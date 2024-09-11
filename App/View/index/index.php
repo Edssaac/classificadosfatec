@@ -25,11 +25,11 @@
                             <?php if ($this->view->login) { ?>
                                 <h4 class="text-left mt-3">
                                     <a href="/produtos/<?= $produto["cod_anuncio"] ?>">
-                                        <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" alt="anuncio">
+                                        <img src="<?= $this->view->image_base_path . $produto["foto_name"] ?>" alt="anuncio">
                                     </a>
                                 </h4>
                             <?php } else { ?>
-                                <img src="https://raw.githubusercontent.com/Edssaac/cf_storage/main/produtos/<?= $produto["foto_name"] ?>" alt="anuncio">
+                                <img src="<?= $this->view->image_base_path . $produto["foto_name"] ?>" alt="anuncio">
                             <?php } ?>
                         </div>
                         <div class="w-100">

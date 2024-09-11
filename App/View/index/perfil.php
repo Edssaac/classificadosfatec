@@ -73,15 +73,14 @@
 <script>
     $(document).ready(function() {
         $('#telefone').mask('(99) 9999-99999');
-    });
 
-    $.getScript('assets/js/fatecs.js', function() {
-        for (var key in fatecs) {
-            $('#instituicao').append(`<option value="${key}"> ${fatecs[key]} </option>`);
-        }
+        $.getScript('assets/js/fatecs.js', function() {
+            for (let key in fatecs) {
+                $('#instituicao').append(`<option value="${key}"> ${fatecs[key]} </option>`);
+            }
 
-        $('#instituicao option[value='
-            <?= $this->view->usuario['instituicao'] ?> ']').attr('selected', 'selected');
+            $('#instituicao option[value="<?= $this->view->usuario['instituicao'] ?>"]').attr('selected', 'selected');
+        });
     });
 
     $('form').submit(function(e) {
@@ -109,8 +108,8 @@
                 if (response.sucesso) {
                     $('#status').html(
                         `<div class="alert alert-success" role="alert">
-                        Dados alterados com sucesso!
-                    </div>`
+                            Dados alterados com sucesso!
+                        </div>`
                     );
 
                     $('form').trigger('reset');
@@ -121,8 +120,8 @@
                 } else {
                     $('#status').html(
                         `<div class="alert alert-danger" role="alert">
-                        Atenção: ${response.mensagem}
-                    </div>`
+                            Atenção: ${response.mensagem}
+                        </div>`
                     );
                 }
             },
