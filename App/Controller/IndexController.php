@@ -3,135 +3,144 @@
 namespace App\Controller;
 
 use App\Controller;
-use App\Model\AnuncioModel;
-use App\Model\ProdutoModel;
-use App\Model\SolicitacaoModel;
-use App\Model\UsuarioModel;
+use App\Model\AdModel;
+use App\Model\ProductModel;
+use App\Model\SolicitationModel;
+use App\Model\UserModel;
 
 class IndexController extends Controller
 {
     public function index()
     {
-        $produto = new ProdutoModel();
-        $produtos = $produto->getUltimos(5);
+        $product = new ProductModel();
+        $products = $product->getRecentAds(5);
 
-        $this->view->quantidade_produtos = count($produtos);
-        $this->view->produtos = $produtos;
-        $this->view->aviso = false;
+        $this->view->product_quantity = count($products);
 
-        $this->sessao();
+        foreach ($products as &$product) {
+            if (strlen($product['description']) > 250) {
+                $product['description'] = substr($product['description'], 0, 250) . '...';
+            }
 
-        if (isset($_SESSION["tentativa_acesso"]) && $_SESSION["tentativa_acesso"]) {
-            $this->view->aviso = true;
-            unset($_SESSION["tentativa_acesso"]);
+            $product['photo_name'] = $_ENV['IMAGE_BASE_PATH'] . $product['photo_name'];
         }
 
-        $this->render("index");
+        $this->view->products = $products;
+        $this->view->login_warning = false;
+
+        $this->sessionManager();
+
+        if (isset($_SESSION['access_attempt']) && $_SESSION['access_attempt']) {
+            $this->view->login_warning = true;
+            unset($_SESSION['access_attempt']);
+        }
+
+        $this->render('index');
     }
 
-    public function entrar()
+    public function signin()
     {
-        $this->autenticarPagina(true);
+        $this->authenticatePage(true);
 
         if (isset($_GET['hash'])) {
             $this->view->hash = filter_var($_GET['hash']);
         } else {
-            $this->view->hash = "";
+            $this->view->hash = '';
         }
 
-        $this->render("entrar");
+        $this->render('signin');
     }
 
-    public function cadastrar()
+    public function signup()
     {
-        $this->autenticarPagina(true);
-        $this->render("cadastrar");
+        $this->authenticatePage(true);
+        $this->render('signup');
     }
 
-    public function redefinir()
+    public function recover()
     {
-        $this->autenticarPagina(true);
-        $this->render("redefinir");
+        $this->authenticatePage(true);
+        $this->render('recover');
     }
 
-    public function novaSenha()
+    public function resetPassword()
     {
-        $this->autenticarPagina(true);
+        $this->authenticatePage(true);
 
-        if (!isset($_GET["token"]) || empty($_GET["token"])) {
-            header("Location: /redefinir");
+        if (!isset($_GET['token']) || empty($_GET['token'])) {
+            header('Location: /redefinir');
         }
 
-        $this->view->token = $_GET["token"];
+        $this->view->token = $_GET['token'];
 
-        $this->render("nova_senha");
+        $this->render('reset_password');
     }
 
-    public function perfil()
+    public function profile()
     {
-        $this->autenticarPagina();
+        $this->authenticatePage();
 
-        $usuario = new UsuarioModel();
-        $anuncio = new AnuncioModel();
-        $solicitacao = new SolicitacaoModel();
+        $user = new UserModel();
+        $ad = new AdModel();
+        $solicitation = new SolicitationModel();
 
-        $this->view->usuario = $usuario->getPerfil($_SESSION["cod_usuario"]);
+        $this->view->user = $user->getProfile($_SESSION['user_id']);
 
-        if ($this->view->usuario["avaliacoes"] > 0) {
-            $this->view->reputacao = intval(round($this->view->usuario["notas"] / $this->view->usuario["avaliacoes"]));
+        if ($this->view->user['ratings'] > 0) {
+            $this->view->reputation = intval(round($this->view->user['score'] / $this->view->user['ratings']));
         } else {
-            $this->view->reputacao = 0;
+            $this->view->reputation = 0;
         }
 
-        $this->view->anuncios = $anuncio->getAnunciosPorUsuario($_SESSION["cod_usuario"]);
-        $this->view->solicitacoes = $solicitacao->getSolicitacoesPorUsuario($_SESSION["cod_usuario"]);
+        $this->view->ads = $ad->getAdByUserId($_SESSION['user_id']);
+        $this->view->solicitations = $solicitation->getSolicitationsByUserId($_SESSION['user_id']);
 
-        $this->render("perfil");
+        $this->render('profile');
     }
 
-    public function atualizarPerfil()
+    public function updateProfile()
     {
-        $this->autenticarPagina();
+        $this->authenticatePage();
 
-        $usuario = new UsuarioModel();
+        $user = new UserModel();
 
-        $_POST['cod_usuario'] = $_SESSION["cod_usuario"];
+        $_POST['user_id'] = $_SESSION['user_id'];
 
-        if ($usuario->atualizarPerfil($_POST)) {
-            $sucesso = true;
+        if ($user->updateUser($_POST)) {
+            $success = true;
         } else {
-            $sucesso = false;
-            $this->erro = "Não foi possível atualizar o perfil de usuário!";
+            $success = false;
+            $this->error = 'Não foi possível atualizar o perfil de usuário!';
         }
 
         $this->output([
-            "sucesso" => $sucesso,
-            "mensagem" => $this->erro
+            'success' => $success,
+            'message' => $this->error
         ]);
     }
 
-    public function relatorio()
+    public function report()
     {
-        $this->autenticarPagina(false, true);
+        $this->authenticatePage(false, true);
 
         if (!empty($_POST)) {
-            $usuario = new UsuarioModel();
+            $user = new UserModel();
 
-            $headers = array_merge(['nome'], array_keys($_POST));
+            $headers = array_merge(['name'], array_keys($_POST));
 
-            $this->view->tabela['cabecalhos'] = array_intersect_key([
-                'nome'                  => 'Nome',
-                'cb_data_nascimento'    => 'Data Nascimento',
-                'cb_telefone'           => 'Telefone',
-                'cb_email'              => 'Email',
-                'cb_data_acesso'        => 'Último Acesso'
+            $this->view->table['headers'] = array_intersect_key([
+                'name'              => 'Nome',
+                'cb_birth_date'     => 'Data Nascimento',
+                'cb_telephone'      => 'Telefone',
+                'cb_email'          => 'Email',
+                'cb_last_access'    => 'Último Acesso'
             ], array_flip($headers));
 
-            $this->view->tabela['linhas'] = $usuario->relatorioUsuarios($headers);
+            $this->view->table['lines'] = $user->getUsersReport($headers);
 
-            $this->render("relatorio");
+            $this->render('report_table');
         } else {
-            $this->render("relatorio_formulario");
+            $this->render('report_form');
         }
     }
 }

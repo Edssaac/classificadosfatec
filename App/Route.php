@@ -15,308 +15,308 @@ class Route
     private function initRoutes()
     {
         // Home:
-        $routes["home"] = array(
-            "route"      => "/^\/\/*$/",
-            "controller" => "IndexController",
-            "action"     => "index"
+        $routes['home'] = array(
+            'route'      => "/^\/\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'index'
         );
 
-        $routes["entrar"] = array(
-            "route"      => "/^\/entrar\/*$/",
-            "controller" => "IndexController",
-            "action"     => "entrar"
+        $routes['entrar'] = array(
+            'route'      => "/^\/entrar\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'signin'
         );
 
-        $routes["autenticar"] = array(
-            "route"      => "/^\/autenticar\/*$/",
-            "controller" => "AuthController",
-            "action"     => "autenticar"
+        $routes['autenticar'] = array(
+            'route'      => "/^\/autenticar\/*$/",
+            'controller' => 'AuthController',
+            'action'     => 'authenticate'
         );
 
-        $routes["redefinir"] = array(
-            "route"      => "/^\/redefinir\/*$/",
-            "controller" => "IndexController",
-            "action"     => "redefinir"
+        $routes['redefinir'] = array(
+            'route'      => "/^\/redefinir\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'recover'
         );
 
-        $routes["redefinir_senha"] = array(
-            "route"      => "/^\/redefinir_senha\/*$/",
-            "controller" => "AuthController",
-            "action"     => "redefinirSenha"
+        $routes['redefinir_senha'] = array(
+            'route'      => "/^\/redefinir_senha\/*$/",
+            'controller' => 'AuthController',
+            'action'     => 'recoverPassword'
         );
 
-        $routes["nova_senha"] = array(
-            "route"      => "/^\/nova_senha\/*$/",
-            "controller" => "IndexController",
-            "action"     => "novaSenha"
+        $routes['nova_senha'] = array(
+            'route'      => "/^\/nova_senha\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'resetPassword'
         );
 
-        $routes["cadastrar"] = array(
-            "route"      => "/^\/cadastrar\/*$/",
-            "controller" => "IndexController",
-            "action"     => "cadastrar"
+        $routes['cadastrar'] = array(
+            'route'      => "/^\/cadastrar\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'signup'
         );
 
-        $routes["registrar"] = array(
-            "route"      => "/^\/registrar\/*$/",
-            "controller" => "AuthController",
-            "action"     => "registrar"
+        $routes['registrar'] = array(
+            'route'      => "/^\/registrar\/*$/",
+            'controller' => 'AuthController',
+            'action'     => 'register'
         );
 
-        $routes["atualziar_perfil"] = array(
-            "route"      => "/^\/atualziar_perfil\/*$/",
-            "controller" => "IndexController",
-            "action"     => "atualizarPerfil"
+        $routes['atualizar_perfil'] = array(
+            'route'      => "/^\/atualizar_perfil\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'updateProfile'
         );
 
-        $routes["perfil"] = array(
-            "route"      => "/^\/perfil\/*$/",
-            "controller" => "IndexController",
-            "action"     => "perfil"
+        $routes['perfil'] = array(
+            'route'      => "/^\/perfil\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'profile'
         );
 
-        $routes["sair"] = array(
-            "route"      => "/^\/sair\/*$/",
-            "controller" => "AuthController",
-            "action"     => "sair"
+        $routes['sair'] = array(
+            'route'      => "/^\/sair\/*$/",
+            'controller' => 'AuthController',
+            'action'     => 'logout'
         );
 
-        $routes["relatorio"] = array(
-            "route"      => "/^\/relatorio\/*$/",
-            "controller" => "IndexController",
-            "action"     => "relatorio"
+        $routes['relatorio'] = array(
+            'route'      => "/^\/relatorio\/*$/",
+            'controller' => 'IndexController',
+            'action'     => 'report'
         );
 
 
         // Anunciar:
-        $routes["produto"] = array(
-            "route"      => "/^\/produto\/*$/",
-            "controller" => "AnunciarController",
-            "action"     => "produto"
+        $routes['produto'] = array(
+            'route'      => "/^\/produto\/*$/",
+            'controller' => 'AdvertiseController',
+            'action'     => 'product'
         );
 
-        $routes["cadastrar_produto"] = array(
-            "route"      => "/^\/cadastrar_produto\/*$/",
-            "controller" => "AnunciarController",
-            "action"     => "cadastrarProduto"
+        $routes['cadastrar_produto'] = array(
+            'route'      => "/^\/cadastrar_produto\/*$/",
+            'controller' => 'AdvertiseController',
+            'action'     => 'registerProduct'
         );
 
-        $routes["monitoria"] = array(
-            "route"      => "/^\/monitoria\/*$/",
-            "controller" => "AnunciarController",
-            "action"     => "monitoria"
+        $routes['monitoria'] = array(
+            'route'      => "/^\/monitoria\/*$/",
+            'controller' => 'AdvertiseController',
+            'action'     => 'tutoring'
         );
 
-        $routes["cadastrar_monitoria"] = array(
-            "route"      => "/^\/cadastrar_monitoria\/*$/",
-            "controller" => "AnunciarController",
-            "action"     => "cadastrarMonitoria"
+        $routes['cadastrar_monitoria'] = array(
+            'route'      => "/^\/cadastrar_monitoria\/*$/",
+            'controller' => 'AdvertiseController',
+            'action'     => 'registerTutoring'
         );
 
-        $routes["solicitar"] = array(
-            "route"      => "/^\/solicitar\/*$/",
-            "controller" => "AnunciarController",
-            "action"     => "solicitar"
+        $routes['solicitar'] = array(
+            'route'      => "/^\/solicitar\/*$/",
+            'controller' => 'AdvertiseController',
+            'action'     => 'solicitation'
         );
 
-        $routes["cadastrar_solicitacao"] = array(
-            "route"      => "/^\/cadastrar_solicitacao\/*$/",
-            "controller" => "AnunciarController",
-            "action"     => "cadastrarSolicitacao"
+        $routes['cadastrar_solicitacao'] = array(
+            'route'      => "/^\/cadastrar_solicitacao\/*$/",
+            'controller' => 'AdvertiseController',
+            'action'     => 'registerSolicitation'
         );
 
 
         //Anuncios:
-        $routes["produtos"] = array(
-            "route"      => "/^\/produtos\/*$/",
-            "controller" => "AnunciosController",
-            "action"     => "produtos"
+        $routes['produtos'] = array(
+            'route'      => "/^\/produtos\/*$/",
+            'controller' => 'AdvertisementController',
+            'action'     => 'products'
         );
 
-        $routes["get_produtos"] = array(
-            "route"      => "/^\/produtos\/(\d+)\/*$/",
-            "controller" => "AnunciosController",
-            "action"     => "produto"
+        $routes['get_produtos'] = array(
+            'route'      => "/^\/produtos\/(\d+)\/*$/",
+            'controller' => 'AdvertisementController',
+            'action'     => 'product'
         );
 
-        $routes["monitorias"] = array(
-            "route"      => "/^\/monitorias\/*$/",
-            "controller" => "AnunciosController",
-            "action"     => "monitorias"
+        $routes['monitorias'] = array(
+            'route'      => "/^\/monitorias\/*$/",
+            'controller' => 'AdvertisementController',
+            'action'     => 'tutorings'
         );
 
-        $routes["get_monitorias"] = array(
-            "route"      => "/^\/monitorias\/(\d+)\/*$/",
-            "controller" => "AnunciosController",
-            "action"     => "monitoria"
+        $routes['get_monitorias'] = array(
+            'route'      => "/^\/monitorias\/(\d+)\/*$/",
+            'controller' => 'AdvertisementController',
+            'action'     => 'tutoring'
         );
 
-        $routes["solicitados"] = array(
-            "route"      => "/^\/solicitados\/*$/",
-            "controller" => "AnunciosController",
-            "action"     => "solicitados"
+        $routes['solicitados'] = array(
+            'route'      => "/^\/solicitados\/*$/",
+            'controller' => 'AdvertisementController',
+            'action'     => 'solicitations'
         );
 
-        $routes["get_solicitados"] = array(
-            "route"      => "/^\/solicitados\/(\d+)\/*$/",
-            "controller" => "AnunciosController",
-            "action"     => "solicitado"
+        $routes['get_solicitados'] = array(
+            'route'      => "/^\/solicitados\/(\d+)\/*$/",
+            'controller' => 'AdvertisementController',
+            'action'     => 'solicitation'
         );
 
-        $routes["duvidas"] = array(
-            "route"      => "/^\/duvidas\/*$/",
-            "controller" => "ChatController",
-            "action"     => "getDuvidas"
+        $routes['duvidas'] = array(
+            'route'      => "/^\/duvidas\/*$/",
+            'controller' => 'ChatController',
+            'action'     => 'getQuestions'
         );
 
-        $routes["comentar_duvida"] = array(
-            "route"      => "/^\/comentar_duvida\/*$/",
-            "controller" => "ChatController",
-            "action"     => "comentarDuvida"
+        $routes['comentar_duvida'] = array(
+            'route'      => "/^\/comentar_duvida\/*$/",
+            'controller' => 'ChatController',
+            'action'     => 'question'
         );
 
-        $routes["responder_duvida"] = array(
-            "route"      => "/^\/responder_duvida\/*$/",
-            "controller" => "ChatController",
-            "action"     => "responderDuvida"
+        $routes['responder_duvida'] = array(
+            'route'      => "/^\/responder_duvida\/*$/",
+            'controller' => 'ChatController',
+            'action'     => 'answer'
         );
 
-        $routes["avaliacoes"] = array(
-            "route"      => "/^\/avaliacoes\/*$/",
-            "controller" => "ChatController",
-            "action"     => "getAvaliacoes"
+        $routes['avaliacoes'] = array(
+            'route'      => "/^\/avaliacoes\/*$/",
+            'controller' => 'ChatController',
+            'action'     => 'getReviews'
         );
 
-        $routes["avaliar"] = array(
-            "route"      => "/^\/avaliar\/*$/",
-            "controller" => "ChatController",
-            "action"     => "avaliar"
+        $routes['avaliar'] = array(
+            'route'      => "/^\/avaliar\/*$/",
+            'controller' => 'ChatController',
+            'action'     => 'rate'
         );
 
-        $routes["comentarios"] = array(
-            "route"      => "/^\/comentarios\/*$/",
-            "controller" => "ChatController",
-            "action"     => "getComentarios"
+        $routes['comentarios'] = array(
+            'route'      => "/^\/comentarios\/*$/",
+            'controller' => 'ChatController',
+            'action'     => 'getComments'
         );
 
-        $routes["comentar"] = array(
-            "route"      => "/^\/comentar\/*$/",
-            "controller" => "ChatController",
-            "action"     => "comentar"
+        $routes['comentar'] = array(
+            'route'      => "/^\/comentar\/*$/",
+            'controller' => 'ChatController',
+            'action'     => 'comment'
         );
 
 
         // Editar:
-        $routes["editar_solicitados"] = array(
-            "route"      => "/^\/solicitados\/editar\/(\d+)\/*$/",
-            "controller" => "EditarController",
-            "action"     => "solicitado"
+        $routes['editar_produtos'] = array(
+            'route'      => "/^\/produtos\/editar\/(\d+)\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'loadProduct'
         );
 
-        $routes["editar_solicitacao"] = array(
-            "route"      => "/^\/editar_solicitacao\/*$/",
-            "controller" => "EditarController",
-            "action"     => "editarSolicitacao"
+        $routes['editar_produto'] = array(
+            'route'      => "/^\/editar_produto\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'editProduct'
         );
 
-        $routes["excluir_solicitacao"] = array(
-            "route"      => "/^\/excluir_solicitacao\/*$/",
-            "controller" => "EditarController",
-            "action"     => "excluirSolicitacao"
+        $routes['excluir_produto'] = array(
+            'route'      => "/^\/excluir_produto\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'deleteProduct'
         );
 
-        $routes["editar_monitorias"] = array(
-            "route"      => "/^\/monitorias\/editar\/(\d+)\/*$/",
-            "controller" => "EditarController",
-            "action"     => "monitoria"
+        $routes['editar_monitorias'] = array(
+            'route'      => "/^\/monitorias\/editar\/(\d+)\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'loadTutoring'
         );
 
-        $routes["editar_monitoria"] = array(
-            "route"      => "/^\/editar_monitoria\/*$/",
-            "controller" => "EditarController",
-            "action"     => "editarMonitoria"
+        $routes['editar_monitoria'] = array(
+            'route'      => "/^\/editar_monitoria\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'editTutoring'
         );
 
-        $routes["excluir_monitoria"] = array(
-            "route"      => "/^\/excluir_monitoria\/*$/",
-            "controller" => "EditarController",
-            "action"     => "excluirMonitoria"
+        $routes['excluir_monitoria'] = array(
+            'route'      => "/^\/excluir_monitoria\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'deleteTutoring'
         );
 
-        $routes["editar_produtos"] = array(
-            "route"      => "/^\/produtos\/editar\/(\d+)\/*$/",
-            "controller" => "EditarController",
-            "action"     => "produto"
+        $routes['editar_solicitados'] = array(
+            'route'      => "/^\/solicitados\/editar\/(\d+)\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'loadSolicitation'
         );
 
-        $routes["editar_produto"] = array(
-            "route"      => "/^\/editar_produto\/*$/",
-            "controller" => "EditarController",
-            "action"     => "editarProduto"
+        $routes['editar_solicitacao'] = array(
+            'route'      => "/^\/editar_solicitacao\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'editSolicitation'
         );
 
-        $routes["excluir_produto"] = array(
-            "route"      => "/^\/excluir_produto\/*$/",
-            "controller" => "EditarController",
-            "action"     => "excluirProduto"
+        $routes['excluir_solicitacao'] = array(
+            'route'      => "/^\/excluir_solicitacao\/*$/",
+            'controller' => 'ManagerController',
+            'action'     => 'deleteSolicitation'
         );
 
 
         // Filtrar:
-        $routes["filtrar_monitoria"] = array(
-            "route"      => "/^\/filtrar_monitoria\/*$/",
-            "controller" => "FiltrarController",
-            "action"     => "filtrarPorMonitoria"
+        $routes['filtrar_produto'] = array(
+            'route'      => "/^\/filtrar_produto\/*$/",
+            'controller' => 'FilterController',
+            'action'     => 'filterProducts'
         );
 
-        $routes["filtrar_produto"] = array(
-            "route"      => "/^\/filtrar_produto\/*$/",
-            "controller" => "FiltrarController",
-            "action"     => "filtrarPorProduto"
+        $routes['filtrar_monitoria'] = array(
+            'route'      => "/^\/filtrar_monitoria\/*$/",
+            'controller' => 'FilterController',
+            'action'     => 'filterTutorings'
         );
 
-        $routes["filtrar_solicitacao"] = array(
-            "route"      => "/^\/filtrar_solicitacao\/*$/",
-            "controller" => "FiltrarController",
-            "action"     => "filtrarPorSolicitacao"
+        $routes['filtrar_solicitacao'] = array(
+            'route'      => "/^\/filtrar_solicitacao\/*$/",
+            'controller' => 'FilterController',
+            'action'     => 'filterSolicitations'
         );
 
-        $routes["pesquisar"] = array(
-            "route"      => "/^\/pesquisar\/*$/",
-            "controller" => "FiltrarController",
-            "action"     => "pesquisar"
+        $routes['pesquisar'] = array(
+            'route'      => "/^\/pesquisar\/*$/",
+            'controller' => 'FilterController',
+            'action'     => 'search'
         );
 
-        $routes["filtrar_pesquisa"] = array(
-            "route"      => "/^\/filtrar_pesquisa\/*$/",
-            "controller" => "FiltrarController",
-            "action"     => "filtrarPorPesquisa"
+        $routes['filtrar_pesquisa'] = array(
+            'route'      => "/^\/filtrar_pesquisa\/*$/",
+            'controller' => 'FilterController',
+            'action'     => 'filterSearch'
         );
 
 
         // Sobre:
-        $routes["faleconosco"] = array(
-            "route"      => "/^\/faleconosco\/*$/",
-            "controller" => "SobreController",
-            "action"     => "faleConosco"
+        $routes['fale_conosco'] = array(
+            'route'      => "/^\/fale_conosco\/*$/",
+            'controller' => 'AboutController',
+            'action'     => 'contact'
         );
 
-        $routes["mensagem"] = array(
-            "route"      => "/^\/mensagem\/*$/",
-            "controller" => "SobreController",
-            "action"     => "mensagem"
+        $routes['mensagem'] = array(
+            'route'      => "/^\/mensagem\/*$/",
+            'controller' => 'AboutController',
+            'action'     => 'message'
         );
 
-        $routes["politicas"] = array(
-            "route"      => "/^\/politicas\/*$/",
-            "controller" => "SobreController",
-            "action"     => "politicas"
+        $routes['politicas'] = array(
+            'route'      => "/^\/politicas\/*$/",
+            'controller' => 'AboutController',
+            'action'     => 'policies'
         );
 
-        $routes["equipe"] = array(
-            "route"      => "/^\/equipe\/*$/",
-            "controller" => "SobreController",
-            "action"     => "equipe"
+        $routes['equipe'] = array(
+            'route'      => "/^\/equipe\/*$/",
+            'controller' => 'AboutController',
+            'action'     => 'team'
         );
 
         $this->setRoutes($routes);
@@ -334,9 +334,11 @@ class Route
 
     private function run(string $url): void
     {
-        foreach ($this->getRoutes() as $route) {
+        $routes = $this->getRoutes();
+
+        foreach ($routes as $route) {
             if (preg_match($route['route'], $url)) {
-                $class = "App\\Controller\\" . $route['controller'];
+                $class = 'App\\Controller\\' . $route['controller'];
                 $controller = new $class;
                 $action = $route['action'];
                 $controller->$action();
@@ -344,7 +346,7 @@ class Route
             }
         }
 
-        header("Location: /");
+        header('Location: /');
         exit;
     }
 

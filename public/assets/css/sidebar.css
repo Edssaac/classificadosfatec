@@ -1,8 +1,7 @@
 :root {
-    --color-primary: #b20000;
-    --color-body: #eceef0;
-    --color-nav-link: #9a9a9a;
-    --cinza-escuro: #666666;
+    --color_primary: #b20000;
+    --color_nav_link: #9a9a9a;
+    --dark_grey_color: #666666;
 
     --nav-width-mobile: 70%;
     --nav-width-tablet: 40%;
@@ -45,19 +44,19 @@
     padding: 16px 32px;
     min-width: 250px;
     text-decoration: none;
-    color: var(--color-nav-link);
+    color: var(--color_nav_link);
     transition: 0.5s;
 }
 
 .nav-link:hover,
 .nav-link-dropdown:hover {
-    color: var(--cinza-escuro);
+    color: var(--dark_grey_color);
     cursor: pointer;
     min-width: 250px;
 }
 
 .active {
-    color: var(--color-primary) !important;
+    color: var(--color_primary) !important;
     cursor: pointer;
     min-width: 250px;
 }
@@ -72,13 +71,13 @@
 }
 
 .list-link a {
-    color: var(--color-nav-link);
+    color: var(--color_nav_link);
     text-decoration: none;
     margin: 0 3rem;
 }
 
 .list-link a:hover {
-    color: var(--color-primary);
+    color: var(--color_primary);
 }
 
 @media screen and (min-width: 768px) {

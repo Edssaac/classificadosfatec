@@ -8,9 +8,9 @@ class Upload
 {
     public static function image($file, $message = 'novo produto'): array
     {
-        $image = file_get_contents($file['foto']['tmp_name']);
+        $image = file_get_contents($file['photo']['tmp_name']);
 
-        $image_data = pathinfo($file['foto']['name']);
+        $image_data = pathinfo($file['photo']['name']);
 
         $file_name = uniqid() . '.' . $image_data['extension'];
 

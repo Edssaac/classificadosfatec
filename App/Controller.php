@@ -7,7 +7,7 @@ use stdClass;
 abstract class Controller
 {
     protected $view;
-    protected $erro;
+    protected $error;
 
     public function __construct()
     {
@@ -17,18 +17,18 @@ abstract class Controller
     protected function render(string $view, string $layout = 'layout'): void
     {
         $this->view->page = $view;
-        $this->view->image_base_path = $_ENV["IMAGE_BASE_PATH"];
+        $this->view->image_base_path = $_ENV['IMAGE_BASE_PATH'];
 
-        if (!isset($this->view->pesquisar)) {
-            $this->view->pesquisar = '';
+        if (!isset($this->view->search)) {
+            $this->view->search = '';
         }
 
-        if (!isset($this->view->filtrar)) {
-            $this->view->filtrar = false;
+        if (!isset($this->view->filter)) {
+            $this->view->filter = false;
         }
 
-        $this->view->login = $this->validaSessao();
-        $this->view->admin = $this->validaAdmin();
+        $this->view->login = $this->validateSession();
+        $this->view->admin = $this->validateAdminstrator();
 
         if (file_exists("../App/View/{$layout}.php")) {
             require_once("../App/View/{$layout}.php");
@@ -40,8 +40,8 @@ abstract class Controller
     protected function content(): void
     {
         $class = get_class($this);
-        $class = str_replace("App\\Controller\\", "", $class);
-        $class = str_replace("Controller", "", $class);
+        $class = str_replace('App\\Controller\\', '', $class);
+        $class = str_replace('Controller', '', $class);
         $class = strtolower($class);
 
         if (file_exists("../App/View/{$class}/{$this->view->page}.php")) {
@@ -49,56 +49,56 @@ abstract class Controller
         }
     }
 
-    public function formatarNumero(string $numero): string
+    protected function numberFormat(string $number): string
     {
-        return str_replace(",", ".", str_replace(".", "", $numero));
+        return str_replace(',', '.', str_replace('.', '', $number));
     }
 
-    public function sessao(): void
+    protected function sessionManager(): void
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
     }
 
-    public function validaSessao(): bool
+    protected function validateSession(): bool
     {
-        $this->sessao();
+        $this->sessionManager();
 
-        if (!isset($_SESSION["cod_usuario"]) || empty($_SESSION["cod_usuario"])) {
+        if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
             return false;
         }
 
         return true;
     }
 
-    public function autenticarPagina(bool $index = false, bool $admin = false): void
+    protected function authenticatePage(bool $index = false, bool $admin = false): void
     {
-        if ($admin && !$this->validaAdmin()) {
-            header("Location: /");
+        if ($admin && !$this->validateAdminstrator()) {
+            header('Location: /');
             exit;
-        } else if ($this->validaSessao() && $index) {
-            header("Location: /");
+        } else if ($this->validateSession() && $index) {
+            header('Location: /');
             exit;
-        } else if (!$this->validaSessao() && !$index) {
-            $_SESSION["tentativa_acesso"] = true;
-            header("Location: /");
+        } else if (!$this->validateSession() && !$index) {
+            $_SESSION['access_attempt'] = true;
+            header('Location: /');
             exit;
         }
     }
 
-    public function validaAdmin(): bool
+    protected function validateAdminstrator(): bool
     {
-        $this->sessao();
+        $this->sessionManager();
 
-        if (isset($_SESSION["admin"]) && $_SESSION["admin"]) {
+        if (isset($_SESSION['admin']) && $_SESSION['admin']) {
             return true;
         }
 
         return false;
     }
 
-    public function output(array $content): void
+    protected function output(array $content): void
     {
         header('Content-Type: application/json');
         echo json_encode($content);

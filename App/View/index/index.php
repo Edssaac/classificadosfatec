@@ -1,4 +1,4 @@
-<?php if ($this->view->aviso) { ?>
+<?php if ($this->view->login_warning) { ?>
     <div class="alert alert-warning mx-3 mt-3" role="alert">
         Entre em sua <a href="/entrar" class="text-success">conta</a>
         ou <a href="/cadastrar" class="text-success">cadastre</a> uma nova para ter acesso a essa área.
@@ -6,17 +6,17 @@
 <?php }  ?>
 
 <section class="bg-light rounded my-4">
-    <?php if ($this->view->quantidade_produtos > 0) { ?>
+    <?php if ($this->view->product_quantity > 0) { ?>
         <div class="swiper mySwiper mb-5">
             <div class="swiper-wrapper">
-                <?php foreach ($this->view->produtos as $produto) { ?>
+                <?php foreach ($this->view->products as $product) { ?>
                     <div class="swiper-slide pb-3">
                         <div class="w-100">
                             <h4 class="text-left mt-3">
                                 <?php if ($this->view->login) { ?>
-                                    <a href="/produtos/<?= $produto["cod_anuncio"] ?>"><?= $produto["titulo"] ?></a>
+                                    <a href="/produtos/<?= $product['ad_id'] ?>"><?= $product['title'] ?></a>
                                 <?php } else { ?>
-                                    <?= $produto["titulo"] ?>
+                                    <?= $product['title'] ?>
                                 <?php } ?>
                             </h4>
                             <hr>
@@ -24,21 +24,17 @@
                         <div class="swiper-portrait">
                             <?php if ($this->view->login) { ?>
                                 <h4 class="text-left mt-3">
-                                    <a href="/produtos/<?= $produto["cod_anuncio"] ?>">
-                                        <img src="<?= $this->view->image_base_path . $produto["foto_name"] ?>" alt="anuncio">
+                                    <a href="/produtos/<?= $product['ad_id'] ?>">
+                                        <img src="<?= $product['photo_name'] ?>" alt="anuncio">
                                     </a>
                                 </h4>
                             <?php } else { ?>
-                                <img src="<?= $this->view->image_base_path . $produto["foto_name"] ?>" alt="anuncio">
+                                <img src="<?= $product['photo_name'] ?>" alt="anuncio">
                             <?php } ?>
                         </div>
                         <div class="w-100">
                             <hr>
-                            <?php if (strlen($produto["descricao"]) > 250) { ?>
-                                <p class="px-4 py-3 justificado"><?= substr($produto["descricao"], 0, 250) ?>...</p>
-                            <?php } else { ?>
-                                <p class="px-4 py-3 justificado"><?= $produto["descricao"] ?></p>
-                            <?php } ?>
+                            <p class="px-4 py-3 text-justify-content"><?= $product['description'] ?></p>
                         </div>
                     </div>
                 <?php } ?>

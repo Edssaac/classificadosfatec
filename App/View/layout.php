@@ -43,7 +43,7 @@
 </head>
 
 <body>
-    <header class="text-center bg-vermelho">
+    <header class="text-center bg-red-color">
         <a href="/">
             <img class="banner" src="/assets/img/banner.png" alt="classificados" draggable="false">
         </a>
@@ -52,13 +52,13 @@
     <nav class="container-fluid py-3">
         <div class="row align-items-center">
             <form action="/pesquisar" method="POST" class="d-flex me-auto mb-3 mb-lg-0 col-md-6">
-                <input class="form-control me-2" type="search" placeholder="Pesquisar" id="pesquisar" name="pesquisar" aria-label="Search" value="<?= $this->view->pesquisar ?>">
+                <input class="form-control me-2" type="search" placeholder="Pesquisar" id="search" name="search" aria-label="Search" value="<?= $this->view->search ?>">
                 <button class="button-search" type="submit" title="pesquisar">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <?php if ($this->view->filtrar) { ?>
+                <?php if ($this->view->filter) { ?>
                     <div class="mx-1">
-                        <button class="button button-input" type="button" data-bs-toggle="modal" data-bs-target="#modalFiltrar">
+                        <button class="button button-input" type="button" data-bs-toggle="modal" data-bs-target="#modalFilter">
                             <i class="fa-solid fa-filter"></i>
                         </button>
                     </div>
@@ -111,10 +111,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="collapsed nav-link-dropdown" href="#anunciar-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="anunciar-collapse">
+                <a class="collapsed nav-link-dropdown" href="#advertise-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="advertise-collapse">
                     <i class="fa-solid fa-plus"></i> &nbsp; Anunciar
                 </a>
-                <div id="anunciar-collapse" class="collapse">
+                <div id="advertise-collapse" class="collapse">
                     <div class="collapse-inner">
                         <ul class="btn-toggle-nav list-unstyled fw-normal list-link">
                             <li><a class="collapse-item" href="/monitoria">Monitoria</a></li>
@@ -125,10 +125,10 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="collapsed nav-link-dropdown" href="#anuncios-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="anuncios-collapse">
+                <a class="collapsed nav-link-dropdown" href="#advertisement-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="advertisement-collapse">
                     <i class="fa-solid fa-newspaper"></i> &nbsp; Anúncios
                 </a>
-                <div id="anuncios-collapse" class="collapse">
+                <div id="advertisement-collapse" class="collapse">
                     <div class="collapse-inner">
                         <ul class="btn-toggle-nav list-unstyled fw-normal list-link">
                             <li><a class="collapse-item" href="/monitorias">Monitorias</a></li>
@@ -139,13 +139,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="collapsed nav-link-dropdown" href="#sobre-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="sobre-collapse">
+                <a class="collapsed nav-link-dropdown" href="#about-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="about-collapse">
                     <i class="fa-solid fa-address-card"></i> &nbsp; Sobre
                 </a>
-                <div id="sobre-collapse" class="collapse">
+                <div id="about-collapse" class="collapse">
                     <div class="collapse-inner">
                         <ul class="btn-toggle-nav list-unstyled fw-normal list-link">
-                            <li><a class="collapse-item" href="/faleconosco">Fale Conosco</a></li>
+                            <li><a class="collapse-item" href="/fale_conosco">Fale Conosco</a></li>
                             <li><a class="collapse-item" href="/politicas">Políticas</a></li>
                             <?php if (false) { ?>
                                 <li><a class="collapse-item" href="/equipe">Equipe</a></li>
@@ -161,7 +161,7 @@
         <?= $this->content() ?>
     </main>
 
-    <footer class="fixed-bottom bg-vermelho">
+    <footer class="fixed-bottom bg-red-color">
         <p class="text-center mb-0 user-select-none">Classificados Fatec</p>
     </footer>
 </body>

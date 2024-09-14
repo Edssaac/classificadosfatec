@@ -68,32 +68,32 @@ class Mail
         }
     }
 
-    public static function criarCorpoPadrao(array $informacao): string
+    public static function createDefaultBody(array $information): string
     {
-        $mensagem = "
+        $message = "
             <div>
-                <p>Nome: {$informacao['nome']}</p>
-                <p>Email: {$informacao['email']}</p>
-                <p>Telefone: {$informacao['telefone']}</p>
-                <p>Mensagem: {$informacao['mensagem']} </p>
+                <p>Nome: {$information['name']}</p>
+                <p>Email: {$information['email']}</p>
+                <p>Telefone: {$information['phone']}</p>
+                <p>Mensagem: {$information['mensagem']} </p>
             </div>
         ";
 
-        return $mensagem;
+        return $message;
     }
 
-    public static function criarCorpoRedefinicao(array $informacao): string
+    public static function createRecoverBody(array $information): string
     {
-        if ($_SERVER['SERVER_NAME'] == "localhost") {
-            $base = "http://localhost:8080";
+        if ($_SERVER['SERVER_NAME'] == 'localhost') {
+            $base = 'http://localhost:8080';
         } else {
-            $base = "https://classificadosfatec.herokuapp.com";
+            $base = 'https://classificadosfatec.herokuapp.com';
         }
 
-        $mensagem = "
+        $message = "
             <div>
                 <p>
-                    Olá {$informacao['nome']}, alguém solicitou uma nova senha para a sua conta 
+                    Olá {$information['name']}, alguém solicitou uma nova senha para a sua conta 
                     <b>Classificados Fatec</b> associada a este e-mail.
                     <br>
                     <br>
@@ -102,7 +102,7 @@ class Mail
                     Você pode redefinir sua senha clicando no link abaixo:
                     <br>
                     <br>
-                    <a href='{$base}/nova_senha?token={$informacao['token']}' target='_blank'>Redefinir Senha</a>
+                    <a href='{$base}/nova_senha?token={$information['token']}' target='_blank'>Redefinir Senha</a>
                     <br>
                     <br>
                     Se você não solicitou uma nova senha, por favor ignore este e-mail.
@@ -113,10 +113,10 @@ class Mail
             </div>
         ";
 
-        return $mensagem;
+        return $message;
     }
 
-    public static function confirmacaoEmail(array $informacao): string
+    public static function createConfirmationBody(array $information): string
     {
         if ($_SERVER['SERVER_NAME'] == "localhost") {
             $base = "http://localhost:8080";
@@ -124,14 +124,14 @@ class Mail
             $base = "https://classificadosfatec.herokuapp.com";
         }
 
-        $mensagem = "
+        $message = "
             <div>
                 <p>
-                    Olá {$informacao['nome']}, confirme o e-mail para sua conta 
+                    Olá {$information['name']}, confirme o e-mail para sua conta 
                     <b>Classificados Fatec</b> no link abaixo.
                     <br>
                     <br>
-                    <a href='{$base}/entrar?hash={$informacao['token']}' target='_blank'>Confirmar cadastro</a>
+                    <a href='{$base}/entrar?hash={$information['token']}' target='_blank'>Confirmar cadastro</a>
                     <br>
                     <br>
                     <b>Classificados Fatec</b>
@@ -139,6 +139,6 @@ class Mail
             </div>
         ";
 
-        return $mensagem;
+        return $message;
     }
 }

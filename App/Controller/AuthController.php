@@ -3,187 +3,181 @@
 namespace App\Controller;
 
 use App\Controller;
-use App\Model\UsuarioModel;
+use App\Model\UserModel;
 use Library\Mail;
 
 class AuthController extends Controller
 {
-    public function registrar()
+    public function register()
     {
-        $sucesso = false;
+        $success = false;
 
-        if ($this->validarRegistro($_POST)) {
-            $usuario = new UsuarioModel();
+        if ($this->validateRegister($_POST)) {
+            $user = new UserModel();
 
-            if ($usuario->getUsuarioPorEmail($_POST['email'])) {
-                $this->erro = "Este e-mail já foi cadastrado!";
+            if ($user->getUserByEmail($_POST['email'])) {
+                $this->error = 'Este e-mail já foi cadastrado!';
             } else {
                 $_POST['token'] = sha1(uniqid(mt_rand(), true));
 
-                if ($usuario->registrar($_POST)) {
-                    $informacao = [
-                        "nome"  => $_POST['nome'],
-                        "token" => $_POST['token']
+                if ($user->insertUser($_POST)) {
+                    $information = [
+                        'name'  => $_POST['name'],
+                        'token' => $_POST['token']
                     ];
 
-                    $destinatario = $_POST['email'];
-                    $assunto = "Confirme seu e-mail";
-                    $corpo = Mail::confirmacaoEmail($informacao);
+                    $address = $_POST['email'];
+                    $subject = 'Confirme seu e-mail';
+                    $body = Mail::createConfirmationBody($information);
 
-                    if (Mail::send($destinatario, $assunto, $corpo)) {
-                        $sucesso = true;
-                        $this->erro = "Não foi possivel enviar o email!";
+                    if (Mail::send($address, $subject, $body)) {
+                        $success = true;
+                    } else {
+                        $success = false;
+                        $this->error = 'Não foi possivel enviar o email!';
                     }
                 } else {
-                    $this->erro = "Não foi possivel realizar o cadastro!";
+                    $this->error = 'Não foi possivel realizar o cadastro!';
                 }
             }
         }
 
         $this->output([
-            "sucesso" => $sucesso,
-            "mensagem" => $this->erro
+            'success' => $success,
+            'message' => $this->error
         ]);
     }
 
-    public function validarRegistro(array $registro): bool
+    private function validateRegister(array $register): bool
     {
-        $obrigatorios = [
-            "nome",
-            "data_nascimento",
-            "telefone",
-            "instituicao",
-            "email",
-            "senha",
-            "senha_confirmacao",
+        $required_fields = [
+            'name',
+            'birth_date',
+            'phone',
+            'institution',
+            'email',
+            'password',
+            'confirm_password'
         ];
 
-        // Verificando se todos os campos foram preenchidos:
-        foreach ($obrigatorios as $obrigatorio) {
-            if (!isset($registro[$obrigatorio])) {
-                $this->erro = "Verifique se todos os campos foram preenchidos!";
+        foreach ($required_fields as $field) {
+            if (!isset($register[$field])) {
+                $this->error = 'Verifique se todos os campos foram preenchidos!';
                 return false;
             }
         }
 
-        // Mail:
-        if (!strpos($registro["email"], "@fatec.sp.gov.br")) {
-            $this->erro = "E-mail institucional inválido! Deve pertencer ao dominío @fatec.sp.gov.br";
+        if (!strpos($register['email'], '@fatec.sp.gov.br')) {
+            $this->error = 'E-mail institucional inválido! Deve pertencer ao dominío @fatec.sp.gov.br';
             return false;
         }
 
-        // Senha:
-        if ($registro["senha"] !== $registro["senha_confirmacao"]) {
-            $this->erro = "As senhas não conferem!";
+        if ($register['password'] !== $register['confirm_password']) {
+            $this->error = 'As senhas não conferem!';
             return false;
         }
 
         return true;
     }
 
-    public function autenticar()
+    public function authenticate()
     {
-        $sucesso = false;
+        $success = false;
 
-        $usuario = new UsuarioModel();
+        $user = new UserModel();
 
-        /*if ( isset($_POST['bloquear']) && $_POST['bloquear'] ) {
-            $usuario->bloquear();
+        /*if ( isset($_POST['block']) && $_POST['block'] ) {
+            $user->block();
         } else */
-        if ($usuario->autenticar($_POST['email'], $_POST['senha'])) {
-            if (!empty($_POST['hash']) && !$usuario->validarHash($_POST['email'], $_POST['hash'])) {
-                $this->erro = "Código de segurança inválido!<br>Verifique novamente o link enviado pelo e-mail ou entre em contato com o suporte se persistir.";
-            } else if ($usuario->verificarInatividade($_POST['email'])) {
-                $this->erro = "Usuário não ativo, verifique o seu e-mail ou entre em contato com o suporte se persistir!";
+        if ($user->authenticate($_POST['email'], $_POST['password'])) {
+            if (!empty($_POST['hash']) && !$user->validateHash($_POST['email'], $_POST['hash'])) {
+                $this->error = 'Código de segurança inválido!<br>Verifique novamente o link enviado pelo e-mail ou entre em contato com o suporte se persistir.';
+            } else if ($user->checkInactivity($_POST['email'])) {
+                $this->error = 'Usuário não ativo, verifique o seu e-mail ou entre em contato com o suporte se persistir!';
             }
 
-            if (empty($this->erro)) {
+            if (empty($this->error)) {
                 session_start();
 
-                $usuario_data = $usuario->getUsuarioPorEmail($_POST['email']);
+                $user_data = $user->getUserByEmail($_POST['email']);
 
-                $_SESSION['cod_usuario'] = $usuario_data['cod_usuario'];
-                $_SESSION['nome'] = $usuario_data['nome'];
-                $_SESSION['admin'] = !empty($usuario_data['admin']);
+                $_SESSION['user_id'] = $user_data['user_id'];
+                $_SESSION['name'] = $user_data['name'];
+                $_SESSION['admin'] = !empty($user_data['admin']);
 
-                $usuario->atualizarAcesso($usuario_data['cod_usuario']);
+                $user->updateAccess($user_data['user_id']);
 
-                $sucesso = true;
+                $success = true;
             }
         } else {
-            $this->erro = "E-mail ou senha incorretos!";
+            $this->error = 'E-mail ou senha incorretos!';
         }
 
         $this->output([
-            "sucesso" => $sucesso,
-            "mensagem" => $this->erro
+            'success' => $success,
+            'message' => $this->error
         ]);
     }
 
-    public function redefinirSenha()
+    public function recoverPassword()
     {
-        $this->autenticarPagina(true);
+        $this->authenticatePage(true);
 
-        $sucesso = true;
+        $success = true;
 
-        $usuario = new UsuarioModel();
+        $user = new UserModel();
 
         if (isset($_POST['token'])) {
-            if ($_POST["senha"] !== $_POST["senha_confirmacao"]) {
-                $sucesso = false;
-                $this->erro = "As senhas não conferem!";
+            if ($_POST['password'] !== $_POST['confirm_password']) {
+                $success = false;
+                $this->error = 'As senhas não conferem!';
             }
 
-            $usuario_data = $usuario->getUsuarioPorToken($_POST['token']);
+            $user_data = $user->getUserByToken($_POST['token']);
 
-            if ($usuario_data) {
-                $usuario->salvarToken($usuario_data['cod_usuario'], true);
-                $usuario->alterarSenha($usuario_data['cod_usuario'], $_POST['senha']);
+            if ($user_data) {
+                $user->updateToken($user_data['user_id'], true);
+                $user->updatePassword($user_data['user_id'], $_POST['password']);
             } else {
-                $sucesso = false;
-                $this->erro = "Token inválido!";
+                $success = false;
+                $this->error = 'Token inválido!';
             }
-
-            $this->output([
-                "sucesso" => $sucesso,
-                "mensagem" => $this->erro
-            ]);
         } else {
-            $usuario_data = $usuario->getUsuarioPorRecuperacao($_POST['email'], $_POST['data_nascimento']);
+            $user_data = $user->getUserByRecover($_POST['email'], $_POST['birth_date']);
 
-            if ($usuario_data) {
-                $token = $usuario->salvarToken($usuario_data['cod_usuario']);
+            if ($user_data) {
+                $token = $user->updateToken($user_data['user_id']);
 
-                $informacao = [
-                    "nome"   => $usuario_data['nome'],
-                    "token"  => $token
+                $information = [
+                    'name'   => $user_data['name'],
+                    'token'  => $token
                 ];
 
-                $destinatario = $usuario_data['email'];
-                $assunto = "Redefinição de Senha";
-                $corpo = Mail::criarCorpoRedefinicao($informacao);
+                $address = $user_data['email'];
+                $subject = 'Redefinição de Senha';
+                $body = Mail::createRecoverBody($information);
 
-                $sucesso = (Mail::send($destinatario, $assunto, $corpo) === true);
-
-                if (!$sucesso) {
-                    $this->erro = "Não foi possível enviar o e-mail.";
+                if (Mail::send($address, $subject, $body)) {
+                    $success = true;
+                } else {
+                    $this->error = 'Não foi possível enviar o e-mail.';
                 }
             } else {
-                $sucesso = false;
-                $this->erro = "E-mail ou Data de Nascimento incorretos.";
+                $success = false;
+                $this->error = 'E-mail ou Data de Nascimento incorretos.';
             }
-
-            $this->output([
-                "sucesso" => $sucesso,
-                "mensagem" => $this->erro
-            ]);
         }
+
+        $this->output([
+            'success' => $success,
+            'message' => $this->error
+        ]);
     }
 
-    public function sair()
+    public function logout()
     {
         session_start();
         session_destroy();
-        header("Location: /");
+        header('Location: /');
     }
 }

@@ -3,6 +3,7 @@ function highlightPage() {
 
     if (page) {
         $(`li a[href="${page}"]`).addClass('active');
+        $(`li a[href="${page}"]`).closest('.collapse').addClass('show');
     }
 }
 

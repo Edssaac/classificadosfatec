@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
 
 :root {
-    --vermelho: #b20000;
-    --cinza: #b8b4b4;
-    --cinza-escuro: #666666;
-    --botao: #d4cfd0;
-    --branco: #ffffff;
+    --red_color: #b20000;
+    --grey_color: #b8b4b4;
+    --dark_grey_color: #666666;
+    --white_color: #ffffff;
 }
 
 * {
@@ -15,12 +14,12 @@
 }
 
 body {
-    background-color: var(--cinza);
+    background-color: var(--grey_color);
     font-family: 'Inter', sans-serif;
 }
 
-.bg-vermelho {
-    background-color: var(--vermelho);
+.bg-red-color {
+    background-color: var(--red_color);
 }
 
 .banner {
@@ -30,32 +29,32 @@ body {
 }
 
 nav {
-    background-color: var(--cinza-escuro);
+    background-color: var(--dark_grey_color);
 }
 
 .button {
-    background-color: var(--cinza);
+    background-color: var(--grey_color);
     border-radius: 18px !important;
     padding: 5px 10px;
     font-size: 14px;
 }
 
 .button-input {
-    background-color: var(--vermelho);
+    background-color: var(--red_color);
     border-radius: 18px !important;
     padding: 5px 10px;
     font-size: 14px;
 }
 
 .button-search {
-    background-color: var(--cinza);
+    background-color: var(--grey_color);
     border-radius: 8px !important;
     padding: 0 10px;
 }
 
 .button:hover,
 .button-search:hover {
-    background-color: var(--vermelho);
+    background-color: var(--red_color);
 
 }
 
@@ -72,17 +71,17 @@ nav {
     color: #000;
 }
 
-.usuario {
+.user-default-size {
     font-size: 30px;
 }
 
-.estrelas-avaliacao {
+.rating-stars-size {
     font-size: 9px;
 }
 
-#bloco_duvidas textarea,
-#bloco_avaliacoes textarea,
-#bloco_comentarios textarea {
+#questions-block textarea,
+#reviews-block textarea,
+#comments-block textarea {
     overflow: hidden;
     resize: none;
 }
@@ -91,14 +90,14 @@ nav {
     max-height: 200px;
 }
 
-.input-cinza {
-    background-color: var(--cinza) !important;
+.input-grey-color {
+    background-color: var(--grey_color) !important;
 }
 
-.justificado {
+.text-justify-content {
     text-align: justify;
 }
 
 footer {
-    color: var(--branco);
+    color: var(--white_color);
 }
