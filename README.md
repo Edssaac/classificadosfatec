@@ -23,7 +23,7 @@ garantindo um ambiente colaborativo e dinâmico para todos os seus usuários.
 
 **Objetivo:**
 
-Implementar um sistema de usuários e permissões utilizando PHP.
+Implementar um sistema para o Trabalho de Conclusão de Curso de Análise e Desenvolvimento de Sistemas para a Fatec Sorocaba.
 
 **Tecnologias Utilizadas:**
 
