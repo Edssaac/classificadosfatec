@@ -27,6 +27,7 @@ Implementar um sistema para o Trabalho de Conclusão de Curso de Análise e Dese
 
 **Tecnologias Utilizadas:**
 
+![DOCKER](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=fff)
 ![COMPOSER](https://img.shields.io/badge/Composer-885630?style=for-the-badge&logo=composer&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![MYSQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
@@ -40,32 +41,10 @@ Implementar um sistema para o Trabalho de Conclusão de Curso de Análise e Dese
 
 Se você é um desenvolvedor interessado em contribuir ou entender melhor o funcionamento do projeto, aqui estão algumas informações adicionais:
 
-<br>
+**Ambiente:**
 
-**Requisitos de Instalação:**
-
-![COMPOSER](https://img.shields.io/badge/Composer-2.5.5-885630?style=for-the-badge&logo=composer)
-![PHP](https://img.shields.io/badge/PHP-7.4.33-777BB4?style=for-the-badge&logo=php)
-
-<br>
-
-**Instruções de Instalação:**
-1. Clone o repositório do projeto:
-```
-git clone https://github.com/edssaac/classificadosfatec
-```
-
-2. Navegue até o diretório do projeto:
-```
-cd classificadosfatec
-```
-
-3. Configure o Composer:
-```
-composer install
-```
-
-4. Configure o banco de dados:
+![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php)
+![MYSQL](https://img.shields.io/badge/MySQL-8.0-005C84?style=for-the-badge&logo=mysql)
 
 ```sql
 CREATE DATABASE IF NOT EXISTS `classificados_fatec`;
@@ -173,29 +152,36 @@ CREATE TABLE IF NOT EXISTS `comment` (
 );
 ```
 
-5. Configure o .env com os dados necessários.
+**Instruções de Instalação e Configuração:**
 
-<br>
+> Atenção: Obrigatório o uso de Docker em sua máquina.
 
-**Como Executar:**
+1. Clone o repositório do projeto:
+```
+git clone https://github.com/edssaac/classificadosfatec
+```
 
-Após concluir as etapas de instalação e configuração mencionadas acima, você está pronto para iniciar a aplicação. Siga os passos abaixo:
+2. Navegue até o diretório do projeto:
+```
+cd classificadosfatec
+```
 
-1. Como esta é uma aplicação simples, você pode usar o servidor embutido do PHP para servir a aplicação. <br>
-Abra o terminal e execute o seguinte comando na raiz do projeto:
-   ```
-   php -S localhost:8080 -t ./public
-   ```
-   Isso iniciará um servidor local na porta 8080.
+3. Inicie a aplicação atráves do script que configura o Docker:
+```
+.ci_cd/init.sh  
+```
+Com isso a aplicação estará acessivel: [http://localhost:8080](http://localhost:8080)
 
-2. Uma vez que o servidor esteja em execução, abra seu navegador e acesse a seguinte URL na barra de endereço:
-   ```
-   http://localhost:8080
-   ```
-   Isso irá carregar a página inicial da aplicação.
+---
 
-Certifique-se de que o servidor PHP embutido esteja sempre em execução enquanto você estiver trabalhando na aplicação localmente. <br>
-Se desejar encerrar o servidor, basta pressionar `ctrl + C` no terminal onde o servidor está sendo executado.
+4. Quando desejar encerrar a aplicação, use:
+```
+.ci_cd/stop.sh
+```
+Caso deseje encerrar e remover os volumes criados, use:
+```
+.ci_cd/stop.sh -v
+```
 
 ## Contato
 
