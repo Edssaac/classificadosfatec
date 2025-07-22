@@ -1,0 +1,36 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: php
+    depends_on:
+      - mysql
+    restart: always
+    env_file:
+      - .docker.env
+    volumes:
+      - ../:/var/www/html
+    ports:
+      - 8080:80
+    networks:
+      - app-network
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    env_file:
+      - .docker.env
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - app-network
+
+volumes:
+  db:
+
+networks:
+  app-network:
+    driver: bridge

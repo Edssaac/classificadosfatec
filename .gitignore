@@ -1,2 +1,4 @@
 .env
+.docker.env
 /system/logs/*
+/system/vendor
