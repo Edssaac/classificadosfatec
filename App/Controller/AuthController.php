@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller;
 use App\Model\UserModel;
+use Library\Session;
 use Library\Mail;
 
 class AuthController extends Controller
@@ -97,13 +98,15 @@ class AuthController extends Controller
             }
 
             if (empty($this->error)) {
-                session_start();
+                Session::init();
 
                 $user_data = $user->getUserByEmail($_POST['email']);
 
-                $_SESSION['user_id'] = $user_data['user_id'];
-                $_SESSION['name'] = $user_data['name'];
-                $_SESSION['admin'] = !empty($user_data['admin']);
+                Session::login([
+                    'user_id' => $user_data['user_id'],
+                    'name' => $user_data['name'],
+                    'admin' => !empty($user_data['admin'])
+                ]);
 
                 $user->updateAccess($user_data['user_id']);
 
@@ -176,8 +179,6 @@ class AuthController extends Controller
 
     public function logout()
     {
-        session_start();
-        session_destroy();
-        header('Location: /');
+        Session::logout();
     }
 }

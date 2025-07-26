@@ -9,7 +9,7 @@ const reasons = {
     8: 'Viola meus direitos',
 }
 
-$('#denunciar').click(function () {
+$('#denounce-button').click(function () {
     $('#reason').val(0);
     $('#message').val('');
 });

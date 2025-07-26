@@ -81,7 +81,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="row g-2">
-                        <?php if ($this->view->tutoring['user_id'] !== $_SESSION['user_id']) { ?>
+                        <?php if ($this->view->tutoring['user_id'] !== $this->user_id) { ?>
                             <div class="col-12 col-lg-4 order-3 order-lg-0">
                                 <a href="/produtos">
                                     <button type="button" class="button-input text-light w-100">Voltar</button>
@@ -135,7 +135,7 @@
                             <div class="col-12 col-lg-7"></div>
                             <div class="col-7 col-lg-2 text-end" id="spinner-question"></div>
                             <div class="col-5 col-lg-3 text-end">
-                                <button type="button" id="question" class="button-input text-light">Perguntar</button>
+                                <button type="button" id="question-button" class="button-input text-light">Perguntar</button>
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="button-input text-light" id="denunciar" data-bs-dismiss="modal">Enviar</button>
+                    <button type="button" class="button-input text-light" id="denounce-button" data-bs-dismiss="modal">Enviar</button>
                 </div>
             </div>
         </div>
@@ -223,7 +223,7 @@
         $('#reviews-block').toggleClass('d-none', true);
         $('#questions-block').toggleClass('d-none', false);
 
-        <?php if ($this->view->tutoring['user_id'] !== $_SESSION['user_id']) { ?>
+        <?php if ($this->view->tutoring['user_id'] !== $this->user_id) { ?>
             review_text = $('#comment').val();
             $('#comment').val(question_text);
         <?php } else { ?>
@@ -244,7 +244,7 @@
         $('#questions-block').toggleClass('d-none', true);
         $('#reviews-block').toggleClass('d-none', false);
 
-        <?php if ($this->view->tutoring['user_id'] !== $_SESSION['user_id']) { ?>
+        <?php if ($this->view->tutoring['user_id'] !== $this->user_id) { ?>
             question_text = $('#comment').val();
             $('#comment').val(review_text);
         <?php } else { ?>
@@ -286,7 +286,7 @@
         });
     }
 
-    $('#question').on('click', question);
+    $('#question-button').on('click', question);
 
     function question() {
         let text_content = $.trim($('#comment').val());
@@ -295,7 +295,7 @@
             return;
         }
 
-        $('#question').prop('disabled', true);
+        $('#question-button').prop('disabled', true);
 
         $.ajax({
             type: 'post',
@@ -317,15 +317,15 @@
                 questions();
             },
             complete: function() {
-                $('#question').prop('disabled', false);
+                $('#question-button').prop('disabled', false);
                 $('#spinner-question').html('');
             }
         });
     }
 
     function asnwer() {
-        let duvida = this.dataset.duvida;
-        let answer = $.trim($('.answer-' + duvida).val());
+        let question_id = this.dataset.question_id;
+        let answer = $.trim($('.answer-' + question_id).val());
 
         if (answer === '') {
             return;
@@ -335,9 +335,9 @@
             type: 'post',
             url: '/responder_duvida',
             dataType: 'json',
-            data: 'duvida=' + duvida + '&answer=' + answer,
+            data: 'question_id=' + question_id + '&answer=' + answer,
             beforeSend: function() {
-                $('#status-' + duvida).html(
+                $('#status-' + question_id).html(
                     `<div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -355,7 +355,7 @@
         $.ajax({
             type: 'post',
             url: '/duvidas',
-            dataType: 'json',
+            dataType: 'html',
             data: 'ad_id=' + <?= $this->view->tutoring['ad_id'] ?>,
             success: function(response) {
                 $('#questions-block').html(response);

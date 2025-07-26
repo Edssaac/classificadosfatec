@@ -19,7 +19,7 @@ class ManagerController extends Controller
         $ad_id = array_filter(explode('/', $_SERVER['REQUEST_URI']))[3];
         $this->view->product = $product->getProduct($ad_id);
 
-        if (empty($this->view->product) || $this->view->product['user_id'] != $_SESSION['user_id']) {
+        if (empty($this->view->product) || $this->view->product['user_id'] != $this->user_id) {
             header('Location: /produtos');
             exit;
         }
@@ -80,7 +80,7 @@ class ManagerController extends Controller
         $ad_id = array_filter(explode('/', $_SERVER['REQUEST_URI']))[3];
         $this->view->tutoring = $tutoring->getTutoring($ad_id);
 
-        if (empty($this->view->tutoring) || $this->view->tutoring['user_id'] != $_SESSION['user_id']) {
+        if (empty($this->view->tutoring) || $this->view->tutoring['user_id'] != $this->user_id) {
             header('Location: /monitorias');
             exit;
         }
@@ -151,7 +151,7 @@ class ManagerController extends Controller
         $solicitation_id = array_filter(explode('/', $_SERVER['REQUEST_URI']))[3];
         $this->view->solicitation = $solicitation->getSolicitation($solicitation_id);
 
-        if (empty($this->view->solicitation) || $this->view->solicitation['user_id'] != $_SESSION['user_id']) {
+        if (empty($this->view->solicitation) || $this->view->solicitation['user_id'] != $this->user_id) {
             header('Location: /solicitados');
             exit;
         }

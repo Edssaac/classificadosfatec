@@ -1,3 +1,10 @@
+<?php if (isset($this->view->internal_error)) { ?>
+    <div class="alert alert-danger mx-3 mt-3" role="alert">
+        Houve um problema interno na plataforma. 
+        Tente novamente mais tarde, se o erro persistir então entre em contato com o nosso suporte.
+    </div>
+<?php }  ?>
+
 <?php if ($this->view->login_warning) { ?>
     <div class="alert alert-warning mx-3 mt-3" role="alert">
         Entre em sua <a href="/entrar" class="text-success">conta</a>

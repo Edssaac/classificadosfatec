@@ -3,6 +3,7 @@
 require_once(__DIR__ . '/../system/vendor/autoload.php');
 
 use App\Route;
+use Library\Session;
 use Library\Log;
 
 date_default_timezone_set('America/Sao_Paulo');
@@ -14,6 +15,10 @@ set_exception_handler(function (Throwable $exception) {
         $exception->getFile(),
         $exception->getLine()
     ));
+
+    $_SESSION['INTERNAL_SITUATION'] = 500;
+
+    Session::logout();
 });
 
 set_error_handler(function ($errorLevel, $errorMessage, $errorFile, $errorLine) {
@@ -75,6 +80,10 @@ function loadEnvironmentVariables()
     ])->notEmpty();
 }
 
-loadEnvironmentVariables();
+Session::init();
+
+if (!isset($_SESSION['INTERNAL_SITUATION'])) {
+    loadEnvironmentVariables();
+}
 
 $route = new Route();

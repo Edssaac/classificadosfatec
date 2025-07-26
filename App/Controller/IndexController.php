@@ -12,6 +12,20 @@ class IndexController extends Controller
 {
     public function index()
     {
+        $this->view->login_warning = false;
+
+        if (isset($_SESSION['INTERNAL_SITUATION'])) {
+            unset($_SESSION['INTERNAL_SITUATION']);
+
+            $this->view->internal_error = true;
+            $this->view->product_quantity = 0;
+            $this->view->products = [];
+
+            $this->render('index');
+
+            exit;
+        }
+
         $product = new ProductModel();
         $products = $product->getRecentAds(5);
 
@@ -26,9 +40,6 @@ class IndexController extends Controller
         }
 
         $this->view->products = $products;
-        $this->view->login_warning = false;
-
-        $this->sessionManager();
 
         if (isset($_SESSION['access_attempt']) && $_SESSION['access_attempt']) {
             $this->view->login_warning = true;
@@ -84,7 +95,7 @@ class IndexController extends Controller
         $ad = new AdModel();
         $solicitation = new SolicitationModel();
 
-        $this->view->user = $user->getProfile($_SESSION['user_id']);
+        $this->view->user = $user->getProfile($this->user_id);
 
         if ($this->view->user['ratings'] > 0) {
             $this->view->reputation = intval(round($this->view->user['score'] / $this->view->user['ratings']));
@@ -92,8 +103,8 @@ class IndexController extends Controller
             $this->view->reputation = 0;
         }
 
-        $this->view->ads = $ad->getAdByUserId($_SESSION['user_id']);
-        $this->view->solicitations = $solicitation->getSolicitationsByUserId($_SESSION['user_id']);
+        $this->view->ads = $ad->getAdByUserId($this->user_id);
+        $this->view->solicitations = $solicitation->getSolicitationsByUserId($this->user_id);
 
         $this->render('profile');
     }
@@ -104,7 +115,7 @@ class IndexController extends Controller
 
         $user = new UserModel();
 
-        $_POST['user_id'] = $_SESSION['user_id'];
+        $_POST['user_id'] = $this->user_id;
 
         if ($user->updateUser($_POST)) {
             $success = true;

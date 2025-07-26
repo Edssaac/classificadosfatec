@@ -45,7 +45,7 @@ class QuestionModel extends Model
     public function getQuestions(int $ad_id): array
     {
         $result = $this->query(
-            "SELECT q.question_id, q.ad_id, a.user_id AS anunciador, q.user_id, u.name, q.question, DATE_FORMAT(q.question_date, '%d/%m/%Y | %Hh%i') as question_date, q.answer, DATE_FORMAT(q.answer_date, '%d/%m/%Y | %Hh%i') as answer_date
+            "SELECT q.question_id, q.ad_id, a.user_id AS announcer, q.user_id, u.name, q.question, DATE_FORMAT(q.question_date, '%d/%m/%Y | %Hh%i') as question_date, q.answer, DATE_FORMAT(q.answer_date, '%d/%m/%Y | %Hh%i') as answer_date
                 FROM question q
                 INNER JOIN user u ON (q.user_id = u.user_id) 
                 INNER JOIN ad a ON (q.ad_id = a.ad_id)

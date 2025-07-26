@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller;
 use App\Model\QuestionModel;
 use App\Model\ReviewModel;
+use Library\Session;
 use App\Model\CommentModel;
 
 class ChatController extends Controller
@@ -17,9 +18,11 @@ class ChatController extends Controller
 
         $questions = $question_model->getQuestions($_POST['ad_id']);
 
+        $user_info = Session::getLoggedUser();
+
         $user = [
-            'user_id' => $_SESSION['user_id'],
-            'name' => $_SESSION['name']
+            'user_id' => $user_info['user_id'],
+            'name' => $user_info['name']
         ];
 
         $html = '';
@@ -73,7 +76,7 @@ class ChatController extends Controller
                         </div>
                     </div>
                 ";
-            } else if ($user['user_id'] === $data['anunciador']) {
+            } else if ($user['user_id'] === $data['announcer']) {
                 $answer = "
                     <!-- Resposta -->
                     <div class='row g-0 answer'>
@@ -92,7 +95,7 @@ class ChatController extends Controller
                                     <div class='col-12 col-lg-7'></div>
                                     <div class='col-6 col-lg-2 text-end' id='status-" . $data['question_id'] . "'></div>
                                     <div class='col-6 col-lg-3 text-end'>
-                                        <button type='button' class='button-input text-light mt-2 answer' data-duvida='" . $data['question_id'] . "'>Responder</button>
+                                        <button type='button' class='button-input text-light mt-2 answer' data-question_id='" . $data['question_id'] . "'>Responder</button>
                                     </div>
                                 </div>
                                 </div>
@@ -124,7 +127,7 @@ class ChatController extends Controller
 
         $data = [
             'ad_id' => $_POST['ad_id'],
-            'user_id' => $_POST['user_id'],
+            'user_id' => $this->user_id,
             'question' => $_POST['text_content']
         ];
 
@@ -147,7 +150,7 @@ class ChatController extends Controller
 
         $question = new QuestionModel();
 
-        if ($question->insertAnswer($_POST['duvida'], $_POST['answer'])) {
+        if ($question->insertAnswer($_POST['question_id'], $_POST['answer'])) {
             $success = true;
         } else {
             $success = false;
@@ -226,7 +229,7 @@ class ChatController extends Controller
 
         $data = [
             'ad_id' => $_POST['ad_id'],
-            'user_id' => $_POST['user_id'],
+            'user_id' => $this->user_id,
             'comment' => $_POST['text_content'],
             'rating' => $_POST['rating']
         ];
@@ -290,8 +293,8 @@ class ChatController extends Controller
         $comment = new CommentModel();
 
         $data = [
-            'solicitation_id' => $_POST['solicitacao'],
-            'user_id' => $_POST['user_id'],
+            'solicitation_id' => $_POST['solicitation_id'],
+            'user_id' => $this->user_id,
             'comment' => $_POST['text_content']
         ];
 

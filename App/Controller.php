@@ -3,15 +3,19 @@
 namespace App;
 
 use stdClass;
+use Library\Session;
 
 abstract class Controller
 {
     protected $view;
     protected $error;
+    protected $user_id;
 
     public function __construct()
     {
         $this->view = new stdClass();
+
+        $this->user_id = Session::getLoggedUser()['user_id'] ?? '';
     }
 
     protected function render(string $view, string $layout = 'layout'): void
@@ -27,8 +31,8 @@ abstract class Controller
             $this->view->filter = false;
         }
 
-        $this->view->login = $this->validateSession();
-        $this->view->admin = $this->validateAdminstrator();
+        $this->view->login = Session::isLogged();
+        $this->view->admin = Session::isAdminstrator();
 
         if (file_exists("../App/View/{$layout}.php")) {
             require_once("../App/View/{$layout}.php");
@@ -54,48 +58,19 @@ abstract class Controller
         return str_replace(',', '.', str_replace('.', '', $number));
     }
 
-    protected function sessionManager(): void
-    {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
-    }
-
-    protected function validateSession(): bool
-    {
-        $this->sessionManager();
-
-        if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
-            return false;
-        }
-
-        return true;
-    }
-
     protected function authenticatePage(bool $index = false, bool $admin = false): void
     {
-        if ($admin && !$this->validateAdminstrator()) {
+        if ($admin && !Session::isAdminstrator()) {
             header('Location: /');
             exit;
-        } else if ($this->validateSession() && $index) {
+        } else if (Session::isLogged() && $index) {
             header('Location: /');
             exit;
-        } else if (!$this->validateSession() && !$index) {
+        } else if (!Session::isLogged() && !$index) {
             $_SESSION['access_attempt'] = true;
             header('Location: /');
             exit;
         }
-    }
-
-    protected function validateAdminstrator(): bool
-    {
-        $this->sessionManager();
-
-        if (isset($_SESSION['admin']) && $_SESSION['admin']) {
-            return true;
-        }
-
-        return false;
     }
 
     protected function output(array $content): void

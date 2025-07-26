@@ -18,7 +18,7 @@ class AboutController extends Controller
             'name'      => $_POST['name'] ?? 'nenhum nome anexado',
             'email'     => $_POST['email'] ?? 'nenhum email anexado',
             'phone'     => $_POST['phone'] ?? 'nenhum telefone anexado',
-            'message'  => $_POST['message'] ?? 'nenhuma mensagem anexada'
+            'message'   => $_POST['message'] ?? 'nenhuma mensagem anexada'
         ];
 
         $address = 'classificadosfatec@gmail.com';

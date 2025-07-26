@@ -37,7 +37,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="row g-2">
-                        <?php if ($this->view->solicitation['user_id'] !== $_SESSION['user_id']) { ?>
+                        <?php if ($this->view->solicitation['user_id'] !== $this->user_id) { ?>
                             <div class="col-12 col-lg-4 order-3 order-lg-0">
                                 <a href="/solicitados">
                                     <button type="button" class="button-input text-light w-100">Voltar</button>
@@ -86,7 +86,7 @@
                             <div class="col-12 col-lg-7"></div>
                             <div class="col-7 col-lg-2 text-end" id="spinner-comment"></div>
                             <div class="col-5 col-lg-3 text-end">
-                                <button type="button" id="comment" class="button-input text-light">Comentar</button>
+                                <button type="button" id="comment-button" class="button-input text-light">Comentar</button>
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="button-input text-light" id="denunciar" data-bs-dismiss="modal">Enviar</button>
+                    <button type="button" class="button-input text-light" id="denounce-button" data-bs-dismiss="modal">Enviar</button>
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@
         });
     });
 
-    $('#comment').on('click', comment);
+    $('#comment-button').on('click', comment);
 
     function comment() {
         let text_content = $.trim($('#comment').val());
@@ -153,7 +153,7 @@
             return;
         }
 
-        $('#comment').prop('disabled', true);
+        $('#comment-button').prop('disabled', true);
 
         $.ajax({
             type: 'post',
@@ -175,7 +175,7 @@
                 comments();
             },
             complete: function() {
-                $('#comentar').prop('disabled', false);
+                $('#comment-button').prop('disabled', false);
                 $('#spinner-comment').html('');
             }
         });

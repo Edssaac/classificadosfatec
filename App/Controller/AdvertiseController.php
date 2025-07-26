@@ -6,6 +6,7 @@ use App\Controller;
 use App\Model\ProductModel;
 use App\Model\TutoringModel;
 use App\Model\SolicitationModel;
+use Library\Session;
 use Library\Upload;
 
 class AdvertiseController extends Controller
@@ -36,7 +37,7 @@ class AdvertiseController extends Controller
 
         $photo = Upload::image($_FILES);
 
-        $_POST['user_id'] = $_SESSION['user_id'];
+        $_POST['user_id'] = Session::getLoggedUser()['user_id'];
         $_POST['price'] = $this->numberFormat($_POST['price']);
         $_POST['discount'] = $this->numberFormat($_POST['discount']);
         $_POST['photo_name'] = $photo['name'];
@@ -71,7 +72,7 @@ class AdvertiseController extends Controller
             ];
         }
 
-        $_POST['user_id'] = $_SESSION['user_id'];
+        $_POST['user_id'] = Session::getLoggedUser()['user_id'];
         $_POST['price'] = $this->numberFormat($_POST['price']);
         $_POST['discount'] = $this->numberFormat($_POST['discount']);
         $_POST['schedules'] = json_encode($schedules);
@@ -95,7 +96,7 @@ class AdvertiseController extends Controller
 
         $solicitation = new SolicitationModel();
 
-        $_POST['user_id'] = $_SESSION['user_id'];
+        $_POST['user_id'] = Session::getLoggedUser()['user_id'];
 
         if ($solicitation->insertSolicitation($_POST)) {
             $success = true;

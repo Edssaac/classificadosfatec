@@ -70,7 +70,7 @@ class TutoringModel extends AdModel
 
     public function getTutorings(array $filters = []): array
     {
-        $where[] = "a.status = '1'";
+        $where[] = "a.status = '1' AND (a.expiry_date > CURDATE() OR a.expiry_date IS NULL)";
 
         if (isset($filters['title'])) {
             $where[] = "a.title LIKE CONCAT('%', :title, '%')";
